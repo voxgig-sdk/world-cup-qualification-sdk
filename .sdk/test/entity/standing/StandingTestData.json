@@ -1,0 +1,37 @@
+{
+  "existing": {
+    "standing": {
+      "STANDING00": {
+        "group": "s28",
+        "stage": "s29",
+        "table": [],
+        "type": "s2b",
+        "competition_id": "COMPETITION01"
+      },
+      "STANDING01": {
+        "group": "s50",
+        "stage": "s51",
+        "table": [],
+        "type": "s53",
+        "competition_id": "COMPETITION01"
+      },
+      "STANDING02": {
+        "group": "s78",
+        "stage": "s79",
+        "table": [],
+        "type": "s7b",
+        "competition_id": "COMPETITION01"
+      }
+    }
+  },
+  "new": {
+    "standing": {
+      "standing_ref01": {
+        "group": "sa0",
+        "stage": "sa1",
+        "table": [],
+        "type": "sa3"
+      }
+    }
+  }
+}

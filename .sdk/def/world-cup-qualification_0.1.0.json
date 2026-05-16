@@ -1,0 +1,881 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "World Cup Qualification",
+    "description": "This API provides detailed information about the qualification process for the FIFA World Cup for different confederations around the world. It includes tournament structures, match schedules, and results for qualifying matches.",
+    "version": "4.0.0",
+    "contact": {
+      "url": "https://api.football-data.org/v4/competitions/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.football-data.org/v4",
+      "description": "Production server"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "paths": {
+    "/competitions": {
+      "get": {
+        "summary": "Get all competitions",
+        "description": "Retrieve a list of all available football competitions including World Cup qualifications for different confederations (AFC, CAF, CONCACAF, CONMEBOL, OFC, UEFA).",
+        "operationId": "getCompetitions",
+        "tags": [
+          "Competitions"
+        ],
+        "parameters": [
+          {
+            "name": "areas",
+            "in": "query",
+            "description": "Filter competitions by area/region codes (comma-separated)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "AFR,UEFA"
+            }
+          },
+          {
+            "name": "plan",
+            "in": "query",
+            "description": "Filter by plan tier (TIER_ONE, TIER_TWO, TIER_THREE, TIER_FOUR)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "TIER_ONE",
+                "TIER_TWO",
+                "TIER_THREE",
+                "TIER_FOUR"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with list of competitions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompetitionsResponse"
+                },
+                "example": {
+                  "count": 183,
+                  "filters": {},
+                  "competitions": [
+                    {
+                      "id": 2006,
+                      "area": {
+                        "id": 2001,
+                        "name": "Africa",
+                        "code": "AFR",
+                        "flag": null
+                      },
+                      "name": "WC Qualification CAF",
+                      "code": "QCAF",
+                      "type": "CUP",
+                      "emblem": null,
+                      "plan": "TIER_FOUR",
+                      "currentSeason": {
+                        "id": 1609,
+                        "startDate": "2023-11-15",
+                        "endDate": "2025-10-13",
+                        "currentMatchday": 10,
+                        "winner": null
+                      },
+                      "numberOfAvailableSeasons": 3,
+                      "lastUpdated": "2022-03-13T18:51:44Z"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid parameters"
+          },
+          "403": {
+            "description": "Forbidden - Invalid or missing API key"
+          },
+          "429": {
+            "description": "Too many requests - Rate limit exceeded"
+          }
+        }
+      }
+    },
+    "/competitions/{id}": {
+      "get": {
+        "summary": "Get competition by ID",
+        "description": "Retrieve detailed information about a specific competition, including World Cup qualification tournaments.",
+        "operationId": "getCompetitionById",
+        "tags": [
+          "Competitions"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the competition",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 2006
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with competition details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Competition"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Invalid or missing API key"
+          },
+          "404": {
+            "description": "Competition not found"
+          }
+        }
+      }
+    },
+    "/competitions/{id}/matches": {
+      "get": {
+        "summary": "Get matches for a competition",
+        "description": "Retrieve all matches for a specific competition, including qualification matches with schedules and results.",
+        "operationId": "getCompetitionMatches",
+        "tags": [
+          "Matches"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the competition",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 2006
+            }
+          },
+          {
+            "name": "season",
+            "in": "query",
+            "description": "Filter matches by season year",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 2024
+            }
+          },
+          {
+            "name": "matchday",
+            "in": "query",
+            "description": "Filter matches by matchday number",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filter matches by status",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "SCHEDULED",
+                "LIVE",
+                "IN_PLAY",
+                "PAUSED",
+                "FINISHED",
+                "POSTPONED",
+                "SUSPENDED",
+                "CANCELLED"
+              ]
+            }
+          },
+          {
+            "name": "dateFrom",
+            "in": "query",
+            "description": "Filter matches from this date (YYYY-MM-DD)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2024-01-01"
+            }
+          },
+          {
+            "name": "dateTo",
+            "in": "query",
+            "description": "Filter matches until this date (YYYY-MM-DD)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2024-12-31"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with matches list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchesResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Invalid or missing API key"
+          },
+          "404": {
+            "description": "Competition not found"
+          }
+        }
+      }
+    },
+    "/competitions/{id}/standings": {
+      "get": {
+        "summary": "Get standings for a competition",
+        "description": "Retrieve current standings/tables for a competition, including qualification group standings.",
+        "operationId": "getCompetitionStandings",
+        "tags": [
+          "Standings"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the competition",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 2006
+            }
+          },
+          {
+            "name": "season",
+            "in": "query",
+            "description": "Filter by season year",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 2024
+            }
+          },
+          {
+            "name": "matchday",
+            "in": "query",
+            "description": "Get standings after specific matchday",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with standings",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StandingsResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Invalid or missing API key"
+          },
+          "404": {
+            "description": "Competition not found"
+          }
+        }
+      }
+    },
+    "/competitions/{id}/teams": {
+      "get": {
+        "summary": "Get teams in a competition",
+        "description": "Retrieve all teams participating in a specific competition.",
+        "operationId": "getCompetitionTeams",
+        "tags": [
+          "Teams"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the competition",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 2006
+            }
+          },
+          {
+            "name": "season",
+            "in": "query",
+            "description": "Filter by season year",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 2024
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with teams list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamsResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Invalid or missing API key"
+          },
+          "404": {
+            "description": "Competition not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Auth-Token",
+        "description": "API key required for authentication. Get your key from football-data.org"
+      }
+    },
+    "schemas": {
+      "CompetitionsResponse": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "description": "Total number of competitions",
+            "example": 183
+          },
+          "filters": {
+            "type": "object",
+            "description": "Applied filters",
+            "additionalProperties": true
+          },
+          "competitions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Competition"
+            }
+          }
+        }
+      },
+      "Competition": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier for the competition",
+            "example": 2006
+          },
+          "area": {
+            "$ref": "#/components/schemas/Area"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the competition",
+            "example": "WC Qualification CAF"
+          },
+          "code": {
+            "type": "string",
+            "description": "Short code for the competition",
+            "example": "QCAF"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of competition",
+            "enum": [
+              "LEAGUE",
+              "CUP",
+              "PLAYOFFS",
+              "SUPER_CUP"
+            ],
+            "example": "CUP"
+          },
+          "emblem": {
+            "type": "string",
+            "nullable": true,
+            "description": "URL to competition emblem/logo",
+            "example": "https://crests.football-data.org/wc.png"
+          },
+          "plan": {
+            "type": "string",
+            "description": "API access tier required",
+            "enum": [
+              "TIER_ONE",
+              "TIER_TWO",
+              "TIER_THREE",
+              "TIER_FOUR"
+            ],
+            "example": "TIER_FOUR"
+          },
+          "currentSeason": {
+            "$ref": "#/components/schemas/Season"
+          },
+          "numberOfAvailableSeasons": {
+            "type": "integer",
+            "description": "Number of seasons available in the API",
+            "example": 3
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp",
+            "example": "2022-03-13T18:51:44Z"
+          }
+        }
+      },
+      "Area": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier for the area",
+            "example": 2001
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the geographical area/confederation",
+            "example": "Africa"
+          },
+          "code": {
+            "type": "string",
+            "description": "ISO code or confederation code",
+            "example": "AFR"
+          },
+          "flag": {
+            "type": "string",
+            "nullable": true,
+            "description": "URL to flag image",
+            "example": "https://crests.football-data.org/afr.svg"
+          }
+        }
+      },
+      "Season": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier for the season",
+            "example": 1609
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Season start date",
+            "example": "2023-11-15"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Season end date",
+            "example": "2025-10-13"
+          },
+          "currentMatchday": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Current matchday number",
+            "example": 10
+          },
+          "winner": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Team"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "Team": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier for the team",
+            "example": 759
+          },
+          "name": {
+            "type": "string",
+            "description": "Full name of the team",
+            "example": "Brazil"
+          },
+          "shortName": {
+            "type": "string",
+            "description": "Short name of the team",
+            "example": "Brazil"
+          },
+          "tla": {
+            "type": "string",
+            "description": "Three-letter abbreviation",
+            "example": "BRA"
+          },
+          "crest": {
+            "type": "string",
+            "description": "URL to team crest/logo",
+            "example": "https://crests.football-data.org/759.png"
+          },
+          "address": {
+            "type": "string",
+            "description": "Team address",
+            "example": "Rua da Alfândega, 70 Rio de Janeiro 20070-000"
+          },
+          "website": {
+            "type": "string",
+            "description": "Team website URL",
+            "example": "http://www.cbf.com.br"
+          },
+          "founded": {
+            "type": "integer",
+            "description": "Year the team was founded",
+            "example": 1914
+          },
+          "clubColors": {
+            "type": "string",
+            "description": "Team colors",
+            "example": "Yellow / Blue / Green"
+          },
+          "venue": {
+            "type": "string",
+            "description": "Home venue/stadium",
+            "example": "Maracanã"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Last update timestamp",
+            "example": "2023-06-22T02:16:33Z"
+          }
+        }
+      },
+      "MatchesResponse": {
+        "type": "object",
+        "properties": {
+          "filters": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "resultSet": {
+            "type": "object",
+            "properties": {
+              "count": {
+                "type": "integer"
+              },
+              "first": {
+                "type": "string",
+                "format": "date"
+              },
+              "last": {
+                "type": "string",
+                "format": "date"
+              },
+              "played": {
+                "type": "integer"
+              }
+            }
+          },
+          "competition": {
+            "$ref": "#/components/schemas/Competition"
+          },
+          "matches": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Match"
+            }
+          }
+        }
+      },
+      "Match": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique match identifier"
+          },
+          "utcDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Match date and time in UTC"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "SCHEDULED",
+              "LIVE",
+              "IN_PLAY",
+              "PAUSED",
+              "FINISHED",
+              "POSTPONED",
+              "SUSPENDED",
+              "CANCELLED"
+            ],
+            "description": "Current match status"
+          },
+          "matchday": {
+            "type": "integer",
+            "description": "Matchday number"
+          },
+          "stage": {
+            "type": "string",
+            "description": "Competition stage (e.g., GROUP_STAGE, KNOCKOUT)"
+          },
+          "group": {
+            "type": "string",
+            "nullable": true,
+            "description": "Group identifier for group stage matches"
+          },
+          "homeTeam": {
+            "$ref": "#/components/schemas/Team"
+          },
+          "awayTeam": {
+            "$ref": "#/components/schemas/Team"
+          },
+          "score": {
+            "type": "object",
+            "properties": {
+              "winner": {
+                "type": "string",
+                "nullable": true,
+                "enum": [
+                  "HOME_TEAM",
+                  "AWAY_TEAM",
+                  "DRAW",
+                  null
+                ]
+              },
+              "duration": {
+                "type": "string",
+                "enum": [
+                  "REGULAR",
+                  "EXTRA_TIME",
+                  "PENALTY_SHOOTOUT"
+                ]
+              },
+              "fullTime": {
+                "type": "object",
+                "properties": {
+                  "home": {
+                    "type": "integer",
+                    "nullable": true
+                  },
+                  "away": {
+                    "type": "integer",
+                    "nullable": true
+                  }
+                }
+              },
+              "halfTime": {
+                "type": "object",
+                "properties": {
+                  "home": {
+                    "type": "integer",
+                    "nullable": true
+                  },
+                  "away": {
+                    "type": "integer",
+                    "nullable": true
+                  }
+                }
+              }
+            }
+          },
+          "referees": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "nationality": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "StandingsResponse": {
+        "type": "object",
+        "properties": {
+          "filters": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "competition": {
+            "$ref": "#/components/schemas/Competition"
+          },
+          "season": {
+            "$ref": "#/components/schemas/Season"
+          },
+          "standings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Standing"
+            }
+          }
+        }
+      },
+      "Standing": {
+        "type": "object",
+        "properties": {
+          "stage": {
+            "type": "string",
+            "description": "Competition stage"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "TOTAL",
+              "HOME",
+              "AWAY"
+            ],
+            "description": "Type of standing"
+          },
+          "group": {
+            "type": "string",
+            "nullable": true,
+            "description": "Group identifier"
+          },
+          "table": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TableEntry"
+            }
+          }
+        }
+      },
+      "TableEntry": {
+        "type": "object",
+        "properties": {
+          "position": {
+            "type": "integer",
+            "description": "Current position in table"
+          },
+          "team": {
+            "$ref": "#/components/schemas/Team"
+          },
+          "playedGames": {
+            "type": "integer",
+            "description": "Number of games played"
+          },
+          "form": {
+            "type": "string",
+            "nullable": true,
+            "description": "Recent form (e.g., 'W,W,L,D,W')"
+          },
+          "won": {
+            "type": "integer",
+            "description": "Games won"
+          },
+          "draw": {
+            "type": "integer",
+            "description": "Games drawn"
+          },
+          "lost": {
+            "type": "integer",
+            "description": "Games lost"
+          },
+          "points": {
+            "type": "integer",
+            "description": "Total points"
+          },
+          "goalsFor": {
+            "type": "integer",
+            "description": "Goals scored"
+          },
+          "goalsAgainst": {
+            "type": "integer",
+            "description": "Goals conceded"
+          },
+          "goalDifference": {
+            "type": "integer",
+            "description": "Goal difference"
+          }
+        }
+      },
+      "TeamsResponse": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "description": "Number of teams"
+          },
+          "filters": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "competition": {
+            "$ref": "#/components/schemas/Competition"
+          },
+          "season": {
+            "$ref": "#/components/schemas/Season"
+          },
+          "teams": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Team"
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Competitions",
+      "description": "Operations related to football competitions and World Cup qualifications"
+    },
+    {
+      "name": "Matches",
+      "description": "Operations related to matches and fixtures"
+    },
+    {
+      "name": "Standings",
+      "description": "Operations related to competition standings and tables"
+    },
+    {
+      "name": "Teams",
+      "description": "Operations related to teams"
+    }
+  ]
+}

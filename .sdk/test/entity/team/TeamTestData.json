@@ -1,0 +1,64 @@
+{
+  "existing": {
+    "team": {
+      "TEAM00": {
+        "address": "s6e",
+        "club_color": "s6f",
+        "crest": "s70",
+        "founded": "s71",
+        "id": "TEAM00",
+        "last_updated": "s73",
+        "name": "s74",
+        "short_name": "s75",
+        "tla": "s76",
+        "venue": "s77",
+        "website": "s78",
+        "competition_id": "COMPETITION01"
+      },
+      "TEAM01": {
+        "address": "sdc",
+        "club_color": "sdd",
+        "crest": "sde",
+        "founded": "sdf",
+        "id": "TEAM01",
+        "last_updated": "se1",
+        "name": "se2",
+        "short_name": "se3",
+        "tla": "se4",
+        "venue": "se5",
+        "website": "se6",
+        "competition_id": "COMPETITION01"
+      },
+      "TEAM02": {
+        "address": "s14a",
+        "club_color": "s14b",
+        "crest": "s14c",
+        "founded": "s14d",
+        "id": "TEAM02",
+        "last_updated": "s14f",
+        "name": "s150",
+        "short_name": "s151",
+        "tla": "s152",
+        "venue": "s153",
+        "website": "s154",
+        "competition_id": "COMPETITION01"
+      }
+    }
+  },
+  "new": {
+    "team": {
+      "team_ref01": {
+        "address": "s1b8",
+        "club_color": "s1b9",
+        "crest": "s1ba",
+        "founded": "s1bb",
+        "last_updated": "s1bd",
+        "name": "s1be",
+        "short_name": "s1bf",
+        "tla": "s1c0",
+        "venue": "s1c1",
+        "website": "s1c2"
+      }
+    }
+  }
+}

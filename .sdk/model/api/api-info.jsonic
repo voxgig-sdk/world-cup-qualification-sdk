@@ -1,0 +1,23 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        url: "https://api.football-data.org/v4/competitions/"
+      }
+      description: "This API provides detailed information about the qualification process for the FIFA World Cup for different confederations around the world. It includes tournament structures, match schedules, and results for qualifying matches."
+      servers: [
+        {
+          description: "Production server"
+          url: "https://api.football-data.org/v4"
+        }
+      ]
+      title: "World Cup Qualification"
+      version: "4.0.0"
+    }
+  }
+}
+
+}

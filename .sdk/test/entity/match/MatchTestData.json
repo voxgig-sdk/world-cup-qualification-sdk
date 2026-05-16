@@ -1,0 +1,60 @@
+{
+  "existing": {
+    "match": {
+      "MATCH00": {
+        "away_team": {},
+        "group": "s65",
+        "home_team": {},
+        "id": "MATCH00",
+        "matchday": "s68",
+        "referee": [],
+        "score": {},
+        "stage": "s6b",
+        "status": "s6c",
+        "utc_date": "s6d",
+        "competition_id": "COMPETITION01"
+      },
+      "MATCH01": {
+        "away_team": {},
+        "group": "sc9",
+        "home_team": {},
+        "id": "MATCH01",
+        "matchday": "scc",
+        "referee": [],
+        "score": {},
+        "stage": "scf",
+        "status": "sd0",
+        "utc_date": "sd1",
+        "competition_id": "COMPETITION01"
+      },
+      "MATCH02": {
+        "away_team": {},
+        "group": "s12d",
+        "home_team": {},
+        "id": "MATCH02",
+        "matchday": "s130",
+        "referee": [],
+        "score": {},
+        "stage": "s133",
+        "status": "s134",
+        "utc_date": "s135",
+        "competition_id": "COMPETITION01"
+      }
+    }
+  },
+  "new": {
+    "match": {
+      "match_ref01": {
+        "away_team": {},
+        "group": "s191",
+        "home_team": {},
+        "matchday": "s194",
+        "referee": [],
+        "score": {},
+        "stage": "s197",
+        "status": "s198",
+        "utc_date": "s199"
+      }
+    }
+  }
+}

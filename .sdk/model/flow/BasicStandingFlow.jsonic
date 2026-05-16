@@ -1,0 +1,26 @@
+# BasicStandingFlow
+
+main: kit: flow: BasicStandingFlow:
+{
+  entity: "standing",
+  kind: "basic",
+  name: "BasicStandingFlow",
+  step: [
+    {
+      match: {
+        competition_id: "competition01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "standing_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicStandingFlow"
+}

@@ -1,0 +1,983 @@
+{
+  "name": "world-cup-qualification",
+  "origin": "voxgig-sdk",
+  "def": "world-cup-qualification_0.1.0.json",
+  "main": {
+    "kit": {
+      "info": {
+        "contact": {
+          "url": "https://api.football-data.org/v4/competitions/"
+        },
+        "description": "This API provides detailed information about the qualification process for the FIFA World Cup for different confederations around the world. It includes tournament structures, match schedules, and results for qualifying matches.",
+        "servers": [
+          {
+            "description": "Production server",
+            "url": "https://api.football-data.org/v4"
+          }
+        ],
+        "title": "World Cup Qualification",
+        "version": "4.0.0"
+      },
+      "config": {
+        "auth": {
+          "prefix": "Bearer"
+        },
+        "headers": {
+          "content-type": "application/json"
+        }
+      },
+      "entity": {
+        "competition": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "area",
+              "req": false,
+              "type": "`$OBJECT`",
+              "active": true
+            },
+            {
+              "name": "code",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "current_season",
+              "req": false,
+              "type": "`$OBJECT`",
+              "active": true
+            },
+            {
+              "name": "emblem",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "id",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "last_updated",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "name",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "number_of_available_season",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "plan",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "type",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            }
+          ],
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
+          "name": "competition",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "args": {
+                    "query": [
+                      {
+                        "example": "AFR,UEFA",
+                        "kind": "query",
+                        "name": "area",
+                        "orig": "area",
+                        "reqd": false,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "kind": "query",
+                        "name": "plan",
+                        "orig": "plan",
+                        "reqd": false,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/competitions",
+                  "parts": [
+                    "competitions"
+                  ],
+                  "select": {
+                    "exist": [
+                      "area",
+                      "plan"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            },
+            "load": {
+              "name": "load",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "example": 2006,
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/competitions/{id}",
+                  "parts": [
+                    "competitions",
+                    "{id}"
+                  ],
+                  "select": {
+                    "exist": [
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "active": true,
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "match": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "away_team",
+              "req": false,
+              "type": "`$OBJECT`",
+              "active": true
+            },
+            {
+              "name": "group",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "home_team",
+              "req": false,
+              "type": "`$OBJECT`",
+              "active": true
+            },
+            {
+              "name": "id",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "matchday",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "referee",
+              "req": false,
+              "type": "`$ARRAY`",
+              "active": true
+            },
+            {
+              "name": "score",
+              "req": false,
+              "type": "`$OBJECT`",
+              "active": true
+            },
+            {
+              "name": "stage",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "status",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "utc_date",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            }
+          ],
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
+          "name": "match",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "example": 2006,
+                        "kind": "param",
+                        "name": "competition_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      }
+                    ],
+                    "query": [
+                      {
+                        "example": "2024-01-01",
+                        "kind": "query",
+                        "name": "date_from",
+                        "orig": "date_from",
+                        "reqd": false,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "example": "2024-12-31",
+                        "kind": "query",
+                        "name": "date_to",
+                        "orig": "date_to",
+                        "reqd": false,
+                        "type": "`$STRING`",
+                        "active": true
+                      },
+                      {
+                        "example": 1,
+                        "kind": "query",
+                        "name": "matchday",
+                        "orig": "matchday",
+                        "reqd": false,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      },
+                      {
+                        "example": 2024,
+                        "kind": "query",
+                        "name": "season",
+                        "orig": "season",
+                        "reqd": false,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      },
+                      {
+                        "kind": "query",
+                        "name": "status",
+                        "orig": "status",
+                        "reqd": false,
+                        "type": "`$STRING`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/competitions/{id}/matches",
+                  "parts": [
+                    "competitions",
+                    "{competition_id}",
+                    "matches"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "competition_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "competition_id",
+                      "date_from",
+                      "date_to",
+                      "matchday",
+                      "season",
+                      "status"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "competition"
+              ]
+            ]
+          },
+          "active": true
+        },
+        "standing": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "group",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "stage",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "table",
+              "req": false,
+              "type": "`$ARRAY`",
+              "active": true
+            },
+            {
+              "name": "type",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            }
+          ],
+          "name": "standing",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "example": 2006,
+                        "kind": "param",
+                        "name": "competition_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      }
+                    ],
+                    "query": [
+                      {
+                        "example": 10,
+                        "kind": "query",
+                        "name": "matchday",
+                        "orig": "matchday",
+                        "reqd": false,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      },
+                      {
+                        "example": 2024,
+                        "kind": "query",
+                        "name": "season",
+                        "orig": "season",
+                        "reqd": false,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/competitions/{id}/standings",
+                  "parts": [
+                    "competitions",
+                    "{competition_id}",
+                    "standings"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "competition_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "competition_id",
+                      "matchday",
+                      "season"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "competition"
+              ]
+            ]
+          },
+          "active": true
+        },
+        "team": {
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "name": "address",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "club_color",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "crest",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "founded",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "id",
+              "req": false,
+              "type": "`$INTEGER`",
+              "active": true
+            },
+            {
+              "name": "last_updated",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "name",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "short_name",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "tla",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "venue",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            },
+            {
+              "name": "website",
+              "req": false,
+              "type": "`$STRING`",
+              "active": true
+            }
+          ],
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
+          "name": "team",
+          "op": {
+            "list": {
+              "name": "list",
+              "points": [
+                {
+                  "args": {
+                    "params": [
+                      {
+                        "example": 2006,
+                        "kind": "param",
+                        "name": "competition_id",
+                        "orig": "id",
+                        "reqd": true,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      }
+                    ],
+                    "query": [
+                      {
+                        "example": 2024,
+                        "kind": "query",
+                        "name": "season",
+                        "orig": "season",
+                        "reqd": false,
+                        "type": "`$INTEGER`",
+                        "active": true
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/competitions/{id}/teams",
+                  "parts": [
+                    "competitions",
+                    "{competition_id}",
+                    "teams"
+                  ],
+                  "rename": {
+                    "param": {
+                      "id": "competition_id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "competition_id",
+                      "season"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  },
+                  "active": true
+                }
+              ],
+              "input": "data"
+            }
+          },
+          "relations": {
+            "ancestors": [
+              [
+                "competition"
+              ]
+            ]
+          },
+          "active": true
+        }
+      },
+      "feature": {
+        "test": {
+          "name": "test",
+          "title": "In-memory mock transport for testing without a live server",
+          "version": "0.0.1",
+          "active": true,
+          "config": {
+            "options": {
+              "active": false
+            }
+          },
+          "hook": {
+            "PostConstruct": {
+              "active": true,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": true,
+              "await": false
+            },
+            "SetData": {
+              "active": true,
+              "await": false
+            },
+            "GetData": {
+              "active": true,
+              "await": false
+            },
+            "SetMatch": {
+              "active": true
+            },
+            "GetMatch": {
+              "active": true,
+              "await": false
+            },
+            "PrePoint": {
+              "active": true
+            },
+            "PreSpec": {
+              "active": true,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": true,
+              "await": false
+            },
+            "PreResult": {
+              "active": true,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            }
+          },
+          "target": {
+            "ts": {
+              "deps": {}
+            },
+            "go": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            }
+          }
+        }
+      },
+      "flow": {
+        "BasicCompetitionFlow": {
+          "entity": "competition",
+          "kind": "basic",
+          "name": "BasicCompetitionFlow",
+          "step": [
+            {
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "competition_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "match": {},
+              "data": {},
+              "input": {},
+              "spec": []
+            },
+            {
+              "input": {
+                "ref": "competition_ref01",
+                "srcdatavar": "competition_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {
+                "id": "competition01"
+              },
+              "op": "load",
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-competition_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicCompetitionFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicMatchFlow": {
+          "entity": "match",
+          "kind": "basic",
+          "name": "BasicMatchFlow",
+          "step": [
+            {
+              "match": {
+                "competition_id": "competition01"
+              },
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "match_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "input": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicMatchFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicStandingFlow": {
+          "entity": "standing",
+          "kind": "basic",
+          "name": "BasicStandingFlow",
+          "step": [
+            {
+              "match": {
+                "competition_id": "competition01"
+              },
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "standing_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "input": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicStandingFlow",
+          "active": true,
+          "param": {}
+        },
+        "BasicTeamFlow": {
+          "entity": "team",
+          "kind": "basic",
+          "name": "BasicTeamFlow",
+          "step": [
+            {
+              "match": {
+                "competition_id": "competition01"
+              },
+              "op": "list",
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "team_ref01"
+                  }
+                }
+              ],
+              "active": true,
+              "data": {},
+              "input": {},
+              "spec": []
+            }
+          ],
+          "key$": "BasicTeamFlow",
+          "active": true,
+          "param": {}
+        }
+      },
+      "target": {
+        "ts": {
+          "title": "TypeScript",
+          "ext": "ts",
+          "comment": {
+            "line": "//"
+          },
+          "module": {
+            "name": "world-cup-qualification"
+          },
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "deps": {
+            "dotenv": {
+              "active": true,
+              "version": "^17.4.2",
+              "kind": "dev"
+            },
+            "typescript": {
+              "active": true,
+              "version": "^5.9.3",
+              "kind": "dev"
+            },
+            "@types/node": {
+              "active": true,
+              "version": "^25.6.0",
+              "kind": "dev"
+            }
+          },
+          "name": "ts",
+          "active": true
+        },
+        "go": {
+          "title": "Golang",
+          "ext": "go",
+          "comment": {
+            "line": "//"
+          },
+          "module": {
+            "name": "world-cup-qualification"
+          },
+          "srcfeature": false,
+          "deps": {
+            "github.com/voxgig/struct": {
+              "active": true,
+              "version": "v0.0.0",
+              "replace": "./utility/struct",
+              "kind": "prod"
+            }
+          },
+          "name": "go",
+          "active": true
+        },
+        "lua": {
+          "title": "Lua",
+          "ext": "lua",
+          "comment": {
+            "line": "--"
+          },
+          "module": {
+            "name": "world-cup-qualification"
+          },
+          "srcfeature": false,
+          "deps": {
+            "dkjson": {
+              "active": true,
+              "version": "2.5",
+              "kind": "prod"
+            }
+          },
+          "name": "lua",
+          "active": true
+        },
+        "php": {
+          "title": "PHP",
+          "ext": "php",
+          "comment": {
+            "line": "//"
+          },
+          "module": {
+            "name": "world-cup-qualification"
+          },
+          "srcfeature": false,
+          "deps": {},
+          "name": "php",
+          "active": true
+        },
+        "py": {
+          "title": "Python",
+          "ext": "py",
+          "comment": {
+            "line": "#"
+          },
+          "module": {
+            "name": "world-cup-qualification"
+          },
+          "srcfeature": false,
+          "deps": {
+            "requests": {
+              "active": true,
+              "version": "2.33",
+              "kind": "prod"
+            }
+          },
+          "name": "py",
+          "active": true
+        },
+        "rb": {
+          "title": "Ruby",
+          "ext": "rb",
+          "comment": {
+            "line": "#"
+          },
+          "module": {
+            "name": "world-cup-qualification"
+          },
+          "srcfeature": false,
+          "deps": {
+            "voxgig-struct": {
+              "active": true,
+              "version": "0.0.10",
+              "kind": "prod"
+            },
+            "json": {
+              "active": true,
+              "version": "0",
+              "kind": "prod"
+            }
+          },
+          "name": "rb",
+          "active": true
+        }
+      },
+      "option": {}
+    },
+    "def": {
+      "desc": ""
+    },
+    "api": {
+      "guide": {},
+      "entity": {}
+    }
+  },
+  "name__orig": "world-cup-qualification",
+  "Name": "WorldCupQualification",
+  "name_": "world_cup_qualification",
+  "name-": "world-cup-qualification",
+  "NAME": "WORLD-CUP-QUALIFICATION"
+}

@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/world-cup-qualification-sdk/core"
+import "github.com/voxgig-sdk/world-cup-qualification-sdk/go/core"
 
 func featureAddUtil(ctx *core.Context, f core.Feature) {
 	client := ctx.Client

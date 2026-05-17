@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/world-cup-qualification-sdk"
-	"github.com/voxgig-sdk/world-cup-qualification-sdk/core"
+	sdk "github.com/voxgig-sdk/world-cup-qualification-sdk/go"
+	"github.com/voxgig-sdk/world-cup-qualification-sdk/go/core"
 )
 
 func TestStandingDirect(t *testing.T) {

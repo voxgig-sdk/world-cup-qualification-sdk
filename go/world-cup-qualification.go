@@ -1,10 +1,10 @@
 package voxgigworldcupqualificationsdk
 
 import (
-	"github.com/voxgig-sdk/world-cup-qualification-sdk/core"
-	"github.com/voxgig-sdk/world-cup-qualification-sdk/entity"
-	"github.com/voxgig-sdk/world-cup-qualification-sdk/feature"
-	_ "github.com/voxgig-sdk/world-cup-qualification-sdk/utility"
+	"github.com/voxgig-sdk/world-cup-qualification-sdk/go/core"
+	"github.com/voxgig-sdk/world-cup-qualification-sdk/go/entity"
+	"github.com/voxgig-sdk/world-cup-qualification-sdk/go/feature"
+	_ "github.com/voxgig-sdk/world-cup-qualification-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

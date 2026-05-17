@@ -3,7 +3,7 @@ package sdktest
 import (
 	"testing"
 
-	sdk "github.com/voxgig-sdk/world-cup-qualification-sdk"
+	sdk "github.com/voxgig-sdk/world-cup-qualification-sdk/go"
 )
 
 func TestCustomUtility(t *testing.T) {

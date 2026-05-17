@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/world-cup-qualification-sdk"
-	"github.com/voxgig-sdk/world-cup-qualification-sdk/core"
+	sdk "github.com/voxgig-sdk/world-cup-qualification-sdk/go"
+	"github.com/voxgig-sdk/world-cup-qualification-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/world-cup-qualification-sdk/go/utility/struct"
 )
 
 func TestMatchEntity(t *testing.T) {

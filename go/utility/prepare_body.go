@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/world-cup-qualification-sdk/core"
+import "github.com/voxgig-sdk/world-cup-qualification-sdk/go/core"
 
 func prepareBodyUtil(ctx *core.Context) any {
 	op := ctx.Op

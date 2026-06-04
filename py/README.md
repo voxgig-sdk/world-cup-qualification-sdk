@@ -23,12 +23,9 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
-import os
 from worldcupqualification_sdk import WorldCupQualificationSDK
 
-client = WorldCupQualificationSDK({
-    "apikey": os.environ.get("WORLD-CUP-QUALIFICATION_APIKEY"),
-})
+client = WorldCupQualificationSDK({})
 ```
 
 ### 2. List competitions
@@ -130,7 +127,6 @@ Create a `.env.local` file at the project root:
 
 ```
 WORLD-CUP-QUALIFICATION_TEST_LIVE=TRUE
-WORLD-CUP-QUALIFICATION_APIKEY=<your-key>
 ```
 
 Then run:
@@ -154,7 +150,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |

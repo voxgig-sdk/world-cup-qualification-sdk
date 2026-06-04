@@ -114,7 +114,6 @@ function basicSetup(extra?: any) {
     'WORLD_CUP_QUALIFICATION_TEST_TEAM_ENTID': idmap,
     'WORLD_CUP_QUALIFICATION_TEST_LIVE': 'FALSE',
     'WORLD_CUP_QUALIFICATION_TEST_EXPLAIN': 'FALSE',
-    'WORLD_CUP_QUALIFICATION_APIKEY': 'NONE',
   })
 
   idmap = env['WORLD_CUP_QUALIFICATION_TEST_TEAM_ENTID']
@@ -124,7 +123,6 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new WorldCupQualificationSDK(merge([
       {
-        apikey: env.WORLD_CUP_QUALIFICATION_APIKEY,
       },
       extra
     ]))

@@ -16,8 +16,30 @@ main: {
       ]
       title: "World Cup Qualification"
       version: "4.0.0"
+      tagline: "Track FIFA World Cup qualification competitions, matches, standings, and teams across confederations"
+      homepage: "https://www.football-data.org/"
+      docs_url: "https://docs.football-data.org/"
+      license_short: "Free tier available with registration; commercial use and higher rate limits via paid plans."
+      license_md: `- Operated by football-data.org as a RESTful football data API.
+- Free tier requires registration for an API key; paid tiers exist for higher quotas and commercial use.
+- License and attribution requirements are not stated on the public catalogue page; consult football-data.org terms before redistributing.`
+      about_md: `This SDK wraps the [football-data.org](https://www.football-data.org/) v4 API, scoped to FIFA World Cup qualification competitions across confederations. The upstream service is a long-running independent provider of football (soccer) data accessed via \`https://api.football-data.org/v4\`.
+
+What you get from the API:
+
+- Competition metadata for World Cup qualification tournaments (e.g. \`/v4/competitions/{code}\`)
+- Match fixtures and results for qualifying rounds
+- Standings tables for groups and stages
+- Team records associated with qualifying competitions
+
+Authentication uses an API token obtained by registering at football-data.org. The free tier is rate-limited; higher request volumes and additional competitions are available on paid plans. Rate-limit specifics and CORS behaviour are not published on the catalogue page — check the official docs at [docs.football-data.org](https://docs.football-data.org/) before deploying.`
+      entity_desc: {
+        competition: "A football competition resource representing a World Cup qualification tournament, typically retrieved via `/v4/competitions/{id}`."
+        match: "An individual qualifying fixture with scheduling and result data, exposed under the competition's match listings."
+        standing: "A standings table entry for groups or stages within a qualification competition."
+        team: "A national team participating in a World Cup qualification competition."
+      }
+      auth: false
     }
   }
-}
-
 }

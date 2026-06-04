@@ -121,7 +121,6 @@ func standingBasicSetup(extra map[string]any) *entityTestSetup {
 		"WORLDCUPQUALIFICATION_TEST_STANDING_ENTID": idmap,
 		"WORLDCUPQUALIFICATION_TEST_LIVE":      "FALSE",
 		"WORLDCUPQUALIFICATION_TEST_EXPLAIN":   "FALSE",
-		"WORLDCUPQUALIFICATION_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["WORLDCUPQUALIFICATION_TEST_STANDING_ENTID"])
@@ -132,7 +131,6 @@ func standingBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["WORLDCUPQUALIFICATION_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["WORLDCUPQUALIFICATION_APIKEY"],
 			},
 			extra,
 		})

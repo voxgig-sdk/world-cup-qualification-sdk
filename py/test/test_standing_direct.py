@@ -73,14 +73,12 @@ def _standing_direct_setup(mockres):
     env = runner.env_override({
         "WORLDCUPQUALIFICATION_TEST_STANDING_ENTID": {},
         "WORLDCUPQUALIFICATION_TEST_LIVE": "FALSE",
-        "WORLDCUPQUALIFICATION_APIKEY": "NONE",
     })
 
     live = env.get("WORLDCUPQUALIFICATION_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("WORLDCUPQUALIFICATION_APIKEY"),
         }
         client = WorldCupQualificationSDK(merged_opts)
         return {

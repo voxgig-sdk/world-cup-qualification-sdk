@@ -102,6 +102,7 @@ function competition_basic_setup(extra)
     ["WORLDCUPQUALIFICATION_TEST_COMPETITION_ENTID"] = idmap,
     ["WORLDCUPQUALIFICATION_TEST_LIVE"] = "FALSE",
     ["WORLDCUPQUALIFICATION_TEST_EXPLAIN"] = "FALSE",
+    ["WORLDCUPQUALIFICATION_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -113,6 +114,7 @@ function competition_basic_setup(extra)
   if env["WORLDCUPQUALIFICATION_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
+        apikey = env["WORLDCUPQUALIFICATION_APIKEY"],
       },
       extra or {},
     })

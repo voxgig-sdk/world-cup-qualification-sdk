@@ -115,12 +115,14 @@ function competition_direct_setup(mockres)
   local env = runner.env_override({
     ["WORLDCUPQUALIFICATION_TEST_COMPETITION_ENTID"] = {},
     ["WORLDCUPQUALIFICATION_TEST_LIVE"] = "FALSE",
+    ["WORLDCUPQUALIFICATION_APIKEY"] = "NONE",
   })
 
   local live = env["WORLDCUPQUALIFICATION_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
+      apikey = env["WORLDCUPQUALIFICATION_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

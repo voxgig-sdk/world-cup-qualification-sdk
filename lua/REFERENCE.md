@@ -30,12 +30,12 @@ Create a new SDK client instance.
 
 ### Static Methods
 
-#### `sdk.test(testopts, sdkopts)`
+#### `sdk.test(testopts?, sdkopts?)`
 
-Create a test client with mock features active. Both arguments may be `nil`.
+Create a test client with mock features active. Both arguments are optional.
 
 ```lua
-local client = sdk.test(nil, nil)
+local client = sdk.test()
 ```
 
 
@@ -121,7 +121,7 @@ local competition = client:Competition(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Competition(nil):list(nil, nil)
+local results, err = client:Competition():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -129,7 +129,7 @@ local results, err = client:Competition(nil):list(nil, nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Competition(nil):load({ id = "competition_id" }, nil)
+local result, err = client:Competition():load({ id = "competition_id" })
 ```
 
 ### Common Methods
@@ -190,7 +190,7 @@ local match = client:Match(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Match(nil):list(nil, nil)
+local results, err = client:Match():list()
 ```
 
 ### Common Methods
@@ -245,7 +245,7 @@ local standing = client:Standing(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Standing(nil):list(nil, nil)
+local results, err = client:Standing():list()
 ```
 
 ### Common Methods
@@ -307,7 +307,7 @@ local team = client:Team(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Team(nil):list(nil, nil)
+local results, err = client:Team():list()
 ```
 
 ### Common Methods

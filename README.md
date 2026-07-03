@@ -1,21 +1,8 @@
 # WorldCupQualification SDK
 
-Track FIFA World Cup qualification competitions, matches, standings, and teams across confederations
+World Cup Qualification client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About World Cup Qualification
-
-This SDK wraps the [football-data.org](https://www.football-data.org/) v4 API, scoped to FIFA World Cup qualification competitions across confederations. The upstream service is a long-running independent provider of football (soccer) data accessed via `https://api.football-data.org/v4`.
-
-What you get from the API:
-
-- Competition metadata for World Cup qualification tournaments (e.g. `/v4/competitions/{code}`)
-- Match fixtures and results for qualifying rounds
-- Standings tables for groups and stages
-- Team records associated with qualifying competitions
-
-Authentication uses an API token obtained by registering at football-data.org. The free tier is rate-limited; higher request volumes and additional competitions are available on paid plans. Rate-limit specifics and CORS behaviour are not published on the catalogue page — check the official docs at [docs.football-data.org](https://docs.football-data.org/) before deploying.
 
 ## Try it
 
@@ -49,29 +36,31 @@ gem install world-cup-qualification-sdk
 luarocks install world-cup-qualification-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { WorldCupQualificationSDK } from 'world-cup-qualification'
 
-const client = new WorldCupQualificationSDK({})
+const client = new WorldCupQualificationSDK({
+  apikey: process.env.WORLD-CUP-QUALIFICATION_APIKEY,
+})
 
 // List all competitions
 const competitions = await client.Competition().list()
+console.log(competitions.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -101,10 +90,10 @@ The API exposes 4 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Competition** | A football competition resource representing a World Cup qualification tournament, typically retrieved via `/v4/competitions/{id}`. | `/competitions` |
-| **Match** | An individual qualifying fixture with scheduling and result data, exposed under the competition's match listings. | `/competitions/{id}/matches` |
-| **Standing** | A standings table entry for groups or stages within a qualification competition. | `/competitions/{id}/standings` |
-| **Team** | A national team participating in a World Cup qualification competition. | `/competitions/{id}/teams` |
+| **Competition** |  | `/competitions` |
+| **Match** |  | `/competitions/{id}/matches` |
+| **Standing** |  | `/competitions/{id}/standings` |
+| **Team** |  | `/competitions/{id}/teams` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -114,17 +103,20 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from worldcupqualification_sdk import WorldCupQualificationSDK
 
-client = WorldCupQualificationSDK({})
+client = WorldCupQualificationSDK({
+    "apikey": os.environ.get("WORLD-CUP-QUALIFICATION_APIKEY"),
+})
 
 # List all competitions
-competitions, err = client.Competition(None).list(None, None)
+competitions, err = client.Competition().list()
+print(competitions)
 
 # Load a specific competition
-competition, err = client.Competition(None).load(
-    {"id": "example_id"}, None
-)
+competition, err = client.Competition().load({"id": "example_id"})
+print(competition)
 ```
 
 ### PHP
@@ -133,15 +125,17 @@ competition, err = client.Competition(None).load(
 <?php
 require_once 'worldcupqualification_sdk.php';
 
-$client = new WorldCupQualificationSDK([]);
+$client = new WorldCupQualificationSDK([
+    "apikey" => getenv("WORLD-CUP-QUALIFICATION_APIKEY"),
+]);
 
 // List all competitions
-[$competitions, $err] = $client->Competition(null)->list(null, null);
+[$competitions, $err] = $client->Competition()->list();
+print_r($competitions);
 
 // Load a specific competition
-[$competition, $err] = $client->Competition(null)->load(
-    ["id" => "example_id"], null
-);
+[$competition, $err] = $client->Competition()->load(["id" => "example_id"]);
+print_r($competition);
 ```
 
 ### Golang
@@ -149,10 +143,13 @@ $client = new WorldCupQualificationSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/world-cup-qualification-sdk/go"
 
-client := sdk.NewWorldCupQualificationSDK(map[string]any{})
+client := sdk.NewWorldCupQualificationSDK(map[string]any{
+    "apikey": os.Getenv("WORLD-CUP-QUALIFICATION_APIKEY"),
+})
 
 // List all competitions
 competitions, err := client.Competition(nil).List(nil, nil)
+fmt.Println(competitions)
 ```
 
 ### Ruby
@@ -160,15 +157,17 @@ competitions, err := client.Competition(nil).List(nil, nil)
 ```ruby
 require_relative "WorldCupQualification_sdk"
 
-client = WorldCupQualificationSDK.new({})
+client = WorldCupQualificationSDK.new({
+  "apikey" => ENV["WORLD-CUP-QUALIFICATION_APIKEY"],
+})
 
 # List all competitions
-competitions, err = client.Competition(nil).list(nil, nil)
+competitions, err = client.Competition().list
+puts competitions
 
 # Load a specific competition
-competition, err = client.Competition(nil).load(
-  { "id" => "example_id" }, nil
-)
+competition, err = client.Competition().load({ "id" => "example_id" })
+puts competition
 ```
 
 ### Lua
@@ -176,15 +175,17 @@ competition, err = client.Competition(nil).load(
 ```lua
 local sdk = require("world-cup-qualification_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("WORLD-CUP-QUALIFICATION_APIKEY"),
+})
 
 -- List all competitions
-local competitions, err = client:Competition(nil):list(nil, nil)
+local competitions, err = client:Competition():list()
+print(competitions)
 
 -- Load a specific competition
-local competition, err = client:Competition(nil):load(
-  { id = "example_id" }, nil
-)
+local competition, err = client:Competition():load({ id = "example_id" })
+print(competition)
 ```
 
 ## Unit testing in offline mode
@@ -203,25 +204,21 @@ const result = await client.Competition().load({ id: 'test01' })
 ### Python
 
 ```python
-client = WorldCupQualificationSDK.test(None, None)
-result, err = client.Competition(None).load(
-    {"id": "test01"}, None
-)
+client = WorldCupQualificationSDK.test()
+result, err = client.Competition().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = WorldCupQualificationSDK::test(null, null);
-[$result, $err] = $client->Competition(null)->load(
-    ["id" => "test01"], null
-);
+$client = WorldCupQualificationSDK::test();
+[$result, $err] = $client->Competition()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Competition(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -230,19 +227,15 @@ result, err := client.Competition(nil).Load(
 ### Ruby
 
 ```ruby
-client = WorldCupQualificationSDK.test(nil, nil)
-result, err = client.Competition(nil).load(
-  { "id" => "test01" }, nil
-)
+client = WorldCupQualificationSDK.test
+result, err = client.Competition().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Competition(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Competition():load({ id = "test01" })
 ```
 
 ## How it works
@@ -346,15 +339,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the World Cup Qualification
-
-- Upstream: [https://www.football-data.org/](https://www.football-data.org/)
-- API docs: [https://docs.football-data.org/](https://docs.football-data.org/)
-
-- Operated by football-data.org as a RESTful football data API.
-- Free tier requires registration for an API key; paid tiers exist for higher quotas and commercial use.
-- License and attribution requirements are not stated on the public catalogue page; consult football-data.org terms before redistributing.
 
 ---
 

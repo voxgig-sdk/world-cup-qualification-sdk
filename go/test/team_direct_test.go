@@ -118,12 +118,14 @@ func teamDirectSetup(mockres any) *teamDirectSetupResult {
 	env := envOverride(map[string]any{
 		"WORLDCUPQUALIFICATION_TEST_TEAM_ENTID": map[string]any{},
 		"WORLDCUPQUALIFICATION_TEST_LIVE":    "FALSE",
+		"WORLDCUPQUALIFICATION_APIKEY":       "NONE",
 	})
 
 	live := env["WORLDCUPQUALIFICATION_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["WORLDCUPQUALIFICATION_APIKEY"],
 		}
 		client := sdk.NewWorldCupQualificationSDK(mergedOpts)
 

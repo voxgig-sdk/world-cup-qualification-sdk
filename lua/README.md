@@ -10,7 +10,7 @@ The Lua SDK for the WorldCupQualification API — an entity-oriented client usin
 
 ## Install
 ```bash
-luarocks install world-cup-qualification-sdk
+luarocks install voxgig-sdk-world-cup-qualification
 ```
 
 If the module is not yet published, add the source directory to

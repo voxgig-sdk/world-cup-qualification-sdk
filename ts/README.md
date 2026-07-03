@@ -10,7 +10,7 @@ The TypeScript SDK for the WorldCupQualification API — a type-safe, entity-ori
 
 ## Install
 ```bash
-npm install world-cup-qualification
+npm install @voxgig-sdk/world-cup-qualification
 ```
 ## Tutorial: your first API call
 

@@ -10,13 +10,13 @@ The Ruby SDK for the WorldCupQualification API — an entity-oriented client usi
 
 ## Install
 ```bash
-gem install world-cup-qualification-sdk
+gem install voxgig-sdk-world-cup-qualification
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "world-cup-qualification-sdk"
+gem "voxgig-sdk-world-cup-qualification"
 ```
 
 Then run:

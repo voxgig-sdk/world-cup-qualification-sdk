@@ -8,12 +8,14 @@ source = {
   dir = "world-cup-qualification-sdk/lua"
 }
 description = {
-  summary = "WorldCupQualification SDK for Lua",
-  license = "MIT"
+  summary = "Unofficial generated Lua SDK for the World Cup Qualification public API. Not affiliated with or endorsed by the upstream API provider.",
+  homepage = "https://github.com/voxgig-sdk/world-cup-qualification-sdk",
+  issues_url = "https://github.com/voxgig-sdk/world-cup-qualification-sdk/issues",
+  license = "MIT",
+  labels = { "voxgig", "sdk", "generated-sdk", "openapi", "api-client", "world-cup-qualification" }
 }
 dependencies = {
   "lua >= 5.3",
-  "dkjson >= 2.5",
   "dkjson >= 2.5",
 }
 build = {

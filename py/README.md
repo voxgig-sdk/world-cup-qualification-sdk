@@ -10,7 +10,7 @@ The Python SDK for the WorldCupQualification API — an entity-oriented client f
 
 ## Install
 ```bash
-pip install world-cup-qualification-sdk
+pip install voxgig-sdk-world-cup-qualification
 ```
 
 Or install from source:

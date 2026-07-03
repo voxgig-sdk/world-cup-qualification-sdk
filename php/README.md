@@ -10,7 +10,7 @@ The PHP SDK for the WorldCupQualification API — an entity-oriented client usin
 
 ## Install
 ```bash
-composer require voxgig/world-cup-qualification-sdk
+composer require voxgig-sdk/world-cup-qualification
 ```
 
 

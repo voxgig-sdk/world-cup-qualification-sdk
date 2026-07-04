@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:competition():list() / client:competition():load({ id = ... })
-function WorldCupQualificationSDK:competition(data)
+-- Idiomatic facade: client:Competition():list() / client:Competition():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function WorldCupQualificationSDK:Competition(data)
   local EntityMod = require("entity.competition_entity")
   if data == nil then
     if self._competition == nil then
@@ -256,15 +257,10 @@ function WorldCupQualificationSDK:competition(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:competition() instead.
-function WorldCupQualificationSDK:Competition(data)
-  local EntityMod = require("entity.competition_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:match():list() / client:match():load({ id = ... })
-function WorldCupQualificationSDK:match(data)
+-- Idiomatic facade: client:Match():list() / client:Match():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function WorldCupQualificationSDK:Match(data)
   local EntityMod = require("entity.match_entity")
   if data == nil then
     if self._match == nil then
@@ -275,15 +271,10 @@ function WorldCupQualificationSDK:match(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:match() instead.
-function WorldCupQualificationSDK:Match(data)
-  local EntityMod = require("entity.match_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:standing():list() / client:standing():load({ id = ... })
-function WorldCupQualificationSDK:standing(data)
+-- Idiomatic facade: client:Standing():list() / client:Standing():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function WorldCupQualificationSDK:Standing(data)
   local EntityMod = require("entity.standing_entity")
   if data == nil then
     if self._standing == nil then
@@ -294,15 +285,10 @@ function WorldCupQualificationSDK:standing(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:standing() instead.
-function WorldCupQualificationSDK:Standing(data)
-  local EntityMod = require("entity.standing_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:team():list() / client:team():load({ id = ... })
-function WorldCupQualificationSDK:team(data)
+-- Idiomatic facade: client:Team():list() / client:Team():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function WorldCupQualificationSDK:Team(data)
   local EntityMod = require("entity.team_entity")
   if data == nil then
     if self._team == nil then
@@ -310,12 +296,6 @@ function WorldCupQualificationSDK:team(data)
     end
     return self._team
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:team() instead.
-function WorldCupQualificationSDK:Team(data)
-  local EntityMod = require("entity.team_entity")
   return EntityMod.new(self, data)
 end
 

@@ -208,52 +208,28 @@ class WorldCupQualificationSDK
   end
 
 
-  # Idiomatic facade: client.competition.list / client.competition.load({ "id" => ... })
-  def competition
-    require_relative 'entity/competition_entity'
-    @competition ||= CompetitionEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.competition instead.
+  # Canonical facade: client.Competition.list / client.Competition.load({ "id" => ... })
   def Competition(data = nil)
     require_relative 'entity/competition_entity'
     CompetitionEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.match.list / client.match.load({ "id" => ... })
-  def match
-    require_relative 'entity/match_entity'
-    @match ||= MatchEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.match instead.
+  # Canonical facade: client.Match.list / client.Match.load({ "id" => ... })
   def Match(data = nil)
     require_relative 'entity/match_entity'
     MatchEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.standing.list / client.standing.load({ "id" => ... })
-  def standing
-    require_relative 'entity/standing_entity'
-    @standing ||= StandingEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.standing instead.
+  # Canonical facade: client.Standing.list / client.Standing.load({ "id" => ... })
   def Standing(data = nil)
     require_relative 'entity/standing_entity'
     StandingEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.team.list / client.team.load({ "id" => ... })
-  def team
-    require_relative 'entity/team_entity'
-    @team ||= TeamEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.team instead.
+  # Canonical facade: client.Team.list / client.Team.load({ "id" => ... })
   def Team(data = nil)
     require_relative 'entity/team_entity'
     TeamEntity.new(self, data)

@@ -99,7 +99,7 @@ same parameters as `direct()`. Raises on error.
 ## CompetitionEntity
 
 ```ruby
-competition = client.competition
+competition = client.Competition
 ```
 
 ### Fields
@@ -124,7 +124,7 @@ competition = client.competition
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.competition.list(nil)
+results = client.Competition.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -132,7 +132,7 @@ results = client.competition.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.competition.load({ "id" => "competition_id" })
+result = client.Competition.load({ "id" => "competition_id" })
 ```
 
 ### Common Methods
@@ -168,7 +168,7 @@ Return the entity name.
 ## MatchEntity
 
 ```ruby
-match = client.match
+match = client.Match
 ```
 
 ### Fields
@@ -193,7 +193,7 @@ match = client.match
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.match.list(nil)
+results = client.Match.list(nil)
 ```
 
 ### Common Methods
@@ -229,7 +229,7 @@ Return the entity name.
 ## StandingEntity
 
 ```ruby
-standing = client.standing
+standing = client.Standing
 ```
 
 ### Fields
@@ -248,7 +248,7 @@ standing = client.standing
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.standing.list(nil)
+results = client.Standing.list(nil)
 ```
 
 ### Common Methods
@@ -284,7 +284,7 @@ Return the entity name.
 ## TeamEntity
 
 ```ruby
-team = client.team
+team = client.Team
 ```
 
 ### Fields
@@ -310,7 +310,7 @@ team = client.team
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.team.list(nil)
+results = client.Team.list(nil)
 ```
 
 ### Common Methods

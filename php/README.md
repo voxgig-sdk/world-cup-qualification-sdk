@@ -31,18 +31,16 @@ $client = new WorldCupQualificationSDK([
 ]);
 ```
 
-### 2. List competitions
+### 2. List competition records
 
 ```php
 try {
-    $result = $client->competition()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of Competition records — iterate directly.
+    $competitions = $client->Competition()->list();
+    foreach ($competitions as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -51,9 +49,10 @@ try {
 
 ```php
 try {
-    $result = $client->competition()->load(["id" => "example_id"]);
-    print_r($result);
-} catch (\Exception $err) {
+    // load() returns the bare Competition record (throws on error).
+    $competition = $client->Competition()->load(["id" => "example_id"]);
+    print_r($competition);
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -99,13 +98,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = WorldCupQualificationSDK::test();
+$client = WorldCupQualificationSDK::test([
+    "entity" => ["competition" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->competition()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$competition = $client->Competition()->load(["id" => "test01"]);
+print_r($competition);
 ```
 
 ### Use a custom fetch function
@@ -307,7 +310,7 @@ API path: `/competitions/{id}/teams`
 
 ### Competition
 
-Create an instance: `const competition = client.competition`
+Create an instance: `$competition = $client->Competition();`
 
 #### Operations
 
@@ -333,20 +336,22 @@ Create an instance: `const competition = client.competition`
 
 #### Example: Load
 
-```ts
-const competition = await client.competition.load({ id: 'competition_id' })
+```php
+// load() returns the bare Competition record (throws on error).
+$competition = $client->Competition()->load(["id" => "competition_id"]);
 ```
 
 #### Example: List
 
-```ts
-const competitions = await client.competition.list()
+```php
+// list() returns an array of Competition records (throws on error).
+$competitions = $client->Competition()->list();
 ```
 
 
 ### Match
 
-Create an instance: `const match = client.match`
+Create an instance: `$match = $client->Match();`
 
 #### Operations
 
@@ -371,14 +376,15 @@ Create an instance: `const match = client.match`
 
 #### Example: List
 
-```ts
-const matchs = await client.match.list()
+```php
+// list() returns an array of Match records (throws on error).
+$matchs = $client->Match()->list();
 ```
 
 
 ### Standing
 
-Create an instance: `const standing = client.standing`
+Create an instance: `$standing = $client->Standing();`
 
 #### Operations
 
@@ -397,14 +403,15 @@ Create an instance: `const standing = client.standing`
 
 #### Example: List
 
-```ts
-const standings = await client.standing.list()
+```php
+// list() returns an array of Standing records (throws on error).
+$standings = $client->Standing()->list();
 ```
 
 
 ### Team
 
-Create an instance: `const team = client.team`
+Create an instance: `$team = $client->Team();`
 
 #### Operations
 
@@ -430,8 +437,9 @@ Create an instance: `const team = client.team`
 
 #### Example: List
 
-```ts
-const teams = await client.team.list()
+```php
+// list() returns an array of Team records (throws on error).
+$teams = $client->Team()->list();
 ```
 
 
@@ -506,7 +514,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$competition = $client->competition();
+$competition = $client->Competition();
 $competition->load(["id" => "example_id"]);
 
 // $competition->dataGet() now returns the loaded competition data

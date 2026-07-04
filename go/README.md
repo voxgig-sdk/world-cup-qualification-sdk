@@ -30,7 +30,12 @@ go mod edit -replace github.com/voxgig-sdk/world-cup-qualification-sdk/go=../wor
 This tutorial walks through creating a client, listing entities, and
 loading a specific record.
 
-### 1. Create a client
+### Quickstart
+
+A complete program: create a client, then call the entity operations.
+Each operation returns `(value, error)` — the value is the data itself
+(there is no `{ok, data}` wrapper), so check `err` and use the value
+directly.
 
 ```go
 package main
@@ -38,48 +43,29 @@ package main
 import (
     "fmt"
     "os"
-
     sdk "github.com/voxgig-sdk/world-cup-qualification-sdk/go"
-    "github.com/voxgig-sdk/world-cup-qualification-sdk/go/core"
 )
 
 func main() {
     client := sdk.NewWorldCupQualificationSDK(map[string]any{
         "apikey": os.Getenv("WORLD_CUP_QUALIFICATION_APIKEY"),
     })
-```
 
-### 2. List competitions
-
-```go
-    result, err := client.Competition(nil).List(nil, nil)
+    // List competition records — the value is the array of records itself.
+    competitions, err := client.Competition(nil).List(nil, nil)
     if err != nil {
         panic(err)
     }
-
-    rm := core.ToMapAny(result)
-    if rm["ok"] == true {
-        for _, item := range rm["data"].([]any) {
-            p := core.ToMapAny(item)
-            fmt.Println(p["id"], p["name"])
-        }
+    for _, item := range competitions.([]any) {
+        fmt.Println(item)
     }
-```
 
-### 3. Load a competition
-
-```go
-    result, err = client.Competition(nil).Load(
-        map[string]any{"id": "example_id"}, nil,
-    )
+    // Load a single competition — the value is the loaded record.
+    competition, err := client.Competition(nil).Load(map[string]any{"id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }
-
-    rm = core.ToMapAny(result)
-    if rm["ok"] == true {
-        fmt.Println(rm["data"])
-    }
+    fmt.Println(competition)
 }
 ```
 
@@ -130,10 +116,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-result, err := client.Competition(nil).Load(
+competition, err := client.Competition(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
-// result contains mock response data
+if err != nil {
+    panic(err)
+}
+fmt.Println(competition) // the loaded mock data
 ```
 
 ### Use a custom fetch function
@@ -235,17 +224,24 @@ All entities implement the `WorldCupQualificationEntity` interface.
 
 ### Result shape
 
-Entity operations return `(any, error)`. The `any` value is a
-`map[string]any` with these keys:
+Entity operations return `(value, error)`. The `value` is the
+operation's data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `"ok"` | `bool` | `true` if the HTTP status is 2xx. |
-| `"status"` | `int` | HTTP status code. |
-| `"headers"` | `map[string]any` | Response headers. |
-| `"data"` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `List` | a `[]any` of entity records |
 
-On error, `"ok"` is `false` and `"err"` contains the error value.
+Check `err` first, then use the value directly (or the typed
+`...Typed` variants, which return the entity's model struct and a typed
+slice):
+
+    competition, err := client.Competition(nil).Load(map[string]any{"id": "example_id"}, nil)
+    if err != nil { /* handle */ }
+    // competition is the loaded record
+
+Only `Direct()` returns a response envelope — a `map[string]any` with
+`"ok"`, `"status"`, `"headers"`, and `"data"` keys.
 
 ### Entities
 
@@ -354,13 +350,21 @@ Create an instance: `competition := client.Competition(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Competition(nil).Load(map[string]any{"id": "competition_id"}, nil)
+competition, err := client.Competition(nil).Load(map[string]any{"id": "competition_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(competition) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-results, err := client.Competition(nil).List(nil, nil)
+competitions, err := client.Competition(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(competitions) // the array of records
 ```
 
 
@@ -392,7 +396,11 @@ Create an instance: `match := client.Match(nil)`
 #### Example: List
 
 ```go
-results, err := client.Match(nil).List(nil, nil)
+matchs, err := client.Match(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(matchs) // the array of records
 ```
 
 
@@ -418,7 +426,11 @@ Create an instance: `standing := client.Standing(nil)`
 #### Example: List
 
 ```go
-results, err := client.Standing(nil).List(nil, nil)
+standings, err := client.Standing(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(standings) // the array of records
 ```
 
 
@@ -451,7 +463,11 @@ Create an instance: `team := client.Team(nil)`
 #### Example: List
 
 ```go
-results, err := client.Team(nil).List(nil, nil)
+teams, err := client.Team(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(teams) // the array of records
 ```
 
 

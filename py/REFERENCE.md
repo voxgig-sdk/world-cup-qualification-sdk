@@ -93,7 +93,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## CompetitionEntity
 
 ```python
-competition = client.competition
+competition = client.Competition()
 ```
 
 ### Fields
@@ -118,7 +118,9 @@ competition = client.competition
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.competition.list({})
+results = client.Competition().list({})
+for competition in results:
+    print(competition)
 ```
 
 #### `load(reqmatch, ctrl=None) -> dict`
@@ -126,7 +128,7 @@ results = client.competition.list({})
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.competition.load({"id": "competition_id"})
+result = client.Competition().load({"id": "competition_id"})
 ```
 
 ### Common Methods
@@ -161,7 +163,7 @@ Return the entity name.
 ## MatchEntity
 
 ```python
-match = client.match
+match = client.Match()
 ```
 
 ### Fields
@@ -186,7 +188,9 @@ match = client.match
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.match.list({})
+results = client.Match().list({})
+for match in results:
+    print(match)
 ```
 
 ### Common Methods
@@ -221,7 +225,7 @@ Return the entity name.
 ## StandingEntity
 
 ```python
-standing = client.standing
+standing = client.Standing()
 ```
 
 ### Fields
@@ -240,7 +244,9 @@ standing = client.standing
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.standing.list({})
+results = client.Standing().list({})
+for standing in results:
+    print(standing)
 ```
 
 ### Common Methods
@@ -275,7 +281,7 @@ Return the entity name.
 ## TeamEntity
 
 ```python
-team = client.team
+team = client.Team()
 ```
 
 ### Fields
@@ -301,7 +307,9 @@ team = client.team
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.team.list({})
+results = client.Team().list({})
+for team in results:
+    print(team)
 ```
 
 ### Common Methods

@@ -34,24 +34,28 @@ client = WorldCupQualificationSDK({
 })
 ```
 
-### 2. List competitions
+### 2. List competition records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.competition.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    competitions = client.Competition().list({})
+    for competition in competitions:
+        print(competition)
 except Exception as err:
     print(f"list failed: {err}")
 ```
 
 ### 3. Load a competition
 
+`load()` returns the bare record (a `dict`) and raises on error.
+
 ```python
 try:
-    result = client.competition.load({"id": "example_id"})
-    print(result)
+    competition = client.Competition().load({"id": "example_id"})
+    print(competition)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -99,8 +103,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = WorldCupQualificationSDK.test()
 
-result = client.competition.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+competition = client.Competition().load({"id": "test01"})
+# competition contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -299,7 +304,7 @@ API path: `/competitions/{id}/teams`
 
 ### Competition
 
-Create an instance: `const competition = client.competition`
+Create an instance: `competition = client.Competition()`
 
 #### Operations
 
@@ -325,20 +330,20 @@ Create an instance: `const competition = client.competition`
 
 #### Example: Load
 
-```ts
-const competition = await client.competition.load({ id: 'competition_id' })
+```python
+competition = client.Competition().load({"id": "competition_id"})
 ```
 
 #### Example: List
 
-```ts
-const competitions = await client.competition.list()
+```python
+competitions = client.Competition().list({})
 ```
 
 
 ### Match
 
-Create an instance: `const match = client.match`
+Create an instance: `match = client.Match()`
 
 #### Operations
 
@@ -363,14 +368,14 @@ Create an instance: `const match = client.match`
 
 #### Example: List
 
-```ts
-const matchs = await client.match.list()
+```python
+matchs = client.Match().list({})
 ```
 
 
 ### Standing
 
-Create an instance: `const standing = client.standing`
+Create an instance: `standing = client.Standing()`
 
 #### Operations
 
@@ -389,14 +394,14 @@ Create an instance: `const standing = client.standing`
 
 #### Example: List
 
-```ts
-const standings = await client.standing.list()
+```python
+standings = client.Standing().list({})
 ```
 
 
 ### Team
 
-Create an instance: `const team = client.team`
+Create an instance: `team = client.Team()`
 
 #### Operations
 
@@ -422,8 +427,8 @@ Create an instance: `const team = client.team`
 
 #### Example: List
 
-```ts
-const teams = await client.team.list()
+```python
+teams = client.Team().list({})
 ```
 
 
@@ -497,7 +502,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-competition = client.competition
+competition = client.Competition()
 competition.load({"id": "example_id"})
 
 # competition.data_get() now returns the loaded competition data

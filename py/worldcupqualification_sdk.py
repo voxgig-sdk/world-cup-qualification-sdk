@@ -220,73 +220,33 @@ class WorldCupQualificationSDK:
         }
 
 
-    @property
-    def competition(self):
-        """Idiomatic facade: client.competition.list() / client.competition.load({"id": ...})."""
-        from entity.competition_entity import CompetitionEntity
-        cached = getattr(self, "_competition", None)
-        if cached is None:
-            cached = CompetitionEntity(self, None)
-            self._competition = cached
-        return cached
-
-    def Competition(self, data=None):
-        # Deprecated: use client.competition instead.
+    def Competition(self, data=None) -> "CompetitionEntity":
+        """Entity factory: client.Competition().list({}) / client.Competition().load({"id": ...})."""
         from entity.competition_entity import CompetitionEntity
         return CompetitionEntity(self, data)
 
 
-    @property
-    def match(self):
-        """Idiomatic facade: client.match.list() / client.match.load({"id": ...})."""
-        from entity.match_entity import MatchEntity
-        cached = getattr(self, "_match", None)
-        if cached is None:
-            cached = MatchEntity(self, None)
-            self._match = cached
-        return cached
-
-    def Match(self, data=None):
-        # Deprecated: use client.match instead.
+    def Match(self, data=None) -> "MatchEntity":
+        """Entity factory: client.Match().list({}) / client.Match().load({"id": ...})."""
         from entity.match_entity import MatchEntity
         return MatchEntity(self, data)
 
 
-    @property
-    def standing(self):
-        """Idiomatic facade: client.standing.list() / client.standing.load({"id": ...})."""
-        from entity.standing_entity import StandingEntity
-        cached = getattr(self, "_standing", None)
-        if cached is None:
-            cached = StandingEntity(self, None)
-            self._standing = cached
-        return cached
-
-    def Standing(self, data=None):
-        # Deprecated: use client.standing instead.
+    def Standing(self, data=None) -> "StandingEntity":
+        """Entity factory: client.Standing().list({}) / client.Standing().load({"id": ...})."""
         from entity.standing_entity import StandingEntity
         return StandingEntity(self, data)
 
 
-    @property
-    def team(self):
-        """Idiomatic facade: client.team.list() / client.team.load({"id": ...})."""
-        from entity.team_entity import TeamEntity
-        cached = getattr(self, "_team", None)
-        if cached is None:
-            cached = TeamEntity(self, None)
-            self._team = cached
-        return cached
-
-    def Team(self, data=None):
-        # Deprecated: use client.team instead.
+    def Team(self, data=None) -> "TeamEntity":
+        """Entity factory: client.Team().list({}) / client.Team().load({"id": ...})."""
         from entity.team_entity import TeamEntity
         return TeamEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "WorldCupQualificationSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -306,3 +266,12 @@ class WorldCupQualificationSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.competition_entity import CompetitionEntity
+    from entity.match_entity import MatchEntity
+    from entity.standing_entity import StandingEntity
+    from entity.team_entity import TeamEntity

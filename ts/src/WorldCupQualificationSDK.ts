@@ -207,56 +207,28 @@ class WorldCupQualificationSDK {
 
 
 
-  _competition?: CompetitionEntity
-
-  // Idiomatic facade: `client.competition.list()` / `client.competition.load({ id })`.
-  get competition(): CompetitionEntity {
-    return (this._competition ??= new CompetitionEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.competition` instead. */
+  // Entity access: `client.Competition().list()` / `client.Competition().load({ id })`.
   Competition(data?: any) {
     const self = this
     return new CompetitionEntity(self,data)
   }
 
 
-  _match?: MatchEntity
-
-  // Idiomatic facade: `client.match.list()` / `client.match.load({ id })`.
-  get match(): MatchEntity {
-    return (this._match ??= new MatchEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.match` instead. */
+  // Entity access: `client.Match().list()` / `client.Match().load({ id })`.
   Match(data?: any) {
     const self = this
     return new MatchEntity(self,data)
   }
 
 
-  _standing?: StandingEntity
-
-  // Idiomatic facade: `client.standing.list()` / `client.standing.load({ id })`.
-  get standing(): StandingEntity {
-    return (this._standing ??= new StandingEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.standing` instead. */
+  // Entity access: `client.Standing().list()` / `client.Standing().load({ id })`.
   Standing(data?: any) {
     const self = this
     return new StandingEntity(self,data)
   }
 
 
-  _team?: TeamEntity
-
-  // Idiomatic facade: `client.team.list()` / `client.team.load({ id })`.
-  get team(): TeamEntity {
-    return (this._team ??= new TeamEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.team` instead. */
+  // Entity access: `client.Team().list()` / `client.Team().load({ id })`.
   Team(data?: any) {
     const self = this
     return new TeamEntity(self,data)

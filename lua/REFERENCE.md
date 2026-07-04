@@ -96,7 +96,7 @@ same parameters as `direct()`.
 ## CompetitionEntity
 
 ```lua
-local competition = client:competition(nil)
+local competition = client:Competition(nil)
 ```
 
 ### Fields
@@ -121,7 +121,7 @@ local competition = client:competition(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:competition():list()
+local results, err = client:Competition():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -129,7 +129,7 @@ local results, err = client:competition():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:competition():load({ id = "competition_id" })
+local result, err = client:Competition():load({ id = "competition_id" })
 ```
 
 ### Common Methods
@@ -165,7 +165,7 @@ Return the entity name.
 ## MatchEntity
 
 ```lua
-local match = client:match(nil)
+local match = client:Match(nil)
 ```
 
 ### Fields
@@ -190,7 +190,7 @@ local match = client:match(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:match():list()
+local results, err = client:Match():list()
 ```
 
 ### Common Methods
@@ -226,7 +226,7 @@ Return the entity name.
 ## StandingEntity
 
 ```lua
-local standing = client:standing(nil)
+local standing = client:Standing(nil)
 ```
 
 ### Fields
@@ -245,7 +245,7 @@ local standing = client:standing(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:standing():list()
+local results, err = client:Standing():list()
 ```
 
 ### Common Methods
@@ -281,7 +281,7 @@ Return the entity name.
 ## TeamEntity
 
 ```lua
-local team = client:team(nil)
+local team = client:Team(nil)
 ```
 
 ### Fields
@@ -307,7 +307,7 @@ local team = client:team(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:team():list()
+local results, err = client:Team():list()
 ```
 
 ### Common Methods

@@ -28,9 +28,11 @@ const client = new WorldCupQualificationSDK({
   apikey: process.env.WORLD_CUP_QUALIFICATION_APIKEY,
 })
 
-// List all competitions
-const competitions = await client.competition.list()
-console.log(competitions.data)
+// List all competitions (returns Competition[])
+const competitions = await client.Competition().list()
+for (const competition of competitions) {
+  console.log(competition)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -91,12 +93,13 @@ client = WorldCupQualificationSDK({
     "apikey": os.environ.get("WORLD_CUP_QUALIFICATION_APIKEY"),
 })
 
-# List all competitions
-competitions = client.competition.list()
-print(competitions)
+# List all competitions (returns a list, raises on error)
+competitions = client.Competition().list({})
+for competition in competitions:
+    print(competition)
 
-# Load a specific competition
-competition = client.competition.load({"id": "example_id"})
+# Load a specific competition (returns the record, raises on error)
+competition = client.Competition().load({"id": "example_id"})
 print(competition)
 ```
 
@@ -110,12 +113,12 @@ $client = new WorldCupQualificationSDK([
     "apikey" => getenv("WORLD_CUP_QUALIFICATION_APIKEY"),
 ]);
 
-// List all competitions (throws on error)
-$competitions = $client->competition()->list();
+// List all competitions (returns an array; throws on error)
+$competitions = $client->Competition()->list();
 print_r($competitions);
 
-// Load a specific competition
-$competition = $client->competition()->load(["id" => "example_id"]);
+// Load a specific competition (returns the bare record; throws on error)
+$competition = $client->Competition()->load(["id" => "example_id"]);
 print_r($competition);
 ```
 
@@ -142,12 +145,12 @@ client = WorldCupQualificationSDK.new({
   "apikey" => ENV["WORLD_CUP_QUALIFICATION_APIKEY"],
 })
 
-# List all competitions
-competitions = client.competition.list
+# List all competitions (returns an Array; raises on error)
+competitions = client.Competition.list
 puts competitions
 
-# Load a specific competition
-competition = client.competition.load({ "id" => "example_id" })
+# Load a specific competition (returns the bare record; raises on error)
+competition = client.Competition.load({ "id" => "example_id" })
 puts competition
 ```
 
@@ -161,11 +164,11 @@ local client = sdk.new({
 })
 
 -- List all competitions
-local competitions, err = client:competition():list()
+local competitions, err = client:Competition():list()
 print(competitions)
 
 -- Load a specific competition
-local competition, err = client:competition():load({ id = "example_id" })
+local competition, err = client:Competition():load({ id = "example_id" })
 print(competition)
 ```
 
@@ -178,22 +181,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = WorldCupQualificationSDK.test()
-const result = await client.competition.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const competition = await client.Competition().load({ id: 1 })
+// competition is a bare Competition populated with mock data
+console.log(competition)
 ```
 
 ### Python
 
 ```python
 client = WorldCupQualificationSDK.test()
-result = client.competition.load({"id": "test01"})
+competition = client.Competition().load({"id": "test01"})
+print(competition)
 ```
 
 ### PHP
 
 ```php
-$client = WorldCupQualificationSDK::test();
-$result = $client->competition()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = WorldCupQualificationSDK::test([
+    "entity" => ["competition" => ["test01" => ["id" => "test01"]]],
+]);
+$competition = $client->Competition()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -208,15 +216,18 @@ result, err := client.Competition(nil).Load(
 ### Ruby
 
 ```ruby
-client = WorldCupQualificationSDK.test
-result = client.competition.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = WorldCupQualificationSDK.test({
+  "entity" => { "competition" => { "test01" => { "id" => "test01" } } },
+})
+competition = client.Competition.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:competition():load({ id = "test01" })
+local result, err = client:Competition():load({ id = "test01" })
 ```
 
 ## How it works
@@ -264,6 +275,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

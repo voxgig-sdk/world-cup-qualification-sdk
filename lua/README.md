@@ -33,26 +33,26 @@ local client = sdk.new({
 })
 ```
 
-### 2. List competitions
+### 2. List competition records
+
+Entity operations return `(value, err)`. For `list`, `value` is the
+array of records itself — iterate it directly (there is no wrapper).
 
 ```lua
-local result, err = client:competition():list()
+local competitions, err = client:Competition():list()
 if err then error(err) end
 
-if type(result) == "table" then
-  for _, item in ipairs(result) do
-    local d = item:data_get()
-    print(d["id"], d["name"])
-  end
+for _, item in ipairs(competitions) do
+  print(item["id"], item["name"])
 end
 ```
 
 ### 3. Load a competition
 
 ```lua
-local result, err = client:competition():load({ id = "example_id" })
+local competition, err = client:Competition():load({ id = "example_id" })
 if err then error(err) end
-print(result)
+print(competition)
 ```
 
 
@@ -98,8 +98,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:competition():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:Competition():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -204,17 +204,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local competition, err = client:Competition():load({ id = "example_id" })
+    if err then error(err) end
+    -- competition is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -296,7 +301,7 @@ API path: `/competitions/{id}/teams`
 
 ### Competition
 
-Create an instance: `const competition = client.competition`
+Create an instance: `local competition = client:Competition(nil)`
 
 #### Operations
 
@@ -322,20 +327,20 @@ Create an instance: `const competition = client.competition`
 
 #### Example: Load
 
-```ts
-const competition = await client.competition.load({ id: 'competition_id' })
+```lua
+local competition, err = client:Competition():load({ id = "competition_id" })
 ```
 
 #### Example: List
 
-```ts
-const competitions = await client.competition.list()
+```lua
+local competitions, err = client:Competition():list()
 ```
 
 
 ### Match
 
-Create an instance: `const match = client.match`
+Create an instance: `local match = client:Match(nil)`
 
 #### Operations
 
@@ -360,14 +365,14 @@ Create an instance: `const match = client.match`
 
 #### Example: List
 
-```ts
-const matchs = await client.match.list()
+```lua
+local matchs, err = client:Match():list()
 ```
 
 
 ### Standing
 
-Create an instance: `const standing = client.standing`
+Create an instance: `local standing = client:Standing(nil)`
 
 #### Operations
 
@@ -386,14 +391,14 @@ Create an instance: `const standing = client.standing`
 
 #### Example: List
 
-```ts
-const standings = await client.standing.list()
+```lua
+local standings, err = client:Standing():list()
 ```
 
 
 ### Team
 
-Create an instance: `const team = client.team`
+Create an instance: `local team = client:Team(nil)`
 
 #### Operations
 
@@ -419,8 +424,8 @@ Create an instance: `const team = client.team`
 
 #### Example: List
 
-```ts
-const teams = await client.team.list()
+```lua
+local teams, err = client:Team():list()
 ```
 
 
@@ -495,7 +500,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local competition = client:competition()
+local competition = client:Competition()
 competition:load({ id = "example_id" })
 
 -- competition:data_get() now returns the loaded competition data

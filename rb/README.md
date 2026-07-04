@@ -30,16 +30,14 @@ client = WorldCupQualificationSDK.new({
 })
 ```
 
-### 2. List competitions
+### 2. List competition records
 
 ```ruby
 begin
-  result = client.competition.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of Competition records — iterate directly.
+  competitions = client.Competition.list
+  competitions.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -50,8 +48,9 @@ end
 
 ```ruby
 begin
-  result = client.competition.load({ "id" => "example_id" })
-  puts result
+  # load returns the bare Competition record (raises on error).
+  competition = client.Competition.load({ "id" => "example_id" })
+  puts competition
 rescue => err
   warn "load failed: #{err}"
 end
@@ -98,13 +97,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = WorldCupQualificationSDK.test
+client = WorldCupQualificationSDK.test({
+  "entity" => { "competition" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.competition.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+competition = client.Competition.load({ "id" => "test01" })
+puts competition
 ```
 
 ### Use a custom fetch function
@@ -302,7 +305,7 @@ API path: `/competitions/{id}/teams`
 
 ### Competition
 
-Create an instance: `const competition = client.competition`
+Create an instance: `competition = client.Competition`
 
 #### Operations
 
@@ -328,20 +331,22 @@ Create an instance: `const competition = client.competition`
 
 #### Example: Load
 
-```ts
-const competition = await client.competition.load({ id: 'competition_id' })
+```ruby
+# load returns the bare Competition record (raises on error).
+competition = client.Competition.load({ "id" => "competition_id" })
 ```
 
 #### Example: List
 
-```ts
-const competitions = await client.competition.list()
+```ruby
+# list returns an Array of Competition records (raises on error).
+competitions = client.Competition.list
 ```
 
 
 ### Match
 
-Create an instance: `const match = client.match`
+Create an instance: `match = client.Match`
 
 #### Operations
 
@@ -366,14 +371,15 @@ Create an instance: `const match = client.match`
 
 #### Example: List
 
-```ts
-const matchs = await client.match.list()
+```ruby
+# list returns an Array of Match records (raises on error).
+matchs = client.Match.list
 ```
 
 
 ### Standing
 
-Create an instance: `const standing = client.standing`
+Create an instance: `standing = client.Standing`
 
 #### Operations
 
@@ -392,14 +398,15 @@ Create an instance: `const standing = client.standing`
 
 #### Example: List
 
-```ts
-const standings = await client.standing.list()
+```ruby
+# list returns an Array of Standing records (raises on error).
+standings = client.Standing.list
 ```
 
 
 ### Team
 
-Create an instance: `const team = client.team`
+Create an instance: `team = client.Team`
 
 #### Operations
 
@@ -425,8 +432,9 @@ Create an instance: `const team = client.team`
 
 #### Example: List
 
-```ts
-const teams = await client.team.list()
+```ruby
+# list returns an Array of Team records (raises on error).
+teams = client.Team.list
 ```
 
 
@@ -501,7 +509,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-competition = client.competition
+competition = client.Competition
 competition.load({ "id" => "example_id" })
 
 # competition.data_get now returns the loaded competition data

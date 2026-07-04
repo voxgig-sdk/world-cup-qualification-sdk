@@ -13,6 +13,9 @@ require_relative 'config'
 require_relative 'feature/base_feature'
 require_relative 'features'
 
+# Load typed models (Struct value objects).
+require_relative 'WorldCupQualification_types'
+
 
 class WorldCupQualificationSDK
   attr_accessor :mode, :features, :options
@@ -131,7 +134,7 @@ class WorldCupQualificationSDK
     end
 
     _, err = utility.prepare_auth.call(ctx)
-    return nil, err if err
+    raise err if err
 
     utility.make_fetch_def.call(ctx)
   end
@@ -139,8 +142,14 @@ class WorldCupQualificationSDK
   def direct(fetchargs = {})
     utility = @_utility
 
-    fetchdef, err = prepare(fetchargs)
-    return { "ok" => false, "err" => err }, nil if err
+    # direct() is the raw-HTTP escape hatch: it always returns a result hash
+    # ({ "ok" => ..., ... }) and never raises. prepare() raises on error, so
+    # trap that and surface it in the hash.
+    begin
+      fetchdef = prepare(fetchargs)
+    rescue WorldCupQualificationError => err
+      return { "ok" => false, "err" => err }
+    end
 
     fetchargs ||= {}
     ctrl = WorldCupQualificationHelpers.to_map(VoxgigStruct.getprop(fetchargs, "ctrl")) || {}
@@ -153,13 +162,13 @@ class WorldCupQualificationSDK
     url = fetchdef["url"] || ""
     fetched, fetch_err = utility.fetcher.call(ctx, url, fetchdef)
 
-    return { "ok" => false, "err" => fetch_err }, nil if fetch_err
+    return { "ok" => false, "err" => fetch_err } if fetch_err
 
     if fetched.nil?
       return {
         "ok" => false,
         "err" => ctx.make_error("direct_no_response", "response: undefined"),
-      }, nil
+      }
     end
 
     if fetched.is_a?(Hash)
@@ -189,34 +198,62 @@ class WorldCupQualificationSDK
         "status" => status,
         "headers" => headers,
         "data" => json_data,
-      }, nil
+      }
     end
 
     return {
       "ok" => false,
       "err" => ctx.make_error("direct_invalid", "invalid response type"),
-    }, nil
+    }
   end
 
 
+  # Idiomatic facade: client.competition.list / client.competition.load({ "id" => ... })
+  def competition
+    require_relative 'entity/competition_entity'
+    @competition ||= CompetitionEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.competition instead.
   def Competition(data = nil)
     require_relative 'entity/competition_entity'
     CompetitionEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.match.list / client.match.load({ "id" => ... })
+  def match
+    require_relative 'entity/match_entity'
+    @match ||= MatchEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.match instead.
   def Match(data = nil)
     require_relative 'entity/match_entity'
     MatchEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.standing.list / client.standing.load({ "id" => ... })
+  def standing
+    require_relative 'entity/standing_entity'
+    @standing ||= StandingEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.standing instead.
   def Standing(data = nil)
     require_relative 'entity/standing_entity'
     StandingEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.team.list / client.team.load({ "id" => ... })
+  def team
+    require_relative 'entity/team_entity'
+    @team ||= TeamEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.team instead.
   def Team(data = nil)
     require_relative 'entity/team_entity'
     TeamEntity.new(self, data)

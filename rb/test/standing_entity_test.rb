@@ -45,8 +45,7 @@ class StandingEntityTest < Minitest::Test
       "competition_id" => setup[:idmap]["competition01"],
     }
 
-    standing_ref01_list_result, err = standing_ref01_ent.list(standing_ref01_match, nil)
-    assert_nil err
+    standing_ref01_list_result = standing_ref01_ent.list(standing_ref01_match, nil)
     assert standing_ref01_list_result.is_a?(Array)
 
   end

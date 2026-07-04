@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Standing,
+  StandingListMatch,
+} from '../WorldCupQualificationTypes'
 
 // TODO: needs Entity superclass
-class StandingEntity extends WorldCupQualificationEntityBase {
+class StandingEntity extends WorldCupQualificationEntityBase<Standing> {
 
   constructor(client: WorldCupQualificationSDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +37,7 @@ class StandingEntity extends WorldCupQualificationEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: StandingListMatch, ctrl?: Control): Promise<Standing[]> {
 
     const utility = this._utility
 
@@ -133,7 +137,9 @@ class StandingEntity extends WorldCupQualificationEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Standing[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

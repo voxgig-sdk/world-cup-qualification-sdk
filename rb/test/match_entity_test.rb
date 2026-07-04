@@ -45,8 +45,7 @@ class MatchEntityTest < Minitest::Test
       "competition_id" => setup[:idmap]["competition01"],
     }
 
-    match_ref01_list_result, err = match_ref01_ent.list(match_ref01_match, nil)
-    assert_nil err
+    match_ref01_list_result = match_ref01_ent.list(match_ref01_match, nil)
     assert match_ref01_list_result.is_a?(Array)
 
   end

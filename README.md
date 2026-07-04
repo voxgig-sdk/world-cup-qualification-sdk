@@ -10,26 +10,26 @@ This is an unofficial SDK for the World Cup Qualification public API, generated 
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/world-cup-qualification` | `npm install @voxgig-sdk/world-cup-qualification` |
-| Python | `voxgig-sdk-world-cup-qualification` | `pip install voxgig-sdk-world-cup-qualification` |
-| PHP | `voxgig-sdk/world-cup-qualification` | `composer require voxgig-sdk/world-cup-qualification` |
-| Golang | `github.com/voxgig-sdk/world-cup-qualification-sdk/go` | `go get github.com/voxgig-sdk/world-cup-qualification-sdk/go` |
-| Ruby | `voxgig-sdk-world-cup-qualification` | `gem install voxgig-sdk-world-cup-qualification` |
-| Lua | `voxgig-sdk-world-cup-qualification` | `luarocks install voxgig-sdk-world-cup-qualification` |
+| TypeScript | `@voxgig-sdk/world-cup-qualification` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases) |
+| Python | `voxgig-sdk-world-cup-qualification` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases) |
+| PHP | `voxgig-sdk/world-cup-qualification` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases) |
+| Golang | `github.com/voxgig-sdk/world-cup-qualification-sdk/go` | `go get github.com/voxgig-sdk/world-cup-qualification-sdk/go@latest` |
+| Ruby | `voxgig-sdk-world-cup-qualification` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases) |
+| Lua | `voxgig-sdk-world-cup-qualification` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases) |
 
 ## Quickstart
 
 ### TypeScript
 
 ```ts
-import { WorldCupQualificationSDK } from 'world-cup-qualification'
+import { WorldCupQualificationSDK } from '@voxgig-sdk/world-cup-qualification'
 
 const client = new WorldCupQualificationSDK({
-  apikey: process.env.WORLD-CUP-QUALIFICATION_APIKEY,
+  apikey: process.env.WORLD_CUP_QUALIFICATION_APIKEY,
 })
 
 // List all competitions
-const competitions = await client.Competition().list()
+const competitions = await client.competition.list()
 console.log(competitions.data)
 ```
 
@@ -71,10 +71,10 @@ The API exposes 4 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Competition** |  | `/competitions` |
-| **Match** |  | `/competitions/{id}/matches` |
-| **Standing** |  | `/competitions/{id}/standings` |
-| **Team** |  | `/competitions/{id}/teams` |
+| **Competition** | The Competition entity (list, load). | `/competitions` |
+| **Match** | The Match entity (list). | `/competitions/{id}/matches` |
+| **Standing** | The Standing entity (list). | `/competitions/{id}/standings` |
+| **Team** | The Team entity (list). | `/competitions/{id}/teams` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -88,15 +88,15 @@ import os
 from worldcupqualification_sdk import WorldCupQualificationSDK
 
 client = WorldCupQualificationSDK({
-    "apikey": os.environ.get("WORLD-CUP-QUALIFICATION_APIKEY"),
+    "apikey": os.environ.get("WORLD_CUP_QUALIFICATION_APIKEY"),
 })
 
 # List all competitions
-competitions, err = client.Competition().list()
+competitions = client.competition.list()
 print(competitions)
 
 # Load a specific competition
-competition, err = client.Competition().load({"id": "example_id"})
+competition = client.competition.load({"id": "example_id"})
 print(competition)
 ```
 
@@ -107,15 +107,15 @@ print(competition)
 require_once 'worldcupqualification_sdk.php';
 
 $client = new WorldCupQualificationSDK([
-    "apikey" => getenv("WORLD-CUP-QUALIFICATION_APIKEY"),
+    "apikey" => getenv("WORLD_CUP_QUALIFICATION_APIKEY"),
 ]);
 
-// List all competitions
-[$competitions, $err] = $client->Competition()->list();
+// List all competitions (throws on error)
+$competitions = $client->competition()->list();
 print_r($competitions);
 
 // Load a specific competition
-[$competition, $err] = $client->Competition()->load(["id" => "example_id"]);
+$competition = $client->competition()->load(["id" => "example_id"]);
 print_r($competition);
 ```
 
@@ -125,7 +125,7 @@ print_r($competition);
 import sdk "github.com/voxgig-sdk/world-cup-qualification-sdk/go"
 
 client := sdk.NewWorldCupQualificationSDK(map[string]any{
-    "apikey": os.Getenv("WORLD-CUP-QUALIFICATION_APIKEY"),
+    "apikey": os.Getenv("WORLD_CUP_QUALIFICATION_APIKEY"),
 })
 
 // List all competitions
@@ -139,15 +139,15 @@ fmt.Println(competitions)
 require_relative "WorldCupQualification_sdk"
 
 client = WorldCupQualificationSDK.new({
-  "apikey" => ENV["WORLD-CUP-QUALIFICATION_APIKEY"],
+  "apikey" => ENV["WORLD_CUP_QUALIFICATION_APIKEY"],
 })
 
 # List all competitions
-competitions, err = client.Competition().list
+competitions = client.competition.list
 puts competitions
 
 # Load a specific competition
-competition, err = client.Competition().load({ "id" => "example_id" })
+competition = client.competition.load({ "id" => "example_id" })
 puts competition
 ```
 
@@ -157,15 +157,15 @@ puts competition
 local sdk = require("world-cup-qualification_sdk")
 
 local client = sdk.new({
-  apikey = os.getenv("WORLD-CUP-QUALIFICATION_APIKEY"),
+  apikey = os.getenv("WORLD_CUP_QUALIFICATION_APIKEY"),
 })
 
 -- List all competitions
-local competitions, err = client:Competition():list()
+local competitions, err = client:competition():list()
 print(competitions)
 
 -- Load a specific competition
-local competition, err = client:Competition():load({ id = "example_id" })
+local competition, err = client:competition():load({ id = "example_id" })
 print(competition)
 ```
 
@@ -178,7 +178,7 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = WorldCupQualificationSDK.test()
-const result = await client.Competition().load({ id: 'test01' })
+const result = await client.competition.load({ id: 'test01' })
 // result.ok === true, result.data contains mock data
 ```
 
@@ -186,14 +186,14 @@ const result = await client.Competition().load({ id: 'test01' })
 
 ```python
 client = WorldCupQualificationSDK.test()
-result, err = client.Competition().load({"id": "test01"})
+result = client.competition.load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
 $client = WorldCupQualificationSDK::test();
-[$result, $err] = $client->Competition()->load(["id" => "test01"]);
+$result = $client->competition()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -209,14 +209,14 @@ result, err := client.Competition(nil).Load(
 
 ```ruby
 client = WorldCupQualificationSDK.test
-result, err = client.Competition().load({ "id" => "test01" })
+result = client.competition.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:Competition():load({ id = "test01" })
+local result, err = client:competition():load({ id = "test01" })
 ```
 
 ## How it works
@@ -269,7 +269,7 @@ console.log(result.data)
 
 **Python:**
 ```python
-result, err = client.direct({
+result = client.direct({
     "path": "/api/resource/{id}",
     "method": "GET",
     "params": {"id": "example"},
@@ -278,7 +278,7 @@ result, err = client.direct({
 
 **PHP:**
 ```php
-[$result, $err] = $client->direct([
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
@@ -296,7 +296,7 @@ result, err := client.Direct(map[string]any{
 
 **Ruby:**
 ```ruby
-result, err = client.direct({
+result = client.direct({
   "path" => "/api/resource/{id}",
   "method" => "GET",
   "params" => { "id" => "example" },

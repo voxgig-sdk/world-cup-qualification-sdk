@@ -9,12 +9,9 @@ The Lua SDK for the WorldCupQualification API — an entity-oriented client usin
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-world-cup-qualification
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -32,14 +29,14 @@ loading a specific record.
 local sdk = require("world-cup-qualification_sdk")
 
 local client = sdk.new({
-  apikey = os.getenv("WORLD-CUP-QUALIFICATION_APIKEY"),
+  apikey = os.getenv("WORLD_CUP_QUALIFICATION_APIKEY"),
 })
 ```
 
 ### 2. List competitions
 
 ```lua
-local result, err = client:Competition():list()
+local result, err = client:competition():list()
 if err then error(err) end
 
 if type(result) == "table" then
@@ -53,7 +50,7 @@ end
 ### 3. Load a competition
 
 ```lua
-local result, err = client:Competition():load({ id = "example_id" })
+local result, err = client:competition():load({ id = "example_id" })
 if err then error(err) end
 print(result)
 ```
@@ -101,7 +98,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:WorldCupQualification():load({ id = "test01" })
+local result, err = client:competition():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -134,8 +131,8 @@ local client = sdk.new({
 Create a `.env.local` file at the project root:
 
 ```
-WORLD-CUP-QUALIFICATION_TEST_LIVE=TRUE
-WORLD-CUP-QUALIFICATION_APIKEY=<your-key>
+WORLD_CUP_QUALIFICATION_TEST_LIVE=TRUE
+WORLD_CUP_QUALIFICATION_APIKEY=<your-key>
 ```
 
 Then run:
@@ -299,7 +296,7 @@ API path: `/competitions/{id}/teams`
 
 ### Competition
 
-Create an instance: `const competition = client.Competition()`
+Create an instance: `const competition = client.competition`
 
 #### Operations
 
@@ -326,19 +323,19 @@ Create an instance: `const competition = client.Competition()`
 #### Example: Load
 
 ```ts
-const competition = await client.Competition().load({ id: 'competition_id' })
+const competition = await client.competition.load({ id: 'competition_id' })
 ```
 
 #### Example: List
 
 ```ts
-const competitions = await client.Competition().list()
+const competitions = await client.competition.list()
 ```
 
 
 ### Match
 
-Create an instance: `const match = client.Match()`
+Create an instance: `const match = client.match`
 
 #### Operations
 
@@ -364,13 +361,13 @@ Create an instance: `const match = client.Match()`
 #### Example: List
 
 ```ts
-const matchs = await client.Match().list()
+const matchs = await client.match.list()
 ```
 
 
 ### Standing
 
-Create an instance: `const standing = client.Standing()`
+Create an instance: `const standing = client.standing`
 
 #### Operations
 
@@ -390,13 +387,13 @@ Create an instance: `const standing = client.Standing()`
 #### Example: List
 
 ```ts
-const standings = await client.Standing().list()
+const standings = await client.standing.list()
 ```
 
 
 ### Team
 
-Create an instance: `const team = client.Team()`
+Create an instance: `const team = client.team`
 
 #### Operations
 
@@ -423,7 +420,7 @@ Create an instance: `const team = client.Team()`
 #### Example: List
 
 ```ts
-const teams = await client.Team().list()
+const teams = await client.team.list()
 ```
 
 
@@ -498,11 +495,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local competition = client:competition()
+competition:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- competition:data_get() now returns the loaded competition data
+-- competition:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

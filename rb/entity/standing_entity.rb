@@ -45,6 +45,7 @@ class StandingEntity
     end
   end
 
+  # @return [Standing, Hash] the current Standing data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class StandingEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Standing fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class StandingEntity
   
 
   
+  # List Standing items matching the given filter.
+  #
+  # @param reqmatch [StandingListMatch, Hash, nil] match filter (any subset of Standing fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Standing>, Array] the matching Standing items; raises WorldCupQualificationError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

@@ -167,6 +167,7 @@ def make_config():
                       "orig": "id",
                       "reqd": True,
                       "type": "`$INTEGER`",
+                      "index$": 0,
                     },
                   ],
                 },
@@ -286,6 +287,7 @@ def make_config():
                       "orig": "id",
                       "reqd": True,
                       "type": "`$INTEGER`",
+                      "index$": 0,
                     },
                   ],
                   "query": [
@@ -424,6 +426,7 @@ def make_config():
                       "orig": "id",
                       "reqd": True,
                       "type": "`$INTEGER`",
+                      "index$": 0,
                     },
                   ],
                   "query": [
@@ -582,6 +585,7 @@ def make_config():
                       "orig": "id",
                       "reqd": True,
                       "type": "`$INTEGER`",
+                      "index$": 0,
                     },
                   ],
                   "query": [

@@ -144,16 +144,23 @@ class WorldCupQualificationSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class WorldCupQualificationSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,30 +212,74 @@ class WorldCupQualificationSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def competition(self):
+        """Idiomatic facade: client.competition.list() / client.competition.load({"id": ...})."""
+        from entity.competition_entity import CompetitionEntity
+        cached = getattr(self, "_competition", None)
+        if cached is None:
+            cached = CompetitionEntity(self, None)
+            self._competition = cached
+        return cached
 
     def Competition(self, data=None):
+        # Deprecated: use client.competition instead.
         from entity.competition_entity import CompetitionEntity
         return CompetitionEntity(self, data)
 
 
+    @property
+    def match(self):
+        """Idiomatic facade: client.match.list() / client.match.load({"id": ...})."""
+        from entity.match_entity import MatchEntity
+        cached = getattr(self, "_match", None)
+        if cached is None:
+            cached = MatchEntity(self, None)
+            self._match = cached
+        return cached
+
     def Match(self, data=None):
+        # Deprecated: use client.match instead.
         from entity.match_entity import MatchEntity
         return MatchEntity(self, data)
 
 
+    @property
+    def standing(self):
+        """Idiomatic facade: client.standing.list() / client.standing.load({"id": ...})."""
+        from entity.standing_entity import StandingEntity
+        cached = getattr(self, "_standing", None)
+        if cached is None:
+            cached = StandingEntity(self, None)
+            self._standing = cached
+        return cached
+
     def Standing(self, data=None):
+        # Deprecated: use client.standing instead.
         from entity.standing_entity import StandingEntity
         return StandingEntity(self, data)
 
 
+    @property
+    def team(self):
+        """Idiomatic facade: client.team.list() / client.team.load({"id": ...})."""
+        from entity.team_entity import TeamEntity
+        cached = getattr(self, "_team", None)
+        if cached is None:
+            cached = TeamEntity(self, None)
+            self._team = cached
+        return cached
+
     def Team(self, data=None):
+        # Deprecated: use client.team instead.
         from entity.team_entity import TeamEntity
         return TeamEntity(self, data)
 

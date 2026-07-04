@@ -9,9 +9,12 @@ The TypeScript SDK for the WorldCupQualification API — a type-safe, entity-ori
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/world-cup-qualification
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,17 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { WorldCupQualificationSDK } from 'world-cup-qualification'
+import { WorldCupQualificationSDK } from '@voxgig-sdk/world-cup-qualification'
 
 const client = new WorldCupQualificationSDK({
-  apikey: process.env.WORLD-CUP-QUALIFICATION_APIKEY,
+  apikey: process.env.WORLD_CUP_QUALIFICATION_APIKEY,
 })
 ```
 
 ### 2. List competitions
 
 ```ts
-const result = await client.Competition().list()
+const result = await client.competition.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -42,7 +45,7 @@ if (result.ok) {
 ### 3. Load a competition
 
 ```ts
-const result = await client.Competition().load({ id: 'example_id' })
+const result = await client.competition.load({ id: 'example_id' })
 
 if (result.ok) {
   console.log(result.data)
@@ -91,7 +94,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = WorldCupQualificationSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.competition.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -108,7 +111,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.competition
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -145,8 +148,8 @@ const client = new WorldCupQualificationSDK({
 Create a `.env.local` file at the project root:
 
 ```
-WORLD-CUP-QUALIFICATION_TEST_LIVE=TRUE
-WORLD-CUP-QUALIFICATION_APIKEY=<your-key>
+WORLD_CUP_QUALIFICATION_TEST_LIVE=TRUE
+WORLD_CUP_QUALIFICATION_APIKEY=<your-key>
 ```
 
 Then run:
@@ -342,7 +345,7 @@ API path: `/competitions/{id}/teams`
 
 ### Competition
 
-Create an instance: `const competition = client.Competition()`
+Create an instance: `const competition = client.competition`
 
 #### Operations
 
@@ -369,19 +372,19 @@ Create an instance: `const competition = client.Competition()`
 #### Example: Load
 
 ```ts
-const competition = await client.Competition().load({ id: 'competition_id' })
+const competition = await client.competition.load({ id: 'competition_id' })
 ```
 
 #### Example: List
 
 ```ts
-const competitions = await client.Competition().list()
+const competitions = await client.competition.list()
 ```
 
 
 ### Match
 
-Create an instance: `const match = client.Match()`
+Create an instance: `const match = client.match`
 
 #### Operations
 
@@ -407,13 +410,13 @@ Create an instance: `const match = client.Match()`
 #### Example: List
 
 ```ts
-const matchs = await client.Match().list()
+const matchs = await client.match.list()
 ```
 
 
 ### Standing
 
-Create an instance: `const standing = client.Standing()`
+Create an instance: `const standing = client.standing`
 
 #### Operations
 
@@ -433,13 +436,13 @@ Create an instance: `const standing = client.Standing()`
 #### Example: List
 
 ```ts
-const standings = await client.Standing().list()
+const standings = await client.standing.list()
 ```
 
 
 ### Team
 
-Create an instance: `const team = client.Team()`
+Create an instance: `const team = client.team`
 
 #### Operations
 
@@ -466,7 +469,7 @@ Create an instance: `const team = client.Team()`
 #### Example: List
 
 ```ts
-const teams = await client.Team().list()
+const teams = await client.team.list()
 ```
 
 
@@ -527,7 +530,7 @@ world-cup-qualification/
 Import the SDK from the package root:
 
 ```ts
-import { WorldCupQualificationSDK } from 'world-cup-qualification'
+import { WorldCupQualificationSDK } from '@voxgig-sdk/world-cup-qualification'
 ```
 
 ### Entity state
@@ -537,11 +540,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const competition = client.competition
+await competition.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// competition.data() now returns the loaded competition data
+// competition.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

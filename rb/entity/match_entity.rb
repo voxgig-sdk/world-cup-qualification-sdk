@@ -45,6 +45,7 @@ class MatchEntity
     end
   end
 
+  # @return [Match, Hash] the current Match data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class MatchEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Match fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class MatchEntity
   
 
   
+  # List Match items matching the given filter.
+  #
+  # @param reqmatch [MatchListMatch, Hash, nil] match filter (any subset of Match fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Match>, Array] the matching Match items; raises WorldCupQualificationError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

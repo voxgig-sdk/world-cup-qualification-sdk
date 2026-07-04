@@ -66,9 +66,11 @@ Return a deep copy of the current SDK options.
 
 Return a copy of the SDK utility object.
 
-#### `direct(fetchargs = {}) -> Hash, err`
+#### `direct(fetchargs = {}) -> Hash`
 
-Make a direct HTTP request to any API endpoint.
+Make a direct HTTP request to any API endpoint. Returns a result hash
+(`{ "ok" => ..., "status" => ..., "data" => ..., "err" => ... }`); it
+does not raise — inspect `result["ok"]`.
 
 **Parameters:**
 
@@ -82,14 +84,14 @@ Make a direct HTTP request to any API endpoint.
 | `fetchargs["body"]` | `any` | Request body (hashes are JSON-serialized). |
 | `fetchargs["ctrl"]` | `Hash` | Control options (e.g. `{ "explain" => true }`). |
 
-**Returns:** `Hash, err`
+**Returns:** `Hash`
 
-#### `prepare(fetchargs = {}) -> Hash, err`
+#### `prepare(fetchargs = {}) -> Hash`
 
 Prepare a fetch definition without sending the request. Accepts the
-same parameters as `direct()`.
+same parameters as `direct()`. Raises on error.
 
-**Returns:** `Hash, err`
+**Returns:** `Hash` (the fetch definition; raises on error)
 
 
 ---
@@ -97,7 +99,7 @@ same parameters as `direct()`.
 ## CompetitionEntity
 
 ```ruby
-competition = client.Competition
+competition = client.competition
 ```
 
 ### Fields
@@ -117,20 +119,20 @@ competition = client.Competition
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.Competition.list(nil)
+results = client.competition.list(nil)
 ```
 
-#### `load(reqmatch, ctrl = nil) -> result, err`
+#### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result, err = client.Competition.load({ "id" => "competition_id" })
+result = client.competition.load({ "id" => "competition_id" })
 ```
 
 ### Common Methods
@@ -166,7 +168,7 @@ Return the entity name.
 ## MatchEntity
 
 ```ruby
-match = client.Match
+match = client.match
 ```
 
 ### Fields
@@ -186,12 +188,12 @@ match = client.Match
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.Match.list(nil)
+results = client.match.list(nil)
 ```
 
 ### Common Methods
@@ -227,7 +229,7 @@ Return the entity name.
 ## StandingEntity
 
 ```ruby
-standing = client.Standing
+standing = client.standing
 ```
 
 ### Fields
@@ -241,12 +243,12 @@ standing = client.Standing
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.Standing.list(nil)
+results = client.standing.list(nil)
 ```
 
 ### Common Methods
@@ -282,7 +284,7 @@ Return the entity name.
 ## TeamEntity
 
 ```ruby
-team = client.Team
+team = client.team
 ```
 
 ### Fields
@@ -303,12 +305,12 @@ team = client.Team
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.Team.list(nil)
+results = client.team.list(nil)
 ```
 
 ### Common Methods

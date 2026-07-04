@@ -14,9 +14,14 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Competition,
+  CompetitionLoadMatch,
+  CompetitionListMatch,
+} from '../WorldCupQualificationTypes'
 
 // TODO: needs Entity superclass
-class CompetitionEntity extends WorldCupQualificationEntityBase {
+class CompetitionEntity extends WorldCupQualificationEntityBase<Competition> {
 
   constructor(client: WorldCupQualificationSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +37,7 @@ class CompetitionEntity extends WorldCupQualificationEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: CompetitionLoadMatch, ctrl?: Control): Promise<Competition> {
 
     const utility = this._utility
 
@@ -136,14 +141,16 @@ class CompetitionEntity extends WorldCupQualificationEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Competition> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: CompetitionListMatch, ctrl?: Control): Promise<Competition[]> {
 
     const utility = this._utility
 
@@ -243,7 +250,9 @@ class CompetitionEntity extends WorldCupQualificationEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Competition[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

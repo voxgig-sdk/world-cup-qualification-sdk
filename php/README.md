@@ -9,9 +9,10 @@ The PHP SDK for the WorldCupQualification API — an entity-oriented client usin
 
 
 ## Install
-```bash
-composer require voxgig-sdk/world-cup-qualification
-```
+This package is not yet published to Packagist. Install it from the
+GitHub release tag (`php/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -26,30 +27,35 @@ loading a specific record.
 require_once 'worldcupqualification_sdk.php';
 
 $client = new WorldCupQualificationSDK([
-    "apikey" => getenv("WORLD-CUP-QUALIFICATION_APIKEY"),
+    "apikey" => getenv("WORLD_CUP_QUALIFICATION_APIKEY"),
 ]);
 ```
 
 ### 2. List competitions
 
 ```php
-[$result, $err] = $client->Competition()->list();
-if ($err) { throw new \Exception($err); }
-
-if (is_array($result)) {
-    foreach ($result as $item) {
-        $d = $item->data_get();
-        echo $d["id"] . " " . $d["name"] . "\n";
+try {
+    $result = $client->competition()->list();
+    if (is_array($result)) {
+        foreach ($result as $item) {
+            $d = $item->data_get();
+            echo $d["id"] . " " . $d["name"] . "\n";
+        }
     }
+} catch (\Exception $err) {
+    echo "Error: " . $err->getMessage();
 }
 ```
 
 ### 3. Load a competition
 
 ```php
-[$result, $err] = $client->Competition()->load(["id" => "example_id"]);
-if ($err) { throw new \Exception($err); }
-print_r($result);
+try {
+    $result = $client->competition()->load(["id" => "example_id"]);
+    print_r($result);
+} catch (\Exception $err) {
+    echo "Error: " . $err->getMessage();
+}
 ```
 
 
@@ -60,28 +66,31 @@ print_r($result);
 For endpoints not covered by entity methods:
 
 ```php
-[$result, $err] = $client->direct([
+// direct() is the raw-HTTP escape hatch: it returns a result array
+// (it does not throw). Branch on $result["ok"].
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
+} else {
+    echo "Error: " . $result["err"]->getMessage();
 }
 ```
 
 ### Prepare a request without sending it
 
 ```php
-[$fetchdef, $err] = $client->prepare([
+// prepare() throws on error and returns the fetch definition.
+$fetchdef = $client->prepare([
     "path" => "/api/resource/{id}",
     "method" => "DELETE",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 echo $fetchdef["url"];
 echo $fetchdef["method"];
@@ -95,7 +104,7 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = WorldCupQualificationSDK::test();
 
-[$result, $err] = $client->WorldCupQualification()->load(["id" => "test01"]);
+$result = $client->competition()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -129,8 +138,8 @@ $client = new WorldCupQualificationSDK([
 Create a `.env.local` file at the project root:
 
 ```
-WORLD-CUP-QUALIFICATION_TEST_LIVE=TRUE
-WORLD-CUP-QUALIFICATION_APIKEY=<your-key>
+WORLD_CUP_QUALIFICATION_TEST_LIVE=TRUE
+WORLD_CUP_QUALIFICATION_APIKEY=<your-key>
 ```
 
 Then run:
@@ -202,8 +211,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `[$result, $err]`. The first value is an
-`array` with these keys:
+Entity operations return the bare result data (an `array` for single-entity
+ops, a `list` for `list`) and throw on error. Wrap calls in
+`try`/`catch` to handle failures.
+
+The `direct()` escape hatch never throws — it returns a result `array`
+you branch on via `$result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -294,7 +307,7 @@ API path: `/competitions/{id}/teams`
 
 ### Competition
 
-Create an instance: `const competition = client.Competition()`
+Create an instance: `const competition = client.competition`
 
 #### Operations
 
@@ -321,19 +334,19 @@ Create an instance: `const competition = client.Competition()`
 #### Example: Load
 
 ```ts
-const competition = await client.Competition().load({ id: 'competition_id' })
+const competition = await client.competition.load({ id: 'competition_id' })
 ```
 
 #### Example: List
 
 ```ts
-const competitions = await client.Competition().list()
+const competitions = await client.competition.list()
 ```
 
 
 ### Match
 
-Create an instance: `const match = client.Match()`
+Create an instance: `const match = client.match`
 
 #### Operations
 
@@ -359,13 +372,13 @@ Create an instance: `const match = client.Match()`
 #### Example: List
 
 ```ts
-const matchs = await client.Match().list()
+const matchs = await client.match.list()
 ```
 
 
 ### Standing
 
-Create an instance: `const standing = client.Standing()`
+Create an instance: `const standing = client.standing`
 
 #### Operations
 
@@ -385,13 +398,13 @@ Create an instance: `const standing = client.Standing()`
 #### Example: List
 
 ```ts
-const standings = await client.Standing().list()
+const standings = await client.standing.list()
 ```
 
 
 ### Team
 
-Create an instance: `const team = client.Team()`
+Create an instance: `const team = client.team`
 
 #### Operations
 
@@ -418,7 +431,7 @@ Create an instance: `const team = client.Team()`
 #### Example: List
 
 ```ts
-const teams = await client.Team().list()
+const teams = await client.team.list()
 ```
 
 
@@ -493,11 +506,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$moon = $client->Moon();
-[$result, $err] = $moon->load(["planet_id" => "earth", "id" => "luna"]);
+$competition = $client->competition();
+$competition->load(["id" => "example_id"]);
 
-// $moon->dataGet() now returns the loaded moon data
-// $moon->matchGet() returns the last match criteria
+// $competition->dataGet() now returns the loaded competition data
+// $competition->matchGet() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

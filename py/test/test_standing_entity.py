@@ -52,8 +52,7 @@ class TestStandingEntity:
             "competition_id": setup["idmap"]["competition01"],
         }
 
-        standing_ref01_list_result, err = standing_ref01_ent.list(standing_ref01_match, None)
-        assert err is None
+        standing_ref01_list_result = standing_ref01_ent.list(standing_ref01_match, None)
         assert isinstance(standing_ref01_list_result, list)
 
 

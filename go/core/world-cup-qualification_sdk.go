@@ -245,21 +245,33 @@ func (sdk *WorldCupQualificationSDK) Direct(fetchargs map[string]any) (map[strin
 }
 
 
+// Competition returns a Competition entity bound to this client.
+// Idiomatic usage: client.Competition(nil).List(nil, nil) or
+// client.Competition(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *WorldCupQualificationSDK) Competition(data map[string]any) WorldCupQualificationEntity {
 	return NewCompetitionEntityFunc(sdk, data)
 }
 
 
+// Match returns a Match entity bound to this client.
+// Idiomatic usage: client.Match(nil).List(nil, nil) or
+// client.Match(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *WorldCupQualificationSDK) Match(data map[string]any) WorldCupQualificationEntity {
 	return NewMatchEntityFunc(sdk, data)
 }
 
 
+// Standing returns a Standing entity bound to this client.
+// Idiomatic usage: client.Standing(nil).List(nil, nil) or
+// client.Standing(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *WorldCupQualificationSDK) Standing(data map[string]any) WorldCupQualificationEntity {
 	return NewStandingEntityFunc(sdk, data)
 }
 
 
+// Team returns a Team entity bound to this client.
+// Idiomatic usage: client.Team(nil).List(nil, nil) or
+// client.Team(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *WorldCupQualificationSDK) Team(data map[string]any) WorldCupQualificationEntity {
 	return NewTeamEntityFunc(sdk, data)
 }

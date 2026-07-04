@@ -9,11 +9,9 @@ The Python SDK for the WorldCupQualification API — an entity-oriented client f
 
 
 ## Install
-```bash
-pip install voxgig-sdk-world-cup-qualification
-```
-
-Or install from source:
+This package is not yet published to PyPI. Install it from the GitHub
+release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases)) or
+from a source checkout:
 
 ```bash
 pip install -e .
@@ -32,30 +30,30 @@ import os
 from worldcupqualification_sdk import WorldCupQualificationSDK
 
 client = WorldCupQualificationSDK({
-    "apikey": os.environ.get("WORLD-CUP-QUALIFICATION_APIKEY"),
+    "apikey": os.environ.get("WORLD_CUP_QUALIFICATION_APIKEY"),
 })
 ```
 
 ### 2. List competitions
 
 ```python
-result, err = client.Competition().list()
-if err:
-    raise Exception(err)
-
-if isinstance(result, list):
+try:
+    result = client.competition.list()
     for item in result:
         d = item.data_get()
         print(d["id"], d["name"])
+except Exception as err:
+    print(f"list failed: {err}")
 ```
 
 ### 3. Load a competition
 
 ```python
-result, err = client.Competition().load({"id": "example_id"})
-if err:
-    raise Exception(err)
-print(result)
+try:
+    result = client.competition.load({"id": "example_id"})
+    print(result)
+except Exception as err:
+    print(f"load failed: {err}")
 ```
 
 
@@ -66,29 +64,28 @@ print(result)
 For endpoints not covered by entity methods:
 
 ```python
-result, err = client.direct({
+result = client.direct({
     "path": "/api/resource/{id}",
     "method": "GET",
     "params": {"id": "example"},
 })
-if err:
-    raise Exception(err)
 
 if result["ok"]:
     print(result["status"])  # 200
     print(result["data"])    # response body
+else:
+    print(result["err"])     # error value
 ```
 
 ### Prepare a request without sending it
 
 ```python
-fetchdef, err = client.prepare({
+# prepare() returns the fetch definition and raises on error.
+fetchdef = client.prepare({
     "path": "/api/resource/{id}",
     "method": "DELETE",
     "params": {"id": "example"},
 })
-if err:
-    raise Exception(err)
 
 print(fetchdef["url"])
 print(fetchdef["method"])
@@ -102,7 +99,7 @@ Create a mock client for unit testing — no server required:
 ```python
 client = WorldCupQualificationSDK.test()
 
-result, err = client.WorldCupQualification().load({"id": "test01"})
+result = client.competition.load({"id": "test01"})
 # result contains mock response data
 ```
 
@@ -132,8 +129,8 @@ client = WorldCupQualificationSDK({
 Create a `.env.local` file at the project root:
 
 ```
-WORLD-CUP-QUALIFICATION_TEST_LIVE=TRUE
-WORLD-CUP-QUALIFICATION_APIKEY=<your-key>
+WORLD_CUP_QUALIFICATION_TEST_LIVE=TRUE
+WORLD_CUP_QUALIFICATION_APIKEY=<your-key>
 ```
 
 Then run:
@@ -179,8 +176,8 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | --- | --- | --- |
 | `options_map` | `() -> dict` | Deep copy of current SDK options. |
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
-| `prepare` | `(fetchargs) -> (dict, err)` | Build an HTTP request definition without sending. |
-| `direct` | `(fetchargs) -> (dict, err)` | Build and send an HTTP request. |
+| `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
+| `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `Competition` | `(data) -> CompetitionEntity` | Create a Competition entity instance. |
 | `Match` | `(data) -> MatchEntity` | Create a Match entity instance. |
 | `Standing` | `(data) -> StandingEntity` | Create a Standing entity instance. |
@@ -192,11 +189,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> (any, err)` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> (any, err)` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> (any, err)` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> (any, err)` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> (any, err)` | Remove an entity. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
+| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
+| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -206,8 +203,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`dict` with these keys:
+Entity operations return the bare result data (a `dict` for single-entity
+ops, a `list` for `list`) and raise on error. Wrap calls in
+`try`/`except` to handle failures.
+
+The `direct()` escape hatch never raises — it returns a result `dict`
+you branch on via `result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -298,7 +299,7 @@ API path: `/competitions/{id}/teams`
 
 ### Competition
 
-Create an instance: `const competition = client.Competition()`
+Create an instance: `const competition = client.competition`
 
 #### Operations
 
@@ -325,19 +326,19 @@ Create an instance: `const competition = client.Competition()`
 #### Example: Load
 
 ```ts
-const competition = await client.Competition().load({ id: 'competition_id' })
+const competition = await client.competition.load({ id: 'competition_id' })
 ```
 
 #### Example: List
 
 ```ts
-const competitions = await client.Competition().list()
+const competitions = await client.competition.list()
 ```
 
 
 ### Match
 
-Create an instance: `const match = client.Match()`
+Create an instance: `const match = client.match`
 
 #### Operations
 
@@ -363,13 +364,13 @@ Create an instance: `const match = client.Match()`
 #### Example: List
 
 ```ts
-const matchs = await client.Match().list()
+const matchs = await client.match.list()
 ```
 
 
 ### Standing
 
-Create an instance: `const standing = client.Standing()`
+Create an instance: `const standing = client.standing`
 
 #### Operations
 
@@ -389,13 +390,13 @@ Create an instance: `const standing = client.Standing()`
 #### Example: List
 
 ```ts
-const standings = await client.Standing().list()
+const standings = await client.standing.list()
 ```
 
 
 ### Team
 
-Create an instance: `const team = client.Team()`
+Create an instance: `const team = client.team`
 
 #### Operations
 
@@ -422,7 +423,7 @@ Create an instance: `const team = client.Team()`
 #### Example: List
 
 ```ts
-const teams = await client.Team().list()
+const teams = await client.team.list()
 ```
 
 
@@ -496,11 +497,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-moon = client.Moon()
-moon.load({"planet_id": "earth", "id": "luna"})
+competition = client.competition
+competition.load({"id": "example_id"})
 
-# moon.data_get() now returns the loaded moon data
-# moon.match_get() returns the last match criteria
+# competition.data_get() now returns the loaded competition data
+# competition.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

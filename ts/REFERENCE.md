@@ -146,7 +146,7 @@ Alias for `WorldCupQualificationSDK.test()`.
 ## CompetitionEntity
 
 ```ts
-const competition = client.Competition()
+const competition = client.competition
 ```
 
 ### Fields
@@ -171,7 +171,7 @@ const competition = client.Competition()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Competition().list()
+const results = await client.competition.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -179,7 +179,7 @@ const results = await client.Competition().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Competition().load({ id: 'competition_id' })
+const result = await client.competition.load({ id: 'competition_id' })
 ```
 
 ### Common Methods
@@ -213,7 +213,7 @@ Return a copy of the entity options.
 ## MatchEntity
 
 ```ts
-const match = client.Match()
+const match = client.match
 ```
 
 ### Fields
@@ -238,7 +238,7 @@ const match = client.Match()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Match().list()
+const results = await client.match.list()
 ```
 
 ### Common Methods
@@ -272,7 +272,7 @@ Return a copy of the entity options.
 ## StandingEntity
 
 ```ts
-const standing = client.Standing()
+const standing = client.standing
 ```
 
 ### Fields
@@ -291,7 +291,7 @@ const standing = client.Standing()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Standing().list()
+const results = await client.standing.list()
 ```
 
 ### Common Methods
@@ -325,7 +325,7 @@ Return a copy of the entity options.
 ## TeamEntity
 
 ```ts
-const team = client.Team()
+const team = client.team
 ```
 
 ### Fields
@@ -351,7 +351,7 @@ const team = client.Team()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Team().list()
+const results = await client.team.list()
 ```
 
 ### Common Methods

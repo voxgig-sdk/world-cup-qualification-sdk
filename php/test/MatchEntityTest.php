@@ -52,8 +52,7 @@ class MatchEntityTest extends TestCase
             "competition_id" => $setup["idmap"]["competition01"],
         ];
 
-        [$match_ref01_list_result, $err] = $match_ref01_ent->list($match_ref01_match, null);
-        $this->assertNull($err);
+        $match_ref01_list_result = $match_ref01_ent->list($match_ref01_match, null);
         $this->assertIsArray($match_ref01_list_result);
 
     }

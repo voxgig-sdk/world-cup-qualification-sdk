@@ -244,24 +244,76 @@ end
 
 
 
+-- Idiomatic facade: client:competition():list() / client:competition():load({ id = ... })
+function WorldCupQualificationSDK:competition(data)
+  local EntityMod = require("entity.competition_entity")
+  if data == nil then
+    if self._competition == nil then
+      self._competition = EntityMod.new(self, nil)
+    end
+    return self._competition
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:competition() instead.
 function WorldCupQualificationSDK:Competition(data)
   local EntityMod = require("entity.competition_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:match():list() / client:match():load({ id = ... })
+function WorldCupQualificationSDK:match(data)
+  local EntityMod = require("entity.match_entity")
+  if data == nil then
+    if self._match == nil then
+      self._match = EntityMod.new(self, nil)
+    end
+    return self._match
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:match() instead.
 function WorldCupQualificationSDK:Match(data)
   local EntityMod = require("entity.match_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:standing():list() / client:standing():load({ id = ... })
+function WorldCupQualificationSDK:standing(data)
+  local EntityMod = require("entity.standing_entity")
+  if data == nil then
+    if self._standing == nil then
+      self._standing = EntityMod.new(self, nil)
+    end
+    return self._standing
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:standing() instead.
 function WorldCupQualificationSDK:Standing(data)
   local EntityMod = require("entity.standing_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:team():list() / client:team():load({ id = ... })
+function WorldCupQualificationSDK:team(data)
+  local EntityMod = require("entity.team_entity")
+  if data == nil then
+    if self._team == nil then
+      self._team = EntityMod.new(self, nil)
+    end
+    return self._team
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:team() instead.
 function WorldCupQualificationSDK:Team(data)
   local EntityMod = require("entity.team_entity")
   return EntityMod.new(self, data)

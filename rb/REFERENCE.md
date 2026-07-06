@@ -8,7 +8,7 @@ Complete API reference for the WorldCupQualification Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'world-cup-qualification_sdk'
+require_relative 'WorldCupQualification_sdk'
 
 client = WorldCupQualificationSDK.new(options)
 ```
@@ -106,25 +106,25 @@ competition = client.Competition
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `area` | ``$OBJECT`` | No |  |
-| `code` | ``$STRING`` | No |  |
-| `current_season` | ``$OBJECT`` | No |  |
-| `emblem` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `last_updated` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `number_of_available_season` | ``$INTEGER`` | No |  |
-| `plan` | ``$STRING`` | No |  |
-| `type` | ``$STRING`` | No |  |
+| `area` | `Hash` | No |  |
+| `code` | `String` | No |  |
+| `current_season` | `Hash` | No |  |
+| `emblem` | `String` | No |  |
+| `id` | `Integer` | No |  |
+| `last_updated` | `String` | No |  |
+| `name` | `String` | No |  |
+| `number_of_available_season` | `Integer` | No |  |
+| `plan` | `String` | No |  |
+| `type` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Competition.list(nil)
+results = client.Competition.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -175,25 +175,25 @@ match = client.Match
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `away_team` | ``$OBJECT`` | No |  |
-| `group` | ``$STRING`` | No |  |
-| `home_team` | ``$OBJECT`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `matchday` | ``$INTEGER`` | No |  |
-| `referee` | ``$ARRAY`` | No |  |
-| `score` | ``$OBJECT`` | No |  |
-| `stage` | ``$STRING`` | No |  |
-| `status` | ``$STRING`` | No |  |
-| `utc_date` | ``$STRING`` | No |  |
+| `away_team` | `Hash` | No |  |
+| `group` | `String` | No |  |
+| `home_team` | `Hash` | No |  |
+| `id` | `Integer` | No |  |
+| `matchday` | `Integer` | No |  |
+| `referee` | `Array` | No |  |
+| `score` | `Hash` | No |  |
+| `stage` | `String` | No |  |
+| `status` | `String` | No |  |
+| `utc_date` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Match.list(nil)
+results = client.Match.list
 ```
 
 ### Common Methods
@@ -236,19 +236,19 @@ standing = client.Standing
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `group` | ``$STRING`` | No |  |
-| `stage` | ``$STRING`` | No |  |
-| `table` | ``$ARRAY`` | No |  |
-| `type` | ``$STRING`` | No |  |
+| `group` | `String` | No |  |
+| `stage` | `String` | No |  |
+| `table` | `Array` | No |  |
+| `type` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Standing.list(nil)
+results = client.Standing.list
 ```
 
 ### Common Methods
@@ -291,26 +291,26 @@ team = client.Team
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `club_color` | ``$STRING`` | No |  |
-| `crest` | ``$STRING`` | No |  |
-| `founded` | ``$INTEGER`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `last_updated` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `short_name` | ``$STRING`` | No |  |
-| `tla` | ``$STRING`` | No |  |
-| `venue` | ``$STRING`` | No |  |
-| `website` | ``$STRING`` | No |  |
+| `address` | `String` | No |  |
+| `club_color` | `String` | No |  |
+| `crest` | `String` | No |  |
+| `founded` | `Integer` | No |  |
+| `id` | `Integer` | No |  |
+| `last_updated` | `String` | No |  |
+| `name` | `String` | No |  |
+| `short_name` | `String` | No |  |
+| `tla` | `String` | No |  |
+| `venue` | `String` | No |  |
+| `website` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Team.list(nil)
+results = client.Team.list
 ```
 
 ### Common Methods

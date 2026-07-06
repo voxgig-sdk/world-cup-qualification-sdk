@@ -22,7 +22,18 @@ export interface CompetitionLoadMatch {
   id: number
 }
 
-export type CompetitionListMatch = Partial<Competition>
+export interface CompetitionListMatch {
+  area?: Record<string, any>
+  code?: string
+  current_season?: Record<string, any>
+  emblem?: string
+  id?: number
+  last_updated?: string
+  name?: string
+  number_of_available_season?: number
+  plan?: string
+  type?: string
+}
 
 export interface Match {
   away_team?: Record<string, any>

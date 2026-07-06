@@ -4,6 +4,8 @@
 
 The Ruby SDK for the WorldCupQualification API — an entity-oriented client using idiomatic Ruby conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Competition` — with named operations (`list`/`load`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -37,7 +39,7 @@ begin
   # list returns an Array of Competition records — iterate directly.
   competitions = client.Competition.list
   competitions.each do |item|
-    puts "#{item["id"]} #{item["name"]}"
+    puts "#{item["id"]} #{item["area"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -54,6 +56,33 @@ begin
 rescue => err
   warn "load failed: #{err}"
 end
+```
+
+
+## Error handling
+
+Entity operations raise on failure, so rescue them:
+
+```ruby
+begin
+  competitions = client.Competition.list()
+rescue => err
+  warn "list failed: #{err}"
+end
+```
+
+`direct` does **not** raise — it returns the result hash. Branch on
+`ok`; on failure `status` holds the HTTP status (for error responses) and
+`err` holds a transport error, so read both defensively:
+
+```ruby
+result = client.direct({
+  "path" => "/api/resource/{id}",
+  "method" => "GET",
+  "params" => { "id" => "example_id" },
+})
+
+warn "request failed: #{result["err"] || "HTTP #{result["status"]}"}" unless result["ok"]
 ```
 
 
@@ -74,7 +103,9 @@ if result["ok"]
   puts result["status"]  # 200
   puts result["data"]    # response body
 else
-  warn result["err"]
+  # On an HTTP error status there is no err (only a transport failure sets
+  # it), so fall back to the status code.
+  warn(result["err"] || "HTTP #{result["status"]}")
 end
 ```
 
@@ -105,8 +136,8 @@ client = WorldCupQualificationSDK.test({
   "entity" => { "competition" => { "test01" => { "id" => "test01" } } },
 })
 
-# load returns the bare mock record (raises on error).
-competition = client.Competition.load({ "id" => "test01" })
+# Entity ops return the bare mock record (raises on error).
+competition = client.Competition.list()
 puts competition
 ```
 
@@ -197,10 +228,7 @@ All entities share the same interface.
 | Method | Signature | Description |
 | --- | --- | --- |
 | `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch, ctrl) -> Array` | List entities matching the criteria. Raises on error. |
-| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
-| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
-| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -318,16 +346,16 @@ Create an instance: `competition = client.Competition`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `area` | ``$OBJECT`` |  |
-| `code` | ``$STRING`` |  |
-| `current_season` | ``$OBJECT`` |  |
-| `emblem` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `last_updated` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `number_of_available_season` | ``$INTEGER`` |  |
-| `plan` | ``$STRING`` |  |
-| `type` | ``$STRING`` |  |
+| `area` | `Hash` |  |
+| `code` | `String` |  |
+| `current_season` | `Hash` |  |
+| `emblem` | `String` |  |
+| `id` | `Integer` |  |
+| `last_updated` | `String` |  |
+| `name` | `String` |  |
+| `number_of_available_season` | `Integer` |  |
+| `plan` | `String` |  |
+| `type` | `String` |  |
 
 #### Example: Load
 
@@ -358,16 +386,16 @@ Create an instance: `match = client.Match`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `away_team` | ``$OBJECT`` |  |
-| `group` | ``$STRING`` |  |
-| `home_team` | ``$OBJECT`` |  |
-| `id` | ``$INTEGER`` |  |
-| `matchday` | ``$INTEGER`` |  |
-| `referee` | ``$ARRAY`` |  |
-| `score` | ``$OBJECT`` |  |
-| `stage` | ``$STRING`` |  |
-| `status` | ``$STRING`` |  |
-| `utc_date` | ``$STRING`` |  |
+| `away_team` | `Hash` |  |
+| `group` | `String` |  |
+| `home_team` | `Hash` |  |
+| `id` | `Integer` |  |
+| `matchday` | `Integer` |  |
+| `referee` | `Array` |  |
+| `score` | `Hash` |  |
+| `stage` | `String` |  |
+| `status` | `String` |  |
+| `utc_date` | `String` |  |
 
 #### Example: List
 
@@ -391,10 +419,10 @@ Create an instance: `standing = client.Standing`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `group` | ``$STRING`` |  |
-| `stage` | ``$STRING`` |  |
-| `table` | ``$ARRAY`` |  |
-| `type` | ``$STRING`` |  |
+| `group` | `String` |  |
+| `stage` | `String` |  |
+| `table` | `Array` |  |
+| `type` | `String` |  |
 
 #### Example: List
 
@@ -418,17 +446,17 @@ Create an instance: `team = client.Team`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `club_color` | ``$STRING`` |  |
-| `crest` | ``$STRING`` |  |
-| `founded` | ``$INTEGER`` |  |
-| `id` | ``$INTEGER`` |  |
-| `last_updated` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `short_name` | ``$STRING`` |  |
-| `tla` | ``$STRING`` |  |
-| `venue` | ``$STRING`` |  |
-| `website` | ``$STRING`` |  |
+| `address` | `String` |  |
+| `club_color` | `String` |  |
+| `crest` | `String` |  |
+| `founded` | `Integer` |  |
+| `id` | `Integer` |  |
+| `last_updated` | `String` |  |
+| `name` | `String` |  |
+| `short_name` | `String` |  |
+| `tla` | `String` |  |
+| `venue` | `String` |  |
+| `website` | `String` |  |
 
 #### Example: List
 
@@ -438,12 +466,16 @@ teams = client.Team.list
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -460,8 +492,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as a second return value.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -505,14 +538,14 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
 competition = client.Competition
-competition.load({ "id" => "example_id" })
+competition.list()
 
-# competition.data_get now returns the loaded competition data
+# competition.data_get now returns the competition data from the last list
 # competition.match_get returns the last match criteria
 ```
 

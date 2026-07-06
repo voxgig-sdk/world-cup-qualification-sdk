@@ -62,7 +62,7 @@ CompetitionLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Competition#list (any subset of Competition fields).
+# Request payload for Competition#list.
 #
 # @!attribute [rw] area
 #   @return [Hash, nil]

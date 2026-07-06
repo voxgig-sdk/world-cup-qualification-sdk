@@ -33,7 +33,7 @@ class CompetitionLoadMatch
     public int $id;
 }
 
-/** Match filter for Competition#list (any subset of Competition fields). */
+/** Request payload for Competition#list. */
 class CompetitionListMatch
 {
     public ?array $area = null;

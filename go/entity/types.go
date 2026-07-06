@@ -27,8 +27,7 @@ type CompetitionLoadMatch struct {
 	Id int `json:"id"`
 }
 
-// CompetitionListMatch mirrors the competition fields as an all-optional match
-// filter (Go analog of Partial<Competition>).
+// CompetitionListMatch is the typed request payload for Competition.ListTyped.
 type CompetitionListMatch struct {
 	Area *map[string]any `json:"area,omitempty"`
 	Code *string `json:"code,omitempty"`

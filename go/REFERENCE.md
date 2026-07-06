@@ -110,16 +110,16 @@ competition := client.Competition(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `area` | ``$OBJECT`` | No |  |
-| `code` | ``$STRING`` | No |  |
-| `current_season` | ``$OBJECT`` | No |  |
-| `emblem` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `last_updated` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `number_of_available_season` | ``$INTEGER`` | No |  |
-| `plan` | ``$STRING`` | No |  |
-| `type` | ``$STRING`` | No |  |
+| `area` | `map[string]any` | No |  |
+| `code` | `string` | No |  |
+| `current_season` | `map[string]any` | No |  |
+| `emblem` | `string` | No |  |
+| `id` | `int` | No |  |
+| `last_updated` | `string` | No |  |
+| `name` | `string` | No |  |
+| `number_of_available_season` | `int` | No |  |
+| `plan` | `string` | No |  |
+| `type` | `string` | No |  |
 
 ### Operations
 
@@ -173,16 +173,16 @@ match := client.Match(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `away_team` | ``$OBJECT`` | No |  |
-| `group` | ``$STRING`` | No |  |
-| `home_team` | ``$OBJECT`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `matchday` | ``$INTEGER`` | No |  |
-| `referee` | ``$ARRAY`` | No |  |
-| `score` | ``$OBJECT`` | No |  |
-| `stage` | ``$STRING`` | No |  |
-| `status` | ``$STRING`` | No |  |
-| `utc_date` | ``$STRING`` | No |  |
+| `away_team` | `map[string]any` | No |  |
+| `group` | `string` | No |  |
+| `home_team` | `map[string]any` | No |  |
+| `id` | `int` | No |  |
+| `matchday` | `int` | No |  |
+| `referee` | `[]any` | No |  |
+| `score` | `map[string]any` | No |  |
+| `stage` | `string` | No |  |
+| `status` | `string` | No |  |
+| `utc_date` | `string` | No |  |
 
 ### Operations
 
@@ -228,10 +228,10 @@ standing := client.Standing(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `group` | ``$STRING`` | No |  |
-| `stage` | ``$STRING`` | No |  |
-| `table` | ``$ARRAY`` | No |  |
-| `type` | ``$STRING`` | No |  |
+| `group` | `string` | No |  |
+| `stage` | `string` | No |  |
+| `table` | `[]any` | No |  |
+| `type` | `string` | No |  |
 
 ### Operations
 
@@ -277,17 +277,17 @@ team := client.Team(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `club_color` | ``$STRING`` | No |  |
-| `crest` | ``$STRING`` | No |  |
-| `founded` | ``$INTEGER`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `last_updated` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `short_name` | ``$STRING`` | No |  |
-| `tla` | ``$STRING`` | No |  |
-| `venue` | ``$STRING`` | No |  |
-| `website` | ``$STRING`` | No |  |
+| `address` | `string` | No |  |
+| `club_color` | `string` | No |  |
+| `crest` | `string` | No |  |
+| `founded` | `int` | No |  |
+| `id` | `int` | No |  |
+| `last_updated` | `string` | No |  |
+| `name` | `string` | No |  |
+| `short_name` | `string` | No |  |
+| `tla` | `string` | No |  |
+| `venue` | `string` | No |  |
+| `website` | `string` | No |  |
 
 ### Operations
 

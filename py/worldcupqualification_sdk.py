@@ -221,25 +221,25 @@ class WorldCupQualificationSDK:
 
 
     def Competition(self, data=None) -> "CompetitionEntity":
-        """Entity factory: client.Competition().list({}) / client.Competition().load({"id": ...})."""
+        """Entity factory: client.Competition().list() / client.Competition().load({"id": ...})."""
         from entity.competition_entity import CompetitionEntity
         return CompetitionEntity(self, data)
 
 
     def Match(self, data=None) -> "MatchEntity":
-        """Entity factory: client.Match().list({}) / client.Match().load({"id": ...})."""
+        """Entity factory: client.Match().list() / client.Match().load({"id": ...})."""
         from entity.match_entity import MatchEntity
         return MatchEntity(self, data)
 
 
     def Standing(self, data=None) -> "StandingEntity":
-        """Entity factory: client.Standing().list({}) / client.Standing().load({"id": ...})."""
+        """Entity factory: client.Standing().list() / client.Standing().load({"id": ...})."""
         from entity.standing_entity import StandingEntity
         return StandingEntity(self, data)
 
 
     def Team(self, data=None) -> "TeamEntity":
-        """Entity factory: client.Team().list({}) / client.Team().load({"id": ...})."""
+        """Entity factory: client.Team().list() / client.Team().load({"id": ...})."""
         from entity.team_entity import TeamEntity
         return TeamEntity(self, data)
 

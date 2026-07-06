@@ -22,6 +22,16 @@
 ---@field id number
 
 ---@class CompetitionListMatch
+---@field area? table
+---@field code? string
+---@field current_season? table
+---@field emblem? string
+---@field id? number
+---@field last_updated? string
+---@field name? string
+---@field number_of_available_season? number
+---@field plan? string
+---@field type? string
 
 ---@class Match
 ---@field away_team? table

@@ -4,6 +4,11 @@
 
 The TypeScript SDK for the WorldCupQualification API — a type-safe, entity-oriented client with full async/await support.
 
+The API is exposed as capitalised, semantic **Entities** — e.g.
+`client.Competition()` — each with a small set of operations (`list`, `load`)
+instead of raw URL paths and query parameters. This keeps the surface
+predictable and low-friction for both humans and AI agents.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -48,10 +53,39 @@ for (const competition of competitions) {
 
 ```ts
 try {
-  const competition = await client.Competition().load({ id: 'example_id' })
+  const competition = await client.Competition().load({ id: 1 })
   console.log(competition)
 } catch (err) {
   console.error('load failed:', err)
+}
+```
+
+
+## Error handling
+
+Entity operations reject on failure, so wrap them in `try` / `catch`:
+
+```ts
+try {
+  const competitions = await client.Competition().list()
+  console.log(competitions)
+} catch (err) {
+  console.error('list failed:', err)
+}
+```
+
+The low-level `direct()` method does **not** throw — it returns the
+value or an `Error`, so check the result before using it:
+
+```ts
+const result = await client.direct({
+  path: '/api/resource/{id}',
+  method: 'GET',
+  params: { id: 'example_id' },
+})
+
+if (result instanceof Error) {
+  throw result
 }
 ```
 
@@ -100,7 +134,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = WorldCupQualificationSDK.test()
 
-const competition = await client.Competition().load({ id: 'test01' })
+const competition = await client.Competition().list()
 // competition is a bare entity populated with mock response data
 console.log(competition)
 ```
@@ -119,12 +153,12 @@ Entity instances remember their last match and data:
 ```ts
 const entity = client.Competition()
 
-// First call sets internal match
-await entity.load({ id: 'example' })
+// First call runs the operation and stores its result
+await entity.list()
 
-// Subsequent calls reuse the stored match
+// Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data.id) // 'example'
+console.log(data.id)
 ```
 
 ### Add custom middleware
@@ -221,11 +255,8 @@ All entities share the same interface.
 | --- | --- | --- |
 | `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
 | `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
-| `data` | `data(data?): any` | Get or set entity data. |
-| `match` | `match(match?): any` | Get or set entity match criteria. |
+| `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
+| `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): WorldCupQualificationSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
@@ -235,10 +266,9 @@ All entities share the same interface.
 Entity operations resolve to the entity data directly — there is no
 result envelope:
 
-- `load`, `create` and `update` resolve to a single entity object.
+- `load` resolves to a single entity object.
 - `list` resolves to an **array** of entity objects (iterate it directly;
   there is no `.data` and no `.ok`).
-- `remove` resolves to `void`.
 
 On a failed request these methods **throw**, so wrap calls in
 `try`/`catch` to handle errors. Only `direct()` returns the result
@@ -365,21 +395,21 @@ Create an instance: `const competition = client.Competition()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `area` | ``$OBJECT`` |  |
-| `code` | ``$STRING`` |  |
-| `current_season` | ``$OBJECT`` |  |
-| `emblem` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `last_updated` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `number_of_available_season` | ``$INTEGER`` |  |
-| `plan` | ``$STRING`` |  |
-| `type` | ``$STRING`` |  |
+| `area` | `Record<string, any>` |  |
+| `code` | `string` |  |
+| `current_season` | `Record<string, any>` |  |
+| `emblem` | `string` |  |
+| `id` | `number` |  |
+| `last_updated` | `string` |  |
+| `name` | `string` |  |
+| `number_of_available_season` | `number` |  |
+| `plan` | `string` |  |
+| `type` | `string` |  |
 
 #### Example: Load
 
 ```ts
-const competition = await client.Competition().load({ id: 'competition_id' })
+const competition = await client.Competition().load({ id: 1 })
 ```
 
 #### Example: List
@@ -403,16 +433,16 @@ Create an instance: `const match = client.Match()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `away_team` | ``$OBJECT`` |  |
-| `group` | ``$STRING`` |  |
-| `home_team` | ``$OBJECT`` |  |
-| `id` | ``$INTEGER`` |  |
-| `matchday` | ``$INTEGER`` |  |
-| `referee` | ``$ARRAY`` |  |
-| `score` | ``$OBJECT`` |  |
-| `stage` | ``$STRING`` |  |
-| `status` | ``$STRING`` |  |
-| `utc_date` | ``$STRING`` |  |
+| `away_team` | `Record<string, any>` |  |
+| `group` | `string` |  |
+| `home_team` | `Record<string, any>` |  |
+| `id` | `number` |  |
+| `matchday` | `number` |  |
+| `referee` | `any[]` |  |
+| `score` | `Record<string, any>` |  |
+| `stage` | `string` |  |
+| `status` | `string` |  |
+| `utc_date` | `string` |  |
 
 #### Example: List
 
@@ -435,10 +465,10 @@ Create an instance: `const standing = client.Standing()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `group` | ``$STRING`` |  |
-| `stage` | ``$STRING`` |  |
-| `table` | ``$ARRAY`` |  |
-| `type` | ``$STRING`` |  |
+| `group` | `string` |  |
+| `stage` | `string` |  |
+| `table` | `any[]` |  |
+| `type` | `string` |  |
 
 #### Example: List
 
@@ -461,17 +491,17 @@ Create an instance: `const team = client.Team()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `club_color` | ``$STRING`` |  |
-| `crest` | ``$STRING`` |  |
-| `founded` | ``$INTEGER`` |  |
-| `id` | ``$INTEGER`` |  |
-| `last_updated` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `short_name` | ``$STRING`` |  |
-| `tla` | ``$STRING`` |  |
-| `venue` | ``$STRING`` |  |
-| `website` | ``$STRING`` |  |
+| `address` | `string` |  |
+| `club_color` | `string` |  |
+| `crest` | `string` |  |
+| `founded` | `number` |  |
+| `id` | `number` |  |
+| `last_updated` | `string` |  |
+| `name` | `string` |  |
+| `short_name` | `string` |  |
+| `tla` | `string` |  |
+| `venue` | `string` |  |
+| `website` | `string` |  |
 
 #### Example: List
 
@@ -480,12 +510,16 @@ const teams = await client.Team().list()
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -502,11 +536,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller.
-
-An unexpected exception triggers the `PreUnexpected` hook before
-propagating.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -542,16 +574,16 @@ import { WorldCupQualificationSDK } from '@voxgig-sdk/world-cup-qualification'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
 const competition = client.Competition()
-await competition.load({ id: "example_id" })
+await competition.list()
 
-// competition.data() now returns the loaded competition data
-// competition.match() returns { id: "example_id" }
+// competition.data() now returns the competition data from the last `list`
+// competition.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

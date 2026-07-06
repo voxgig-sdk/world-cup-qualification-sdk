@@ -8,7 +8,7 @@ Complete API reference for the WorldCupQualification Python SDK.
 ### Constructor
 
 ```python
-from world-cup-qualification_sdk import WorldCupQualificationSDK
+from worldcupqualification_sdk import WorldCupQualificationSDK
 
 client = WorldCupQualificationSDK(options)
 ```
@@ -100,25 +100,25 @@ competition = client.Competition()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `area` | ``$OBJECT`` | No |  |
-| `code` | ``$STRING`` | No |  |
-| `current_season` | ``$OBJECT`` | No |  |
-| `emblem` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `last_updated` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `number_of_available_season` | ``$INTEGER`` | No |  |
-| `plan` | ``$STRING`` | No |  |
-| `type` | ``$STRING`` | No |  |
+| `area` | `dict` | No |  |
+| `code` | `str` | No |  |
+| `current_season` | `dict` | No |  |
+| `emblem` | `str` | No |  |
+| `id` | `int` | No |  |
+| `last_updated` | `str` | No |  |
+| `name` | `str` | No |  |
+| `number_of_available_season` | `int` | No |  |
+| `plan` | `str` | No |  |
+| `type` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Competition().list({})
+results = client.Competition().list()
 for competition in results:
     print(competition)
 ```
@@ -170,25 +170,25 @@ match = client.Match()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `away_team` | ``$OBJECT`` | No |  |
-| `group` | ``$STRING`` | No |  |
-| `home_team` | ``$OBJECT`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `matchday` | ``$INTEGER`` | No |  |
-| `referee` | ``$ARRAY`` | No |  |
-| `score` | ``$OBJECT`` | No |  |
-| `stage` | ``$STRING`` | No |  |
-| `status` | ``$STRING`` | No |  |
-| `utc_date` | ``$STRING`` | No |  |
+| `away_team` | `dict` | No |  |
+| `group` | `str` | No |  |
+| `home_team` | `dict` | No |  |
+| `id` | `int` | No |  |
+| `matchday` | `int` | No |  |
+| `referee` | `list` | No |  |
+| `score` | `dict` | No |  |
+| `stage` | `str` | No |  |
+| `status` | `str` | No |  |
+| `utc_date` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Match().list({})
+results = client.Match().list()
 for match in results:
     print(match)
 ```
@@ -232,19 +232,19 @@ standing = client.Standing()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `group` | ``$STRING`` | No |  |
-| `stage` | ``$STRING`` | No |  |
-| `table` | ``$ARRAY`` | No |  |
-| `type` | ``$STRING`` | No |  |
+| `group` | `str` | No |  |
+| `stage` | `str` | No |  |
+| `table` | `list` | No |  |
+| `type` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Standing().list({})
+results = client.Standing().list()
 for standing in results:
     print(standing)
 ```
@@ -288,26 +288,26 @@ team = client.Team()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `club_color` | ``$STRING`` | No |  |
-| `crest` | ``$STRING`` | No |  |
-| `founded` | ``$INTEGER`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `last_updated` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `short_name` | ``$STRING`` | No |  |
-| `tla` | ``$STRING`` | No |  |
-| `venue` | ``$STRING`` | No |  |
-| `website` | ``$STRING`` | No |  |
+| `address` | `str` | No |  |
+| `club_color` | `str` | No |  |
+| `crest` | `str` | No |  |
+| `founded` | `int` | No |  |
+| `id` | `int` | No |  |
+| `last_updated` | `str` | No |  |
+| `name` | `str` | No |  |
+| `short_name` | `str` | No |  |
+| `tla` | `str` | No |  |
+| `venue` | `str` | No |  |
+| `website` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Team().list({})
+results = client.Team().list()
 for team in results:
     print(team)
 ```

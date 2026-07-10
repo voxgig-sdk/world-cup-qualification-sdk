@@ -51,7 +51,7 @@ end
 ```ruby
 begin
   # load returns the bare Competition record (raises on error).
-  competition = client.Competition.load({ "id" => "example_id" })
+  competition = client.Competition.load({ "id" => 1 })
   puts competition
 rescue => err
   warn "load failed: #{err}"
@@ -361,7 +361,7 @@ Create an instance: `competition = client.Competition`
 
 ```ruby
 # load returns the bare Competition record (raises on error).
-competition = client.Competition.load({ "id" => "competition_id" })
+competition = client.Competition.load({ "id" => 1 })
 ```
 
 #### Example: List

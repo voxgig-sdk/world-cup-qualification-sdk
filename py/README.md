@@ -59,7 +59,7 @@ except Exception as err:
 
 ```python
 try:
-    competition = client.Competition().load({"id": "example_id"})
+    competition = client.Competition().load({"id": 1})
     print(competition)
 except Exception as err:
     print(f"load failed: {err}")
@@ -364,7 +364,7 @@ Create an instance: `competition = client.Competition()`
 #### Example: Load
 
 ```python
-competition = client.Competition().load({"id": "competition_id"})
+competition = client.Competition().load({"id": 1})
 ```
 
 #### Example: List

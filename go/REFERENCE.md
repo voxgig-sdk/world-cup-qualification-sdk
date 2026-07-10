@@ -104,6 +104,7 @@ same parameters as `Direct()`.
 
 ```go
 competition := client.Competition(nil)
+fmt.Println(competition.GetName()) // "competition"
 ```
 
 ### Fields
@@ -129,6 +130,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Competition(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -136,7 +141,11 @@ results, err := client.Competition(nil).List(nil, nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Competition(nil).Load(map[string]any{"id": "competition_id"}, nil)
+result, err := client.Competition(nil).Load(map[string]any{"id": 1}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -167,6 +176,7 @@ Return the entity name.
 
 ```go
 match := client.Match(nil)
+fmt.Println(match.GetName()) // "match"
 ```
 
 ### Fields
@@ -192,6 +202,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Match(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -222,6 +236,7 @@ Return the entity name.
 
 ```go
 standing := client.Standing(nil)
+fmt.Println(standing.GetName()) // "standing"
 ```
 
 ### Fields
@@ -241,6 +256,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Standing(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -271,6 +290,7 @@ Return the entity name.
 
 ```go
 team := client.Team(nil)
+fmt.Println(team.GetName()) // "team"
 ```
 
 ### Fields
@@ -297,6 +317,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Team(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods

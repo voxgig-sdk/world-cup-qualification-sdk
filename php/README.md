@@ -52,7 +52,7 @@ try {
 ```php
 try {
     // load() returns the bare Competition record (throws on error).
-    $competition = $client->Competition()->load(["id" => "example_id"]);
+    $competition = $client->Competition()->load(["id" => 1]);
     print_r($competition);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
@@ -371,7 +371,7 @@ Create an instance: `$competition = $client->Competition();`
 
 ```php
 // load() returns the bare Competition record (throws on error).
-$competition = $client->Competition()->load(["id" => "competition_id"]);
+$competition = $client->Competition()->load(["id" => 1]);
 ```
 
 #### Example: List

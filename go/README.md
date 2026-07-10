@@ -378,7 +378,7 @@ Create an instance: `competition := client.Competition(nil)`
 #### Example: Load
 
 ```go
-competition, err := client.Competition(nil).Load(map[string]any{"id": "competition_id"}, nil)
+competition, err := client.Competition(nil).Load(map[string]any{"id": 1}, nil)
 if err != nil {
     panic(err)
 }

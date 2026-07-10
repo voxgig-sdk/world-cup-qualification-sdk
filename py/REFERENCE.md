@@ -128,7 +128,7 @@ for competition in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Competition().load({"id": "competition_id"})
+result = client.Competition().load({"id": 1})
 ```
 
 ### Common Methods

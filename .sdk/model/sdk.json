@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -841,14 +838,24 @@
           "url": "https://api.football-data.org/v4/competitions/"
         },
         "description": "This API provides detailed information about the qualification process for the FIFA World Cup for different confederations around the world. It includes tournament structures, match schedules, and results for qualifying matches.",
+        "meta_source": "https://www.freepublicapis.com",
+        "security": {
+          "in": "header",
+          "name": "X-Auth-Token",
+          "prefix": "",
+          "scheme": "ApiKeyAuth",
+          "type": "apiKey"
+        },
         "servers": [
           {
             "description": "Production server",
             "url": "https://api.football-data.org/v4"
           }
         ],
+        "summary": "This API provides detailed information about the qualification process for the FIFA World Cup for different confederations around the world.",
         "title": "World Cup Qualification",
-        "version": "4.0.0"
+        "version": "4.0.0",
+        "website": "https://football-data.org"
       },
       "option": {},
       "target": {
@@ -901,6 +908,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -951,6 +961,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

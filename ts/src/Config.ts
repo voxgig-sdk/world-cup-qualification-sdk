@@ -39,7 +39,7 @@ class Config {
     base: 'https://api.football-data.org/v4',
 
     auth: {
-      prefix: 'Bearer',
+      prefix: '',
     },
 
     headers: {

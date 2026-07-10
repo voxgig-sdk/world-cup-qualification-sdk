@@ -16,7 +16,7 @@ module WorldCupQualificationConfig
       "options" => {
         "base" => "https://api.football-data.org/v4",
         "auth" => {
-          "prefix" => "Bearer",
+          "prefix" => "",
         },
         "headers" => {
           "content-type" => "application/json",

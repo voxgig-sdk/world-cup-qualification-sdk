@@ -132,7 +132,7 @@ results = client.Competition.list
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Competition.load({ "id" => "competition_id" })
+result = client.Competition.load({ "id" => 1 })
 ```
 
 ### Common Methods

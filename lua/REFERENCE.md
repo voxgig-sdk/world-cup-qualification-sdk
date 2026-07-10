@@ -129,7 +129,7 @@ local results, err = client:Competition():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Competition():load({ id = "competition_id" })
+local result, err = client:Competition():load({ id = 1 })
 ```
 
 ### Common Methods

@@ -52,7 +52,7 @@ end
 ### 3. Load a competition
 
 ```lua
-local competition, err = client:Competition():load({ id = "example_id" })
+local competition, err = client:Competition():load({ id = 1 })
 if err then error(err) end
 print(competition)
 ```
@@ -349,7 +349,7 @@ Create an instance: `local competition = client:Competition(nil)`
 #### Example: Load
 
 ```lua
-local competition, err = client:Competition():load({ id = "competition_id" })
+local competition, err = client:Competition():load({ id = 1 })
 ```
 
 #### Example: List

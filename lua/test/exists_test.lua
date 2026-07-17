@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- WorldCupQualification SDK exists test
 
 local sdk = require("world-cup-qualification_sdk")
 

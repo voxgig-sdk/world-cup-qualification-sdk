@@ -108,12 +108,12 @@ competition = client.Competition
 | --- | --- | --- | --- |
 | `area` | `Hash` | No |  |
 | `code` | `String` | No |  |
-| `current_season` | `Hash` | No |  |
+| `currentSeason` | `Hash` | No |  |
 | `emblem` | `String` | No |  |
 | `id` | `Integer` | No |  |
-| `last_updated` | `String` | No |  |
+| `lastUpdated` | `String` | No |  |
 | `name` | `String` | No |  |
-| `number_of_available_season` | `Integer` | No |  |
+| `numberOfAvailableSeasons` | `Integer` | No |  |
 | `plan` | `String` | No |  |
 | `type` | `String` | No |  |
 
@@ -175,16 +175,16 @@ match = client.Match
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `away_team` | `Hash` | No |  |
+| `awayTeam` | `Hash` | No |  |
 | `group` | `String` | No |  |
-| `home_team` | `Hash` | No |  |
+| `homeTeam` | `Hash` | No |  |
 | `id` | `Integer` | No |  |
 | `matchday` | `Integer` | No |  |
-| `referee` | `Array` | No |  |
+| `referees` | `Array` | No |  |
 | `score` | `Hash` | No |  |
 | `stage` | `String` | No |  |
 | `status` | `String` | No |  |
-| `utc_date` | `String` | No |  |
+| `utcDate` | `String` | No |  |
 
 ### Operations
 
@@ -292,13 +292,13 @@ team = client.Team
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `address` | `String` | No |  |
-| `club_color` | `String` | No |  |
+| `clubColors` | `String` | No |  |
 | `crest` | `String` | No |  |
 | `founded` | `Integer` | No |  |
 | `id` | `Integer` | No |  |
-| `last_updated` | `String` | No |  |
+| `lastUpdated` | `String` | No |  |
 | `name` | `String` | No |  |
-| `short_name` | `String` | No |  |
+| `shortName` | `String` | No |  |
 | `tla` | `String` | No |  |
 | `venue` | `String` | No |  |
 | `website` | `String` | No |  |

@@ -19,11 +19,15 @@ import {
 describe('CompetitionDirect', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when WORLDCUPQUALIFICATION_TEST_LIVE=TRUE.
-  afterEach(liveDelay('WORLDCUPQUALIFICATION_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when WORLD_CUP_QUALIFICATION_TEST_LIVE=TRUE.
+  afterEach(liveDelay('WORLD_CUP_QUALIFICATION_TEST_LIVE'))
 
   test('direct-exists', async () => {
     const sdk = new WorldCupQualificationSDK({
+      // Concrete base: a live construction must satisfy any server
+      // variables a templated base URL declares; overriding base with a
+      // literal (as the direct flow tests do) sidesteps the requirement.
+      base: 'http://localhost:8080',
       system: { fetch: async () => ({}) }
     })
     assert('function' === typeof sdk.direct)
@@ -115,19 +119,19 @@ function directSetup(mockres?: any) {
   const calls: any[] = []
 
   const env = envOverride({
-    'WORLDCUPQUALIFICATION_TEST_COMPETITION_ENTID': {},
-    'WORLDCUPQUALIFICATION_TEST_LIVE': 'FALSE',
-    'WORLDCUPQUALIFICATION_APIKEY': 'NONE',
+    'WORLD_CUP_QUALIFICATION_TEST_COMPETITION_ENTID': {},
+    'WORLD_CUP_QUALIFICATION_TEST_LIVE': 'FALSE',
+    'WORLD_CUP_QUALIFICATION_APIKEY': 'NONE',
   })
 
-  const live = 'TRUE' === env.WORLDCUPQUALIFICATION_TEST_LIVE
+  const live = 'TRUE' === env.WORLD_CUP_QUALIFICATION_TEST_LIVE
 
   if (live) {
     const client = new WorldCupQualificationSDK({
-      apikey: env.WORLDCUPQUALIFICATION_APIKEY,
+      apikey: env.WORLD_CUP_QUALIFICATION_APIKEY,
     })
 
-    let idmap: any = env['WORLDCUPQUALIFICATION_TEST_COMPETITION_ENTID']
+    let idmap: any = env['WORLD_CUP_QUALIFICATION_TEST_COMPETITION_ENTID']
     if ('string' === typeof idmap && idmap.startsWith('{')) {
       idmap = JSON.parse(idmap)
     }

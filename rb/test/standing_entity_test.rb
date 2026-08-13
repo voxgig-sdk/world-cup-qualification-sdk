@@ -62,7 +62,7 @@ class StandingEntityTest < Minitest::Test
     # The basic flow consumes synthetic IDs from the fixture. In live mode
     # without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set WORLDCUPQUALIFICATION_TEST_STANDING_ENTID JSON to run live"
+      skip "live entity test uses synthetic IDs from fixture — set WORLD_CUP_QUALIFICATION_TEST_STANDING_ENTID JSON to run live"
       return
     end
     client = setup[:client]
@@ -113,39 +113,39 @@ def standing_basic_setup(extra)
   # Detect ENTID env override before envOverride consumes it. When live
   # mode is on without a real override, the basic test runs against synthetic
   # IDs from the fixture and 4xx's. Surface this so the test can skip.
-  entid_env_raw = ENV["WORLDCUPQUALIFICATION_TEST_STANDING_ENTID"]
+  entid_env_raw = ENV["WORLD_CUP_QUALIFICATION_TEST_STANDING_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 
   env = Runner.env_override({
-    "WORLDCUPQUALIFICATION_TEST_STANDING_ENTID" => idmap,
-    "WORLDCUPQUALIFICATION_TEST_LIVE" => "FALSE",
-    "WORLDCUPQUALIFICATION_TEST_EXPLAIN" => "FALSE",
-    "WORLDCUPQUALIFICATION_APIKEY" => "NONE",
+    "WORLD_CUP_QUALIFICATION_TEST_STANDING_ENTID" => idmap,
+    "WORLD_CUP_QUALIFICATION_TEST_LIVE" => "FALSE",
+    "WORLD_CUP_QUALIFICATION_TEST_EXPLAIN" => "FALSE",
+    "WORLD_CUP_QUALIFICATION_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
-    env["WORLDCUPQUALIFICATION_TEST_STANDING_ENTID"])
+    env["WORLD_CUP_QUALIFICATION_TEST_STANDING_ENTID"])
   if idmap_resolved.nil?
     idmap_resolved = Helpers.to_map(idmap)
   end
 
-  if env["WORLDCUPQUALIFICATION_TEST_LIVE"] == "TRUE"
+  if env["WORLD_CUP_QUALIFICATION_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["WORLDCUPQUALIFICATION_APIKEY"],
+        "apikey" => env["WORLD_CUP_QUALIFICATION_APIKEY"],
       },
       extra || {},
     ])
     client = WorldCupQualificationSDK.new(Helpers.to_map(merged_opts))
   end
 
-  live = env["WORLDCUPQUALIFICATION_TEST_LIVE"] == "TRUE"
+  live = env["WORLD_CUP_QUALIFICATION_TEST_LIVE"] == "TRUE"
   {
     client: client,
     data: entity_data,
     idmap: idmap_resolved,
     env: env,
-    explain: env["WORLDCUPQUALIFICATION_TEST_EXPLAIN"] == "TRUE",
+    explain: env["WORLD_CUP_QUALIFICATION_TEST_EXPLAIN"] == "TRUE",
     live: live,
     synthetic_only: live && !idmap_overridden,
     now: (Time.now.to_f * 1000).to_i,

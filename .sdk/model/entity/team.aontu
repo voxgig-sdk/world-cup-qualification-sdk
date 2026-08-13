@@ -11,7 +11,7 @@ main: kit: entity: team: {
       type: "`$STRING`"
     }
     {
-      name: "club_color"
+      name: "clubColors"
       req: false
       type: "`$STRING`"
     }
@@ -31,7 +31,7 @@ main: kit: entity: team: {
       type: "`$INTEGER`"
     }
     {
-      name: "last_updated"
+      name: "lastUpdated"
       req: false
       type: "`$STRING`"
     }
@@ -41,7 +41,7 @@ main: kit: entity: team: {
       type: "`$STRING`"
     }
     {
-      name: "short_name"
+      name: "shortName"
       req: false
       type: "`$STRING`"
     }

@@ -8,12 +8,12 @@
 export interface Competition {
   area?: Record<string, any>
   code?: string
-  current_season?: Record<string, any>
+  currentSeason?: Record<string, any>
   emblem?: string
   id?: number
-  last_updated?: string
+  lastUpdated?: string
   name?: string
-  number_of_available_season?: number
+  numberOfAvailableSeasons?: number
   plan?: string
   type?: string
 }
@@ -25,27 +25,27 @@ export interface CompetitionLoadMatch {
 export interface CompetitionListMatch {
   area?: Record<string, any>
   code?: string
-  current_season?: Record<string, any>
+  currentSeason?: Record<string, any>
   emblem?: string
   id?: number
-  last_updated?: string
+  lastUpdated?: string
   name?: string
-  number_of_available_season?: number
+  numberOfAvailableSeasons?: number
   plan?: string
   type?: string
 }
 
 export interface Match {
-  away_team?: Record<string, any>
+  awayTeam?: Record<string, any>
   group?: string
-  home_team?: Record<string, any>
+  homeTeam?: Record<string, any>
   id?: number
   matchday?: number
-  referee?: any[]
+  referees?: any[]
   score?: Record<string, any>
   stage?: string
   status?: string
-  utc_date?: string
+  utcDate?: string
 }
 
 export interface MatchListMatch {
@@ -65,13 +65,13 @@ export interface StandingListMatch {
 
 export interface Team {
   address?: string
-  club_color?: string
+  clubColors?: string
   crest?: string
   founded?: number
   id?: number
-  last_updated?: string
+  lastUpdated?: string
   name?: string
-  short_name?: string
+  shortName?: string
   tla?: string
   venue?: string
   website?: string

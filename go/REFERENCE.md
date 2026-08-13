@@ -113,12 +113,12 @@ fmt.Println(competition.GetName()) // "competition"
 | --- | --- | --- | --- |
 | `area` | `map[string]any` | No |  |
 | `code` | `string` | No |  |
-| `current_season` | `map[string]any` | No |  |
+| `currentSeason` | `map[string]any` | No |  |
 | `emblem` | `string` | No |  |
 | `id` | `int` | No |  |
-| `last_updated` | `string` | No |  |
+| `lastUpdated` | `string` | No |  |
 | `name` | `string` | No |  |
-| `number_of_available_season` | `int` | No |  |
+| `numberOfAvailableSeasons` | `int` | No |  |
 | `plan` | `string` | No |  |
 | `type` | `string` | No |  |
 
@@ -183,16 +183,16 @@ fmt.Println(match.GetName()) // "match"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `away_team` | `map[string]any` | No |  |
+| `awayTeam` | `map[string]any` | No |  |
 | `group` | `string` | No |  |
-| `home_team` | `map[string]any` | No |  |
+| `homeTeam` | `map[string]any` | No |  |
 | `id` | `int` | No |  |
 | `matchday` | `int` | No |  |
-| `referee` | `[]any` | No |  |
+| `referees` | `[]any` | No |  |
 | `score` | `map[string]any` | No |  |
 | `stage` | `string` | No |  |
 | `status` | `string` | No |  |
-| `utc_date` | `string` | No |  |
+| `utcDate` | `string` | No |  |
 
 ### Operations
 
@@ -298,13 +298,13 @@ fmt.Println(team.GetName()) // "team"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `address` | `string` | No |  |
-| `club_color` | `string` | No |  |
+| `clubColors` | `string` | No |  |
 | `crest` | `string` | No |  |
 | `founded` | `int` | No |  |
 | `id` | `int` | No |  |
-| `last_updated` | `string` | No |  |
+| `lastUpdated` | `string` | No |  |
 | `name` | `string` | No |  |
-| `short_name` | `string` | No |  |
+| `shortName` | `string` | No |  |
 | `tla` | `string` | No |  |
 | `venue` | `string` | No |  |
 | `website` | `string` | No |  |

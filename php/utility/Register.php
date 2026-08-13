@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ WorldCupQualificationUtility::setRegistrar(function (WorldCupQualificationUtilit
     $u->prepare_params = [WorldCupQualificationPrepareParams::class, 'call'];
     $u->prepare_path = [WorldCupQualificationPreparePath::class, 'call'];
     $u->prepare_query = [WorldCupQualificationPrepareQuery::class, 'call'];
+    $u->graphql_body = [WorldCupQualificationGraphql::class, 'body'];
+    $u->graphql_errors = [WorldCupQualificationGraphql::class, 'errors'];
     $u->result_basic = [WorldCupQualificationResultBasic::class, 'call'];
     $u->result_body = [WorldCupQualificationResultBody::class, 'call'];
     $u->result_headers = [WorldCupQualificationResultHeaders::class, 'call'];

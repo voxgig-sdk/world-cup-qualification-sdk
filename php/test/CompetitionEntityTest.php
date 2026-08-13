@@ -72,7 +72,7 @@ class CompetitionEntityTest extends TestCase
         // The basic flow consumes synthetic IDs from the fixture. In live mode
         // without an *_ENTID env override, those IDs hit the live API and 4xx.
         if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set WORLDCUPQUALIFICATION_TEST_COMPETITION_ENTID JSON to run live");
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set WORLD_CUP_QUALIFICATION_TEST_COMPETITION_ENTID JSON to run live");
             return;
         }
         $client = $setup["client"];
@@ -97,7 +97,7 @@ class CompetitionEntityTest extends TestCase
             "id" => $competition_ref01_data["id"],
         ];
         $competition_ref01_data_dt0_loaded = $competition_ref01_ent->load($competition_ref01_match_dt0, null);
-        $competition_ref01_data_dt0_load_result = Helpers::to_map($competition_ref01_data_dt0_loaded);
+        $competition_ref01_data_dt0_load_result = Helpers::to_map(is_object($competition_ref01_data_dt0_loaded) && method_exists($competition_ref01_data_dt0_loaded, 'data_get') ? $competition_ref01_data_dt0_loaded->data_get() : $competition_ref01_data_dt0_loaded);
         $this->assertNotNull($competition_ref01_data_dt0_load_result);
         $this->assertEquals($competition_ref01_data_dt0_load_result["id"], $competition_ref01_data["id"]);
 
@@ -126,39 +126,39 @@ function competition_basic_setup($extra)
     // Detect ENTID env override before envOverride consumes it. When live
     // mode is on without a real override, the basic test runs against synthetic
     // IDs from the fixture and 4xx's. Surface this so the test can skip.
-    $entid_env_raw = getenv("WORLDCUPQUALIFICATION_TEST_COMPETITION_ENTID");
+    $entid_env_raw = getenv("WORLD_CUP_QUALIFICATION_TEST_COMPETITION_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
     $env = Runner::env_override([
-        "WORLDCUPQUALIFICATION_TEST_COMPETITION_ENTID" => $idmap,
-        "WORLDCUPQUALIFICATION_TEST_LIVE" => "FALSE",
-        "WORLDCUPQUALIFICATION_TEST_EXPLAIN" => "FALSE",
-        "WORLDCUPQUALIFICATION_APIKEY" => "NONE",
+        "WORLD_CUP_QUALIFICATION_TEST_COMPETITION_ENTID" => $idmap,
+        "WORLD_CUP_QUALIFICATION_TEST_LIVE" => "FALSE",
+        "WORLD_CUP_QUALIFICATION_TEST_EXPLAIN" => "FALSE",
+        "WORLD_CUP_QUALIFICATION_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
-        $env["WORLDCUPQUALIFICATION_TEST_COMPETITION_ENTID"]);
+        $env["WORLD_CUP_QUALIFICATION_TEST_COMPETITION_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
     }
 
-    if ($env["WORLDCUPQUALIFICATION_TEST_LIVE"] === "TRUE") {
+    if ($env["WORLD_CUP_QUALIFICATION_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["WORLDCUPQUALIFICATION_APIKEY"],
+                "apikey" => $env["WORLD_CUP_QUALIFICATION_APIKEY"],
             ],
             $extra ?? [],
         ]);
         $client = new WorldCupQualificationSDK(Helpers::to_map($merged_opts));
     }
 
-    $live = $env["WORLDCUPQUALIFICATION_TEST_LIVE"] === "TRUE";
+    $live = $env["WORLD_CUP_QUALIFICATION_TEST_LIVE"] === "TRUE";
     return [
         "client" => $client,
         "data" => $entity_data,
         "idmap" => $idmap_resolved,
         "env" => $env,
-        "explain" => $env["WORLDCUPQUALIFICATION_TEST_EXPLAIN"] === "TRUE",
+        "explain" => $env["WORLD_CUP_QUALIFICATION_TEST_EXPLAIN"] === "TRUE",
         "live" => $live,
         "synthetic_only" => $live && !$idmap_overridden,
         "now" => (int)(microtime(true) * 1000),

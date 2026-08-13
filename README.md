@@ -38,18 +38,27 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = WorldCupQualificationSDK.test()
-const competitions = await client.Competition().list()
-// competitions is an array of bare Competition records populated with mock data
-console.log(competitions)
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = WorldCupQualificationSDK.test({
+  entity: {
+    match: {
+      test01: { id: 'test01' },
+    },
+  },
+})
+const matchs = await client.Match().list()
+// matchs is an array of Match entities, populated with mock data
+// — call matchs[0].data() for the record itself
+console.log(matchs)
 ```
 
 ### Python
 
 ```python
 client = WorldCupQualificationSDK.test()
-competitions = client.Competition().list()
-print(competitions)
+matchs = client.Match().list()
+print(matchs)
 ```
 
 ### PHP
@@ -57,16 +66,16 @@ print(competitions)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = WorldCupQualificationSDK::test([
-    "entity" => ["competition" => ["test01" => ["id" => "test01"]]],
+    "entity" => ["match" => ["test01" => []]],
 ]);
-$competitions = $client->Competition()->list();
+$matchs = $client->Match()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Competition(nil).List(
+result, err := client.Match(nil).List(
     nil, nil,
 )
 ```
@@ -76,16 +85,16 @@ result, err := client.Competition(nil).List(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = WorldCupQualificationSDK.test({
-  "entity" => { "competition" => { "test01" => { "id" => "test01" } } },
+  "entity" => { "match" => { "test01" => {} } },
 })
-competitions = client.Competition.list()
+matchs = client.Match.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:Competition():list()
+local results, err = client:Match():list()
 ```
 
 ## Packages
@@ -112,7 +121,7 @@ const client = new WorldCupQualificationSDK({
   apikey: process.env.WORLD_CUP_QUALIFICATION_APIKEY,
 })
 
-// List all competitions (returns Competition[])
+// List all competitions (returns CompetitionEntity[] — .data() for the record)
 const competitions = await client.Competition().list()
 for (const competition of competitions) {
   console.log(competition)
@@ -201,7 +210,7 @@ $client = new WorldCupQualificationSDK([
 $competitions = $client->Competition()->list();
 print_r($competitions);
 
-// Load a specific competition (returns the bare record; throws on error)
+// Load a specific competition (returns the ENTITY; call data_get() for the record; throws on error)
 $competition = $client->Competition()->load(["id" => 1]);
 print_r($competition);
 ```
@@ -236,7 +245,7 @@ client = WorldCupQualificationSDK.new({
 competitions = client.Competition.list
 puts competitions
 
-# Load a specific competition (returns the bare record; raises on error)
+# Load a specific competition (returns the ENTITY; call data_get for the record)
 competition = client.Competition.load({ "id" => 1 })
 puts competition
 ```
@@ -375,6 +384,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://api.football-data.org/v4/competitions/](https://api.football-data.org/v4/competitions/)
 

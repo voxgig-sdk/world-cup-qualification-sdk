@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ WorldCupQualificationUtility.registrar = ->(u) {
   u.prepare_params = WorldCupQualificationUtilities::PrepareParams
   u.prepare_path = WorldCupQualificationUtilities::PreparePath
   u.prepare_query = WorldCupQualificationUtilities::PrepareQuery
+  u.graphql_body = WorldCupQualificationUtilities::GraphqlBody
+  u.graphql_errors = WorldCupQualificationUtilities::GraphqlErrors
   u.result_basic = WorldCupQualificationUtilities::ResultBasic
   u.result_body = WorldCupQualificationUtilities::ResultBody
   u.result_headers = WorldCupQualificationUtilities::ResultHeaders

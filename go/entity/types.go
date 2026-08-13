@@ -6,18 +6,22 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
 
-import "encoding/json"
+import (
+	"encoding/json"
+
+	"github.com/voxgig-sdk/world-cup-qualification-sdk/go/core"
+)
 
 // Competition is the typed data model for the competition entity.
 type Competition struct {
 	Area *map[string]any `json:"area,omitempty"`
 	Code *string `json:"code,omitempty"`
-	CurrentSeason *map[string]any `json:"current_season,omitempty"`
+	CurrentSeason *map[string]any `json:"currentSeason,omitempty"`
 	Emblem *string `json:"emblem,omitempty"`
 	Id *int `json:"id,omitempty"`
-	LastUpdated *string `json:"last_updated,omitempty"`
+	LastUpdated *string `json:"lastUpdated,omitempty"`
 	Name *string `json:"name,omitempty"`
-	NumberOfAvailableSeason *int `json:"number_of_available_season,omitempty"`
+	NumberOfAvailableSeasons *int `json:"numberOfAvailableSeasons,omitempty"`
 	Plan *string `json:"plan,omitempty"`
 	Type *string `json:"type,omitempty"`
 }
@@ -31,28 +35,28 @@ type CompetitionLoadMatch struct {
 type CompetitionListMatch struct {
 	Area *map[string]any `json:"area,omitempty"`
 	Code *string `json:"code,omitempty"`
-	CurrentSeason *map[string]any `json:"current_season,omitempty"`
+	CurrentSeason *map[string]any `json:"currentSeason,omitempty"`
 	Emblem *string `json:"emblem,omitempty"`
 	Id *int `json:"id,omitempty"`
-	LastUpdated *string `json:"last_updated,omitempty"`
+	LastUpdated *string `json:"lastUpdated,omitempty"`
 	Name *string `json:"name,omitempty"`
-	NumberOfAvailableSeason *int `json:"number_of_available_season,omitempty"`
+	NumberOfAvailableSeasons *int `json:"numberOfAvailableSeasons,omitempty"`
 	Plan *string `json:"plan,omitempty"`
 	Type *string `json:"type,omitempty"`
 }
 
 // Match is the typed data model for the match entity.
 type Match struct {
-	AwayTeam *map[string]any `json:"away_team,omitempty"`
+	AwayTeam *map[string]any `json:"awayTeam,omitempty"`
 	Group *string `json:"group,omitempty"`
-	HomeTeam *map[string]any `json:"home_team,omitempty"`
+	HomeTeam *map[string]any `json:"homeTeam,omitempty"`
 	Id *int `json:"id,omitempty"`
 	Matchday *int `json:"matchday,omitempty"`
-	Referee *[]any `json:"referee,omitempty"`
+	Referees *[]any `json:"referees,omitempty"`
 	Score *map[string]any `json:"score,omitempty"`
 	Stage *string `json:"stage,omitempty"`
 	Status *string `json:"status,omitempty"`
-	UtcDate *string `json:"utc_date,omitempty"`
+	UtcDate *string `json:"utcDate,omitempty"`
 }
 
 // MatchListMatch is the typed request payload for Match.ListTyped.
@@ -76,13 +80,13 @@ type StandingListMatch struct {
 // Team is the typed data model for the team entity.
 type Team struct {
 	Address *string `json:"address,omitempty"`
-	ClubColor *string `json:"club_color,omitempty"`
+	ClubColors *string `json:"clubColors,omitempty"`
 	Crest *string `json:"crest,omitempty"`
 	Founded *int `json:"founded,omitempty"`
 	Id *int `json:"id,omitempty"`
-	LastUpdated *string `json:"last_updated,omitempty"`
+	LastUpdated *string `json:"lastUpdated,omitempty"`
 	Name *string `json:"name,omitempty"`
-	ShortName *string `json:"short_name,omitempty"`
+	ShortName *string `json:"shortName,omitempty"`
 	Tla *string `json:"tla,omitempty"`
 	Venue *string `json:"venue,omitempty"`
 	Website *string `json:"website,omitempty"`
@@ -105,12 +109,26 @@ func asMap(v any) map[string]any {
 	return out
 }
 
-// typedFrom decodes a runtime value (a map[string]any produced by the op
-// pipeline) into a typed model T via a JSON round-trip. On any error it
-// returns the zero value of T; the op's own (value, error) tuple carries the
-// real error.
+// entityData unwraps an entity to its data map.
+//
+// Operations resolve to the ENTITY, not the raw data (see AGENTS.md), and an
+// entity's fields are UNEXPORTED — marshalling one directly yields `{}`, so
+// every typed accessor would silently hand back a zero-valued struct. The
+// typed boundary therefore takes the data hop first.
+func entityData(v any) any {
+	if ent, ok := v.(core.Entity); ok {
+		return ent.Data()
+	}
+	return v
+}
+
+// typedFrom decodes a runtime value (an entity, or the map[string]any the op
+// pipeline produced) into a typed model T via a JSON round-trip. On any error
+// it returns the zero value of T; the op's own (value, error) tuple carries
+// the real error.
 func typedFrom[T any](v any) T {
 	var out T
+	v = entityData(v)
 	if v == nil {
 		return out
 	}
@@ -122,12 +140,20 @@ func typedFrom[T any](v any) T {
 	return out
 }
 
-// typedSliceFrom decodes a runtime list value ([]any of maps) into a typed
-// slice []T via a JSON round-trip, for list ops.
+// typedSliceFrom decodes a runtime list value into a typed slice []T via a
+// JSON round-trip, for list ops. `list` resolves to a slice of ENTITY
+// instances, so each element takes the data hop.
 func typedSliceFrom[T any](v any) []T {
 	var out []T
 	if v == nil {
 		return out
+	}
+	if list, ok := v.([]any); ok {
+		unwrapped := make([]any, 0, len(list))
+		for _, item := range list {
+			unwrapped = append(unwrapped, entityData(item))
+		}
+		v = unwrapped
 	}
 	b, err := json.Marshal(v)
 	if err != nil {

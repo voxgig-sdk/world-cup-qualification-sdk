@@ -26,8 +26,8 @@ import {
 describe('StandingEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when WORLDCUPQUALIFICATION_TEST_LIVE=TRUE.
-  afterEach(liveDelay('WORLDCUPQUALIFICATION_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when WORLD_CUP_QUALIFICATION_TEST_LIVE=TRUE.
+  afterEach(liveDelay('WORLD_CUP_QUALIFICATION_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = WorldCupQualificationSDK.test()
@@ -64,7 +64,7 @@ describe('StandingEntity', async () => {
     const standing_ref01_match: any = {}
     standing_ref01_match['competition_id'] = setup.idmap['competition01']
 
-    const standing_ref01_list = await standing_ref01_ent.list(standing_ref01_match)
+    const standing_ref01_list = (await standing_ref01_ent.list(standing_ref01_match)).map((e: any) => e.data())
 
 
   })

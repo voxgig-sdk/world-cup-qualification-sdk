@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import WorldCupQualificationControl
-from core.error import WorldCupQualificationError
-from core.result import WorldCupQualificationResult
-from core.spec import WorldCupQualificationSpec
+from projectname_sdk.config import make_config
+from projectname_sdk.features import _make_feature
+from projectname_sdk.core.control import WorldCupQualificationControl
+from projectname_sdk.core.error import WorldCupQualificationError
+from projectname_sdk.core.result import WorldCupQualificationResult
+from projectname_sdk.core.spec import WorldCupQualificationSpec
 
 
 # True when this SDK was generated with the named feature.

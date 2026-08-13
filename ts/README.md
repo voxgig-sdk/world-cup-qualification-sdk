@@ -37,7 +37,9 @@ const client = new WorldCupQualificationSDK({
 
 ### 2. List competition records
 
-`list()` resolves to an array of Competition objects — iterate it directly:
+`list()` resolves to an array of Competition ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const competitions = await client.Competition().list()
@@ -67,8 +69,8 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const competitions = await client.Competition().list()
-  console.log(competitions)
+  const matchs = await client.Match().list()
+  console.log(matchs)
 } catch (err) {
   console.error('list failed:', err)
 }
@@ -134,9 +136,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = WorldCupQualificationSDK.test()
 
-const competition = await client.Competition().list()
-// competition is a bare entity populated with mock response data
-console.log(competition)
+const match = await client.Match().list()
+// match is the entity, populated with mock response data
+// — call match.data() for the record itself
+console.log(match)
 ```
 
 You can also use the instance method:
@@ -151,7 +154,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Competition()
+const entity = client.Match()
 
 // First call runs the operation and stores its result
 await entity.list()
@@ -310,12 +313,12 @@ The `prepare()` method returns:
 | --- | --- |
 | `area` |  |
 | `code` |  |
-| `current_season` |  |
+| `currentSeason` |  |
 | `emblem` |  |
 | `id` |  |
-| `last_updated` |  |
+| `lastUpdated` |  |
 | `name` |  |
-| `number_of_available_season` |  |
+| `numberOfAvailableSeasons` |  |
 | `plan` |  |
 | `type` |  |
 
@@ -327,16 +330,16 @@ API path: `/competitions`
 
 | Field | Description |
 | --- | --- |
-| `away_team` |  |
+| `awayTeam` |  |
 | `group` |  |
-| `home_team` |  |
+| `homeTeam` |  |
 | `id` |  |
 | `matchday` |  |
-| `referee` |  |
+| `referees` |  |
 | `score` |  |
 | `stage` |  |
 | `status` |  |
-| `utc_date` |  |
+| `utcDate` |  |
 
 Operations: list.
 
@@ -360,13 +363,13 @@ API path: `/competitions/{id}/standings`
 | Field | Description |
 | --- | --- |
 | `address` |  |
-| `club_color` |  |
+| `clubColors` |  |
 | `crest` |  |
 | `founded` |  |
 | `id` |  |
-| `last_updated` |  |
+| `lastUpdated` |  |
 | `name` |  |
-| `short_name` |  |
+| `shortName` |  |
 | `tla` |  |
 | `venue` |  |
 | `website` |  |
@@ -397,12 +400,12 @@ Create an instance: `const competition = client.Competition()`
 | --- | --- | --- |
 | `area` | `Record<string, any>` |  |
 | `code` | `string` |  |
-| `current_season` | `Record<string, any>` |  |
+| `currentSeason` | `Record<string, any>` |  |
 | `emblem` | `string` |  |
 | `id` | `number` |  |
-| `last_updated` | `string` |  |
+| `lastUpdated` | `string` |  |
 | `name` | `string` |  |
-| `number_of_available_season` | `number` |  |
+| `numberOfAvailableSeasons` | `number` |  |
 | `plan` | `string` |  |
 | `type` | `string` |  |
 
@@ -433,21 +436,21 @@ Create an instance: `const match = client.Match()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `away_team` | `Record<string, any>` |  |
+| `awayTeam` | `Record<string, any>` |  |
 | `group` | `string` |  |
-| `home_team` | `Record<string, any>` |  |
+| `homeTeam` | `Record<string, any>` |  |
 | `id` | `number` |  |
 | `matchday` | `number` |  |
-| `referee` | `any[]` |  |
+| `referees` | `any[]` |  |
 | `score` | `Record<string, any>` |  |
 | `stage` | `string` |  |
 | `status` | `string` |  |
-| `utc_date` | `string` |  |
+| `utcDate` | `string` |  |
 
 #### Example: List
 
 ```ts
-const matchs = await client.Match().list()
+const matchs = await client.Match().list({ competition_id: 1 })
 ```
 
 
@@ -473,7 +476,7 @@ Create an instance: `const standing = client.Standing()`
 #### Example: List
 
 ```ts
-const standings = await client.Standing().list()
+const standings = await client.Standing().list({ competition_id: 1 })
 ```
 
 
@@ -492,13 +495,13 @@ Create an instance: `const team = client.Team()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `address` | `string` |  |
-| `club_color` | `string` |  |
+| `clubColors` | `string` |  |
 | `crest` | `string` |  |
 | `founded` | `number` |  |
 | `id` | `number` |  |
-| `last_updated` | `string` |  |
+| `lastUpdated` | `string` |  |
 | `name` | `string` |  |
-| `short_name` | `string` |  |
+| `shortName` | `string` |  |
 | `tla` | `string` |  |
 | `venue` | `string` |  |
 | `website` | `string` |  |
@@ -506,7 +509,7 @@ Create an instance: `const team = client.Team()`
 #### Example: List
 
 ```ts
-const teams = await client.Team().list()
+const teams = await client.Team().list({ competition_id: 1 })
 ```
 
 
@@ -579,11 +582,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const competition = client.Competition()
-await competition.list()
+const match = client.Match()
+await match.list()
 
-// competition.data() now returns the competition data from the last `list`
-// competition.match() returns the last match criteria
+// match.data() now returns the match data from the last `list`
+// match.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

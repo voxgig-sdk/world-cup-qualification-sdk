@@ -37,7 +37,7 @@ class MatchEntity extends WorldCupQualificationEntityBase<Match> {
 
 
 
-  async list(this: any, reqmatch?: MatchListMatch, ctrl?: Control): Promise<Match[]> {
+  async list(this: any, reqmatch?: MatchListMatch, ctrl?: Control): Promise<MatchEntity[]> {
 
     const utility = this._utility
 

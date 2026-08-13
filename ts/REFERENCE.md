@@ -155,12 +155,12 @@ const competition = client.Competition()
 | --- | --- | --- | --- |
 | `area` | `Record<string, any>` | No |  |
 | `code` | `string` | No |  |
-| `current_season` | `Record<string, any>` | No |  |
+| `currentSeason` | `Record<string, any>` | No |  |
 | `emblem` | `string` | No |  |
 | `id` | `number` | No |  |
-| `last_updated` | `string` | No |  |
+| `lastUpdated` | `string` | No |  |
 | `name` | `string` | No |  |
-| `number_of_available_season` | `number` | No |  |
+| `numberOfAvailableSeasons` | `number` | No |  |
 | `plan` | `string` | No |  |
 | `type` | `string` | No |  |
 
@@ -220,16 +220,16 @@ const match = client.Match()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `away_team` | `Record<string, any>` | No |  |
+| `awayTeam` | `Record<string, any>` | No |  |
 | `group` | `string` | No |  |
-| `home_team` | `Record<string, any>` | No |  |
+| `homeTeam` | `Record<string, any>` | No |  |
 | `id` | `number` | No |  |
 | `matchday` | `number` | No |  |
-| `referee` | `any[]` | No |  |
+| `referees` | `any[]` | No |  |
 | `score` | `Record<string, any>` | No |  |
 | `stage` | `string` | No |  |
 | `status` | `string` | No |  |
-| `utc_date` | `string` | No |  |
+| `utcDate` | `string` | No |  |
 
 ### Operations
 
@@ -238,7 +238,7 @@ const match = client.Match()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Match().list()
+const results = await client.Match().list({ competition_id: 1 })
 ```
 
 ### Common Methods
@@ -291,7 +291,7 @@ const standing = client.Standing()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Standing().list()
+const results = await client.Standing().list({ competition_id: 1 })
 ```
 
 ### Common Methods
@@ -333,13 +333,13 @@ const team = client.Team()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `address` | `string` | No |  |
-| `club_color` | `string` | No |  |
+| `clubColors` | `string` | No |  |
 | `crest` | `string` | No |  |
 | `founded` | `number` | No |  |
 | `id` | `number` | No |  |
-| `last_updated` | `string` | No |  |
+| `lastUpdated` | `string` | No |  |
 | `name` | `string` | No |  |
-| `short_name` | `string` | No |  |
+| `shortName` | `string` | No |  |
 | `tla` | `string` | No |  |
 | `venue` | `string` | No |  |
 | `website` | `string` | No |  |
@@ -351,7 +351,7 @@ const team = client.Team()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Team().list()
+const results = await client.Team().list({ competition_id: 1 })
 ```
 
 ### Common Methods

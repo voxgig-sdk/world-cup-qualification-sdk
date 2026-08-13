@@ -112,16 +112,16 @@ def competition_direct_setup(mockres)
   calls = []
 
   env = Runner.env_override({
-    "WORLDCUPQUALIFICATION_TEST_COMPETITION_ENTID" => {},
-    "WORLDCUPQUALIFICATION_TEST_LIVE" => "FALSE",
-    "WORLDCUPQUALIFICATION_APIKEY" => "NONE",
+    "WORLD_CUP_QUALIFICATION_TEST_COMPETITION_ENTID" => {},
+    "WORLD_CUP_QUALIFICATION_TEST_LIVE" => "FALSE",
+    "WORLD_CUP_QUALIFICATION_APIKEY" => "NONE",
   })
 
-  live = env["WORLDCUPQUALIFICATION_TEST_LIVE"] == "TRUE"
+  live = env["WORLD_CUP_QUALIFICATION_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
-      "apikey" => env["WORLDCUPQUALIFICATION_APIKEY"],
+      "apikey" => env["WORLD_CUP_QUALIFICATION_APIKEY"],
     }
     client = WorldCupQualificationSDK.new(merged_opts)
     return {

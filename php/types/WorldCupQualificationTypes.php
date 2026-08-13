@@ -17,12 +17,12 @@ class Competition
 {
     public ?array $area = null;
     public ?string $code = null;
-    public ?array $current_season = null;
+    public ?array $currentSeason = null;
     public ?string $emblem = null;
     public ?int $id = null;
-    public ?string $last_updated = null;
+    public ?string $lastUpdated = null;
     public ?string $name = null;
-    public ?int $number_of_available_season = null;
+    public ?int $numberOfAvailableSeasons = null;
     public ?string $plan = null;
     public ?string $type = null;
 }
@@ -38,12 +38,12 @@ class CompetitionListMatch
 {
     public ?array $area = null;
     public ?string $code = null;
-    public ?array $current_season = null;
+    public ?array $currentSeason = null;
     public ?string $emblem = null;
     public ?int $id = null;
-    public ?string $last_updated = null;
+    public ?string $lastUpdated = null;
     public ?string $name = null;
-    public ?int $number_of_available_season = null;
+    public ?int $numberOfAvailableSeasons = null;
     public ?string $plan = null;
     public ?string $type = null;
 }
@@ -51,16 +51,16 @@ class CompetitionListMatch
 /** Match entity data model. */
 class Match
 {
-    public ?array $away_team = null;
+    public ?array $awayTeam = null;
     public ?string $group = null;
-    public ?array $home_team = null;
+    public ?array $homeTeam = null;
     public ?int $id = null;
     public ?int $matchday = null;
-    public ?array $referee = null;
+    public ?array $referees = null;
     public ?array $score = null;
     public ?string $stage = null;
     public ?string $status = null;
-    public ?string $utc_date = null;
+    public ?string $utcDate = null;
 }
 
 /** Request payload for Match#list. */
@@ -88,13 +88,13 @@ class StandingListMatch
 class Team
 {
     public ?string $address = null;
-    public ?string $club_color = null;
+    public ?string $clubColors = null;
     public ?string $crest = null;
     public ?int $founded = null;
     public ?int $id = null;
-    public ?string $last_updated = null;
+    public ?string $lastUpdated = null;
     public ?string $name = null;
-    public ?string $short_name = null;
+    public ?string $shortName = null;
     public ?string $tla = null;
     public ?string $venue = null;
     public ?string $website = null;

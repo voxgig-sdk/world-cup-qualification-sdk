@@ -46,7 +46,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "current_season",
+						"name": "currentSeason",
 						"req": false,
 						"type": "`$OBJECT`",
 						"index$": 2,
@@ -67,7 +67,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "last_updated",
+						"name": "lastUpdated",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 5,
@@ -81,7 +81,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "number_of_available_season",
+						"name": "numberOfAvailableSeasons",
 						"req": false,
 						"type": "`$INTEGER`",
 						"index$": 7,
@@ -130,6 +130,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/competitions",
 								"parts": []any{
@@ -148,7 +149,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 					"load": map[string]any{
 						"input": "data",
@@ -170,6 +170,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/competitions/{id}",
 								"parts": []any{
@@ -188,7 +189,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 				},
 				"relations": map[string]any{
@@ -199,7 +199,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"active": true,
-						"name": "away_team",
+						"name": "awayTeam",
 						"req": false,
 						"type": "`$OBJECT`",
 						"index$": 0,
@@ -213,7 +213,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "home_team",
+						"name": "homeTeam",
 						"req": false,
 						"type": "`$OBJECT`",
 						"index$": 2,
@@ -234,7 +234,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "referee",
+						"name": "referees",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 5,
@@ -262,7 +262,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "utc_date",
+						"name": "utcDate",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 9,
@@ -336,6 +336,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/competitions/{id}/matches",
 								"parts": []any{
@@ -365,7 +366,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 				},
 				"relations": map[string]any{
@@ -449,6 +449,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/competitions/{id}/standings",
 								"parts": []any{
@@ -475,7 +476,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 				},
 				"relations": map[string]any{
@@ -497,7 +497,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "club_color",
+						"name": "clubColors",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 1,
@@ -525,7 +525,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "last_updated",
+						"name": "lastUpdated",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 5,
@@ -539,7 +539,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "short_name",
+						"name": "shortName",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 7,
@@ -599,6 +599,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/competitions/{id}/teams",
 								"parts": []any{
@@ -624,7 +625,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 				},
 				"relations": map[string]any{

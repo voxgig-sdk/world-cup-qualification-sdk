@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# WorldCupQualification SDK exists test
 
 import pytest
 from worldcupqualification_sdk import WorldCupQualificationSDK

@@ -102,12 +102,12 @@ competition = client.Competition()
 | --- | --- | --- | --- |
 | `area` | `dict` | No |  |
 | `code` | `str` | No |  |
-| `current_season` | `dict` | No |  |
+| `currentSeason` | `dict` | No |  |
 | `emblem` | `str` | No |  |
 | `id` | `int` | No |  |
-| `last_updated` | `str` | No |  |
+| `lastUpdated` | `str` | No |  |
 | `name` | `str` | No |  |
-| `number_of_available_season` | `int` | No |  |
+| `numberOfAvailableSeasons` | `int` | No |  |
 | `plan` | `str` | No |  |
 | `type` | `str` | No |  |
 
@@ -170,16 +170,16 @@ match = client.Match()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `away_team` | `dict` | No |  |
+| `awayTeam` | `dict` | No |  |
 | `group` | `str` | No |  |
-| `home_team` | `dict` | No |  |
+| `homeTeam` | `dict` | No |  |
 | `id` | `int` | No |  |
 | `matchday` | `int` | No |  |
-| `referee` | `list` | No |  |
+| `referees` | `list` | No |  |
 | `score` | `dict` | No |  |
 | `stage` | `str` | No |  |
 | `status` | `str` | No |  |
-| `utc_date` | `str` | No |  |
+| `utcDate` | `str` | No |  |
 
 ### Operations
 
@@ -188,7 +188,7 @@ match = client.Match()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Match().list()
+results = client.Match().list({"competition_id": 1})
 for match in results:
     print(match)
 ```
@@ -244,7 +244,7 @@ standing = client.Standing()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Standing().list()
+results = client.Standing().list({"competition_id": 1})
 for standing in results:
     print(standing)
 ```
@@ -289,13 +289,13 @@ team = client.Team()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `address` | `str` | No |  |
-| `club_color` | `str` | No |  |
+| `clubColors` | `str` | No |  |
 | `crest` | `str` | No |  |
 | `founded` | `int` | No |  |
 | `id` | `int` | No |  |
-| `last_updated` | `str` | No |  |
+| `lastUpdated` | `str` | No |  |
 | `name` | `str` | No |  |
-| `short_name` | `str` | No |  |
+| `shortName` | `str` | No |  |
 | `tla` | `str` | No |  |
 | `venue` | `str` | No |  |
 | `website` | `str` | No |  |
@@ -307,7 +307,7 @@ team = client.Team()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Team().list()
+results = client.Team().list({"competition_id": 1})
 for team in results:
     print(team)
 ```

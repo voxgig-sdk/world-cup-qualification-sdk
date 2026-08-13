@@ -50,7 +50,7 @@ end
 
 ```ruby
 begin
-  # load returns the bare Competition record (raises on error).
+  # load returns the ENTITY — call data_get for the Competition record (raises on error).
   competition = client.Competition.load({ "id" => 1 })
   puts competition
 rescue => err
@@ -65,7 +65,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  competitions = client.Competition.list()
+  matchs = client.Match.list()
 rescue => err
   warn "list failed: #{err}"
 end
@@ -128,17 +128,15 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```ruby
-client = WorldCupQualificationSDK.test({
-  "entity" => { "competition" => { "test01" => { "id" => "test01" } } },
-})
+client = WorldCupQualificationSDK.test
 
-# Entity ops return the bare mock record (raises on error).
-competition = client.Competition.list()
-puts competition
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+match = client.Match.list()
+puts match
 ```
 
 ### Use a custom fetch function
@@ -261,12 +259,12 @@ returns a result `Hash` with these keys:
 | --- | --- |
 | `area` |  |
 | `code` |  |
-| `current_season` |  |
+| `currentSeason` |  |
 | `emblem` |  |
 | `id` |  |
-| `last_updated` |  |
+| `lastUpdated` |  |
 | `name` |  |
-| `number_of_available_season` |  |
+| `numberOfAvailableSeasons` |  |
 | `plan` |  |
 | `type` |  |
 
@@ -278,16 +276,16 @@ API path: `/competitions`
 
 | Field | Description |
 | --- | --- |
-| `away_team` |  |
+| `awayTeam` |  |
 | `group` |  |
-| `home_team` |  |
+| `homeTeam` |  |
 | `id` |  |
 | `matchday` |  |
-| `referee` |  |
+| `referees` |  |
 | `score` |  |
 | `stage` |  |
 | `status` |  |
-| `utc_date` |  |
+| `utcDate` |  |
 
 Operations: List.
 
@@ -311,13 +309,13 @@ API path: `/competitions/{id}/standings`
 | Field | Description |
 | --- | --- |
 | `address` |  |
-| `club_color` |  |
+| `clubColors` |  |
 | `crest` |  |
 | `founded` |  |
 | `id` |  |
-| `last_updated` |  |
+| `lastUpdated` |  |
 | `name` |  |
-| `short_name` |  |
+| `shortName` |  |
 | `tla` |  |
 | `venue` |  |
 | `website` |  |
@@ -348,19 +346,19 @@ Create an instance: `competition = client.Competition`
 | --- | --- | --- |
 | `area` | `Hash` |  |
 | `code` | `String` |  |
-| `current_season` | `Hash` |  |
+| `currentSeason` | `Hash` |  |
 | `emblem` | `String` |  |
 | `id` | `Integer` |  |
-| `last_updated` | `String` |  |
+| `lastUpdated` | `String` |  |
 | `name` | `String` |  |
-| `number_of_available_season` | `Integer` |  |
+| `numberOfAvailableSeasons` | `Integer` |  |
 | `plan` | `String` |  |
 | `type` | `String` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Competition record (raises on error).
+# load returns the ENTITY — call data_get for the Competition record (raises on error).
 competition = client.Competition.load({ "id" => 1 })
 ```
 
@@ -386,16 +384,16 @@ Create an instance: `match = client.Match`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `away_team` | `Hash` |  |
+| `awayTeam` | `Hash` |  |
 | `group` | `String` |  |
-| `home_team` | `Hash` |  |
+| `homeTeam` | `Hash` |  |
 | `id` | `Integer` |  |
 | `matchday` | `Integer` |  |
-| `referee` | `Array` |  |
+| `referees` | `Array` |  |
 | `score` | `Hash` |  |
 | `stage` | `String` |  |
 | `status` | `String` |  |
-| `utc_date` | `String` |  |
+| `utcDate` | `String` |  |
 
 #### Example: List
 
@@ -447,13 +445,13 @@ Create an instance: `team = client.Team`
 | Field | Type | Description |
 | --- | --- | --- |
 | `address` | `String` |  |
-| `club_color` | `String` |  |
+| `clubColors` | `String` |  |
 | `crest` | `String` |  |
 | `founded` | `Integer` |  |
 | `id` | `Integer` |  |
-| `last_updated` | `String` |  |
+| `lastUpdated` | `String` |  |
 | `name` | `String` |  |
-| `short_name` | `String` |  |
+| `shortName` | `String` |  |
 | `tla` | `String` |  |
 | `venue` | `String` |  |
 | `website` | `String` |  |
@@ -542,11 +540,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-competition = client.Competition
-competition.list()
+match = client.Match
+match.list()
 
-# competition.data_get now returns the competition data from the last list
-# competition.match_get returns the last match criteria
+# match.data_get now returns the match data from the last list
+# match.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

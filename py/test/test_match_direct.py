@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from worldcupqualification_sdk.utility.voxgig_struct import voxgig_struct as vs
 from worldcupqualification_sdk import WorldCupQualificationSDK
-from core import helpers
+from worldcupqualification_sdk.core import helpers
 from test import runner
 
 
@@ -70,16 +70,16 @@ def _match_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "WORLDCUPQUALIFICATION_TEST_MATCH_ENTID": {},
-        "WORLDCUPQUALIFICATION_TEST_LIVE": "FALSE",
-        "WORLDCUPQUALIFICATION_APIKEY": "NONE",
+        "WORLD_CUP_QUALIFICATION_TEST_MATCH_ENTID": {},
+        "WORLD_CUP_QUALIFICATION_TEST_LIVE": "FALSE",
+        "WORLD_CUP_QUALIFICATION_APIKEY": "NONE",
     })
 
-    live = env.get("WORLDCUPQUALIFICATION_TEST_LIVE") == "TRUE"
+    live = env.get("WORLD_CUP_QUALIFICATION_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("WORLDCUPQUALIFICATION_APIKEY"),
+            "apikey": env.get("WORLD_CUP_QUALIFICATION_APIKEY"),
         }
         client = WorldCupQualificationSDK(merged_opts)
         return {

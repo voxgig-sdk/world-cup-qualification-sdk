@@ -43,8 +43,8 @@ class WorldCupQualificationTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('WORLDCUPQUALIFICATION_TEST_LIVE');
-        $override = self::getenv('WORLDCUPQUALIFICATION_TEST_OVERRIDE');
+        $live = self::getenv('WORLD_CUP_QUALIFICATION_TEST_LIVE');
+        $override = self::getenv('WORLD_CUP_QUALIFICATION_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class WorldCupQualificationTestRunner
             }
         }
 
-        $explain = self::getenv('WORLDCUPQUALIFICATION_TEST_EXPLAIN');
+        $explain = self::getenv('WORLD_CUP_QUALIFICATION_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['WORLDCUPQUALIFICATION_TEST_EXPLAIN'] = $explain;
+            $m['WORLD_CUP_QUALIFICATION_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

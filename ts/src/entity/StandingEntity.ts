@@ -37,7 +37,7 @@ class StandingEntity extends WorldCupQualificationEntityBase<Standing> {
 
 
 
-  async list(this: any, reqmatch?: StandingListMatch, ctrl?: Control): Promise<Standing[]> {
+  async list(this: any, reqmatch?: StandingListMatch, ctrl?: Control): Promise<StandingEntity[]> {
 
     const utility = this._utility
 

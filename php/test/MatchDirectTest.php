@@ -80,16 +80,16 @@ function match_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "WORLDCUPQUALIFICATION_TEST_MATCH_ENTID" => [],
-        "WORLDCUPQUALIFICATION_TEST_LIVE" => "FALSE",
-        "WORLDCUPQUALIFICATION_APIKEY" => "NONE",
+        "WORLD_CUP_QUALIFICATION_TEST_MATCH_ENTID" => [],
+        "WORLD_CUP_QUALIFICATION_TEST_LIVE" => "FALSE",
+        "WORLD_CUP_QUALIFICATION_APIKEY" => "NONE",
     ]);
 
-    $live = $env["WORLDCUPQUALIFICATION_TEST_LIVE"] === "TRUE";
+    $live = $env["WORLD_CUP_QUALIFICATION_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["WORLDCUPQUALIFICATION_APIKEY"],
+            "apikey" => $env["WORLD_CUP_QUALIFICATION_APIKEY"],
         ];
         $client = new WorldCupQualificationSDK($merged_opts);
         return [

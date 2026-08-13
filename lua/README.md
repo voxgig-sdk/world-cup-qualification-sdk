@@ -64,7 +64,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local competitions, err = client:Competition():list()
+local matchs, err = client:Match():list()
 if err then error(err) end
 ```
 
@@ -122,7 +122,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Competition():list()
+local result, err = client:Match():list()
 -- result is the returned data; err is set on failure
 ```
 
@@ -250,12 +250,12 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | --- | --- |
 | `area` |  |
 | `code` |  |
-| `current_season` |  |
+| `currentSeason` |  |
 | `emblem` |  |
 | `id` |  |
-| `last_updated` |  |
+| `lastUpdated` |  |
 | `name` |  |
-| `number_of_available_season` |  |
+| `numberOfAvailableSeasons` |  |
 | `plan` |  |
 | `type` |  |
 
@@ -267,16 +267,16 @@ API path: `/competitions`
 
 | Field | Description |
 | --- | --- |
-| `away_team` |  |
+| `awayTeam` |  |
 | `group` |  |
-| `home_team` |  |
+| `homeTeam` |  |
 | `id` |  |
 | `matchday` |  |
-| `referee` |  |
+| `referees` |  |
 | `score` |  |
 | `stage` |  |
 | `status` |  |
-| `utc_date` |  |
+| `utcDate` |  |
 
 Operations: List.
 
@@ -300,13 +300,13 @@ API path: `/competitions/{id}/standings`
 | Field | Description |
 | --- | --- |
 | `address` |  |
-| `club_color` |  |
+| `clubColors` |  |
 | `crest` |  |
 | `founded` |  |
 | `id` |  |
-| `last_updated` |  |
+| `lastUpdated` |  |
 | `name` |  |
-| `short_name` |  |
+| `shortName` |  |
 | `tla` |  |
 | `venue` |  |
 | `website` |  |
@@ -337,12 +337,12 @@ Create an instance: `local competition = client:Competition(nil)`
 | --- | --- | --- |
 | `area` | `table` |  |
 | `code` | `string` |  |
-| `current_season` | `table` |  |
+| `currentSeason` | `table` |  |
 | `emblem` | `string` |  |
 | `id` | `number` |  |
-| `last_updated` | `string` |  |
+| `lastUpdated` | `string` |  |
 | `name` | `string` |  |
-| `number_of_available_season` | `number` |  |
+| `numberOfAvailableSeasons` | `number` |  |
 | `plan` | `string` |  |
 | `type` | `string` |  |
 
@@ -373,16 +373,16 @@ Create an instance: `local match = client:Match(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `away_team` | `table` |  |
+| `awayTeam` | `table` |  |
 | `group` | `string` |  |
-| `home_team` | `table` |  |
+| `homeTeam` | `table` |  |
 | `id` | `number` |  |
 | `matchday` | `number` |  |
-| `referee` | `table` |  |
+| `referees` | `table` |  |
 | `score` | `table` |  |
 | `stage` | `string` |  |
 | `status` | `string` |  |
-| `utc_date` | `string` |  |
+| `utcDate` | `string` |  |
 
 #### Example: List
 
@@ -432,13 +432,13 @@ Create an instance: `local team = client:Team(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `address` | `string` |  |
-| `club_color` | `string` |  |
+| `clubColors` | `string` |  |
 | `crest` | `string` |  |
 | `founded` | `number` |  |
 | `id` | `number` |  |
-| `last_updated` | `string` |  |
+| `lastUpdated` | `string` |  |
 | `name` | `string` |  |
-| `short_name` | `string` |  |
+| `shortName` | `string` |  |
 | `tla` | `string` |  |
 | `venue` | `string` |  |
 | `website` | `string` |  |
@@ -526,11 +526,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local competition = client:Competition()
-competition:list()
+local match = client:Match()
+match:list()
 
--- competition:data_get() now returns the competition data from the last list
--- competition:match_get() returns the last match criteria
+-- match:data_get() now returns the match data from the last list
+-- match:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

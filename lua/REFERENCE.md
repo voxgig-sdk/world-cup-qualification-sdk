@@ -105,12 +105,12 @@ local competition = client:Competition(nil)
 | --- | --- | --- | --- |
 | `area` | `table` | No |  |
 | `code` | `string` | No |  |
-| `current_season` | `table` | No |  |
+| `currentSeason` | `table` | No |  |
 | `emblem` | `string` | No |  |
 | `id` | `number` | No |  |
-| `last_updated` | `string` | No |  |
+| `lastUpdated` | `string` | No |  |
 | `name` | `string` | No |  |
-| `number_of_available_season` | `number` | No |  |
+| `numberOfAvailableSeasons` | `number` | No |  |
 | `plan` | `string` | No |  |
 | `type` | `string` | No |  |
 
@@ -172,16 +172,16 @@ local match = client:Match(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `away_team` | `table` | No |  |
+| `awayTeam` | `table` | No |  |
 | `group` | `string` | No |  |
-| `home_team` | `table` | No |  |
+| `homeTeam` | `table` | No |  |
 | `id` | `number` | No |  |
 | `matchday` | `number` | No |  |
-| `referee` | `table` | No |  |
+| `referees` | `table` | No |  |
 | `score` | `table` | No |  |
 | `stage` | `string` | No |  |
 | `status` | `string` | No |  |
-| `utc_date` | `string` | No |  |
+| `utcDate` | `string` | No |  |
 
 ### Operations
 
@@ -289,13 +289,13 @@ local team = client:Team(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `address` | `string` | No |  |
-| `club_color` | `string` | No |  |
+| `clubColors` | `string` | No |  |
 | `crest` | `string` | No |  |
 | `founded` | `number` | No |  |
 | `id` | `number` | No |  |
-| `last_updated` | `string` | No |  |
+| `lastUpdated` | `string` | No |  |
 | `name` | `string` | No |  |
-| `short_name` | `string` | No |  |
+| `shortName` | `string` | No |  |
 | `tla` | `string` | No |  |
 | `venue` | `string` | No |  |
 | `website` | `string` | No |  |

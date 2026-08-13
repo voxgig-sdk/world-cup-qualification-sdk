@@ -16,11 +16,11 @@
 import pytest
 
 from projectname_sdk import WorldCupQualificationSDK
-from core.error import WorldCupQualificationError
-from core.result import WorldCupQualificationResult
-from core.response import WorldCupQualificationResponse
-from core.spec import WorldCupQualificationSpec
-from feature.base_feature import WorldCupQualificationBaseFeature
+from projectname_sdk.core.error import WorldCupQualificationError
+from projectname_sdk.core.result import WorldCupQualificationResult
+from projectname_sdk.core.response import WorldCupQualificationResponse
+from projectname_sdk.core.spec import WorldCupQualificationSpec
+from projectname_sdk.feature.base_feature import WorldCupQualificationBaseFeature
 
 
 def _client():

@@ -6,7 +6,7 @@ main: kit: entity: match: {
 
   fields: [
     {
-      name: "away_team"
+      name: "awayTeam"
       req: false
       type: "`$OBJECT`"
     }
@@ -16,7 +16,7 @@ main: kit: entity: match: {
       type: "`$STRING`"
     }
     {
-      name: "home_team"
+      name: "homeTeam"
       req: false
       type: "`$OBJECT`"
     }
@@ -31,7 +31,7 @@ main: kit: entity: match: {
       type: "`$INTEGER`"
     }
     {
-      name: "referee"
+      name: "referees"
       req: false
       type: "`$ARRAY`"
     }
@@ -51,7 +51,7 @@ main: kit: entity: match: {
       type: "`$STRING`"
     }
     {
-      name: "utc_date"
+      name: "utcDate"
       req: false
       type: "`$STRING`"
     }

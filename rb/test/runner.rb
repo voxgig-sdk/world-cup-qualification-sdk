@@ -23,8 +23,8 @@ module WorldCupQualificationTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("WORLDCUPQUALIFICATION_TEST_LIVE")
-    override = getenv("WORLDCUPQUALIFICATION_TEST_OVERRIDE")
+    live = getenv("WORLD_CUP_QUALIFICATION_TEST_LIVE")
+    override = getenv("WORLD_CUP_QUALIFICATION_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module WorldCupQualificationTestRunner
       end
     end
 
-    explain = getenv("WORLDCUPQUALIFICATION_TEST_EXPLAIN")
-    m["WORLDCUPQUALIFICATION_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("WORLD_CUP_QUALIFICATION_TEST_EXPLAIN")
+    m["WORLD_CUP_QUALIFICATION_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

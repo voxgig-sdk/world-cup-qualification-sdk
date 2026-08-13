@@ -4,36 +4,36 @@
       "COMPETITION00": {
         "area": {},
         "code": "s65",
-        "current_season": {},
+        "currentSeason": {},
         "emblem": "s67",
         "id": "COMPETITION00",
-        "last_updated": "s69",
+        "lastUpdated": "s69",
         "name": "s6a",
-        "number_of_available_season": "s6b",
+        "numberOfAvailableSeasons": "s6b",
         "plan": "s6c",
         "type": "s6d"
       },
       "COMPETITION01": {
         "area": {},
         "code": "sc9",
-        "current_season": {},
+        "currentSeason": {},
         "emblem": "scb",
         "id": "COMPETITION01",
-        "last_updated": "scd",
+        "lastUpdated": "scd",
         "name": "sce",
-        "number_of_available_season": "scf",
+        "numberOfAvailableSeasons": "scf",
         "plan": "sd0",
         "type": "sd1"
       },
       "COMPETITION02": {
         "area": {},
         "code": "s12d",
-        "current_season": {},
+        "currentSeason": {},
         "emblem": "s12f",
         "id": "COMPETITION02",
-        "last_updated": "s131",
+        "lastUpdated": "s131",
         "name": "s132",
-        "number_of_available_season": "s133",
+        "numberOfAvailableSeasons": "s133",
         "plan": "s134",
         "type": "s135"
       }
@@ -44,11 +44,11 @@
       "competition_ref01": {
         "area": {},
         "code": "s191",
-        "current_season": {},
+        "currentSeason": {},
         "emblem": "s193",
-        "last_updated": "s195",
+        "lastUpdated": "s195",
         "name": "s196",
-        "number_of_available_season": "s197",
+        "numberOfAvailableSeasons": "s197",
         "plan": "s198",
         "type": "s199"
       }

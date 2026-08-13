@@ -37,7 +37,7 @@ class TeamEntity extends WorldCupQualificationEntityBase<Team> {
 
 
 
-  async list(this: any, reqmatch?: TeamListMatch, ctrl?: Control): Promise<Team[]> {
+  async list(this: any, reqmatch?: TeamListMatch, ctrl?: Control): Promise<TeamEntity[]> {
 
     const utility = this._utility
 

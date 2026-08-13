@@ -55,7 +55,7 @@ except Exception as err:
 
 ### 3. Load a competition
 
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -72,8 +72,8 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    competitions = client.Competition().list()
-    print(competitions)
+    matchs = client.Match().list()
+    print(matchs)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -139,9 +139,10 @@ Create a mock client for unit testing — no server required:
 ```python
 client = WorldCupQualificationSDK.test()
 
-# Entity ops return the bare record and raise on error.
-competition = client.Competition().list()
-# competition contains the mock response record
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
+match = client.Match().list()
+# match contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -241,7 +242,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -265,12 +266,12 @@ On error, `ok` is `False` and `err` contains the error value.
 | --- | --- |
 | `area` |  |
 | `code` |  |
-| `current_season` |  |
+| `currentSeason` |  |
 | `emblem` |  |
 | `id` |  |
-| `last_updated` |  |
+| `lastUpdated` |  |
 | `name` |  |
-| `number_of_available_season` |  |
+| `numberOfAvailableSeasons` |  |
 | `plan` |  |
 | `type` |  |
 
@@ -282,16 +283,16 @@ API path: `/competitions`
 
 | Field | Description |
 | --- | --- |
-| `away_team` |  |
+| `awayTeam` |  |
 | `group` |  |
-| `home_team` |  |
+| `homeTeam` |  |
 | `id` |  |
 | `matchday` |  |
-| `referee` |  |
+| `referees` |  |
 | `score` |  |
 | `stage` |  |
 | `status` |  |
-| `utc_date` |  |
+| `utcDate` |  |
 
 Operations: List.
 
@@ -315,13 +316,13 @@ API path: `/competitions/{id}/standings`
 | Field | Description |
 | --- | --- |
 | `address` |  |
-| `club_color` |  |
+| `clubColors` |  |
 | `crest` |  |
 | `founded` |  |
 | `id` |  |
-| `last_updated` |  |
+| `lastUpdated` |  |
 | `name` |  |
-| `short_name` |  |
+| `shortName` |  |
 | `tla` |  |
 | `venue` |  |
 | `website` |  |
@@ -352,12 +353,12 @@ Create an instance: `competition = client.Competition()`
 | --- | --- | --- |
 | `area` | `dict` |  |
 | `code` | `str` |  |
-| `current_season` | `dict` |  |
+| `currentSeason` | `dict` |  |
 | `emblem` | `str` |  |
 | `id` | `int` |  |
-| `last_updated` | `str` |  |
+| `lastUpdated` | `str` |  |
 | `name` | `str` |  |
-| `number_of_available_season` | `int` |  |
+| `numberOfAvailableSeasons` | `int` |  |
 | `plan` | `str` |  |
 | `type` | `str` |  |
 
@@ -388,21 +389,21 @@ Create an instance: `match = client.Match()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `away_team` | `dict` |  |
+| `awayTeam` | `dict` |  |
 | `group` | `str` |  |
-| `home_team` | `dict` |  |
+| `homeTeam` | `dict` |  |
 | `id` | `int` |  |
 | `matchday` | `int` |  |
-| `referee` | `list` |  |
+| `referees` | `list` |  |
 | `score` | `dict` |  |
 | `stage` | `str` |  |
 | `status` | `str` |  |
-| `utc_date` | `str` |  |
+| `utcDate` | `str` |  |
 
 #### Example: List
 
 ```python
-matchs = client.Match().list()
+matchs = client.Match().list({"competition_id": 1})
 ```
 
 
@@ -428,7 +429,7 @@ Create an instance: `standing = client.Standing()`
 #### Example: List
 
 ```python
-standings = client.Standing().list()
+standings = client.Standing().list({"competition_id": 1})
 ```
 
 
@@ -447,13 +448,13 @@ Create an instance: `team = client.Team()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `address` | `str` |  |
-| `club_color` | `str` |  |
+| `clubColors` | `str` |  |
 | `crest` | `str` |  |
 | `founded` | `int` |  |
 | `id` | `int` |  |
-| `last_updated` | `str` |  |
+| `lastUpdated` | `str` |  |
 | `name` | `str` |  |
-| `short_name` | `str` |  |
+| `shortName` | `str` |  |
 | `tla` | `str` |  |
 | `venue` | `str` |  |
 | `website` | `str` |  |
@@ -461,7 +462,7 @@ Create an instance: `team = client.Team()`
 #### Example: List
 
 ```python
-teams = client.Team().list()
+teams = client.Team().list({"competition_id": 1})
 ```
 
 
@@ -540,11 +541,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-competition = client.Competition()
-competition.list()
+match = client.Match()
+match.list()
 
-# competition.data_get() now returns the competition data from the last list
-# competition.match_get() returns the last match criteria
+# match.data_get() now returns the match data from the last list
+# match.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

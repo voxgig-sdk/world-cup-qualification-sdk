@@ -50,9 +50,10 @@ func TestMatchDirect(t *testing.T) {
 			"params": params,
 		})
 		if setup.live {
-			// Live mode is lenient: synthetic IDs frequently 4xx and the
-			// list-response shape varies wildly across public APIs. Skip
-			// rather than fail when the call doesn't return a usable list.
+			// Live-mode leniency is a model decision
+			// (main.kit.test.live.strict): synthetic IDs 4xx constantly
+			// against an arbitrary public API, so the default SKIPS here.
+			// A project that owns its test server sets strict and FAILS.
 			if err != nil {
 				t.Skipf("list call failed (likely synthetic IDs against live API): %v", err)
 			}
@@ -116,21 +117,21 @@ func matchDirectSetup(mockres any) *matchDirectSetupResult {
 	calls := &[]map[string]any{}
 
 	env := envOverride(map[string]any{
-		"WORLDCUPQUALIFICATION_TEST_MATCH_ENTID": map[string]any{},
-		"WORLDCUPQUALIFICATION_TEST_LIVE":    "FALSE",
-		"WORLDCUPQUALIFICATION_APIKEY":       "NONE",
+		"WORLD_CUP_QUALIFICATION_TEST_MATCH_ENTID": map[string]any{},
+		"WORLD_CUP_QUALIFICATION_TEST_LIVE":    "FALSE",
+		"WORLD_CUP_QUALIFICATION_APIKEY":       "NONE",
 	})
 
-	live := env["WORLDCUPQUALIFICATION_TEST_LIVE"] == "TRUE"
+	live := env["WORLD_CUP_QUALIFICATION_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["WORLDCUPQUALIFICATION_APIKEY"],
+			"apikey": env["WORLD_CUP_QUALIFICATION_APIKEY"],
 		}
 		client := sdk.NewWorldCupQualificationSDK(mergedOpts)
 
 		idmap := map[string]any{}
-		if entidRaw, ok := env["WORLDCUPQUALIFICATION_TEST_MATCH_ENTID"]; ok {
+		if entidRaw, ok := env["WORLD_CUP_QUALIFICATION_TEST_MATCH_ENTID"]; ok {
 			if entidStr, ok := entidRaw.(string); ok && strings.HasPrefix(entidStr, "{") {
 				json.Unmarshal([]byte(entidStr), &idmap)
 			} else if entidMap, ok := entidRaw.(map[string]any); ok {

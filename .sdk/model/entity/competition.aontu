@@ -16,7 +16,7 @@ main: kit: entity: competition: {
       type: "`$STRING`"
     }
     {
-      name: "current_season"
+      name: "currentSeason"
       req: false
       type: "`$OBJECT`"
     }
@@ -31,7 +31,7 @@ main: kit: entity: competition: {
       type: "`$INTEGER`"
     }
     {
-      name: "last_updated"
+      name: "lastUpdated"
       req: false
       type: "`$STRING`"
     }
@@ -41,7 +41,7 @@ main: kit: entity: competition: {
       type: "`$STRING`"
     }
     {
-      name: "number_of_available_season"
+      name: "numberOfAvailableSeasons"
       req: false
       type: "`$INTEGER`"
     }

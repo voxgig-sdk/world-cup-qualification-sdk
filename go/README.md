@@ -78,12 +78,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-competitions, err := client.Competition(nil).List(nil, nil)
+matchs, err := client.Match(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = competitions
+_ = matchs
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -147,13 +147,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-competition, err := client.Competition(nil).List(
+match, err := client.Match(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(competition) // the returned mock data
+fmt.Println(match) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -279,12 +279,12 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | --- | --- |
 | `"area"` |  |
 | `"code"` |  |
-| `"current_season"` |  |
+| `"currentSeason"` |  |
 | `"emblem"` |  |
 | `"id"` |  |
-| `"last_updated"` |  |
+| `"lastUpdated"` |  |
 | `"name"` |  |
-| `"number_of_available_season"` |  |
+| `"numberOfAvailableSeasons"` |  |
 | `"plan"` |  |
 | `"type"` |  |
 
@@ -296,16 +296,16 @@ API path: `/competitions`
 
 | Field | Description |
 | --- | --- |
-| `"away_team"` |  |
+| `"awayTeam"` |  |
 | `"group"` |  |
-| `"home_team"` |  |
+| `"homeTeam"` |  |
 | `"id"` |  |
 | `"matchday"` |  |
-| `"referee"` |  |
+| `"referees"` |  |
 | `"score"` |  |
 | `"stage"` |  |
 | `"status"` |  |
-| `"utc_date"` |  |
+| `"utcDate"` |  |
 
 Operations: List.
 
@@ -329,13 +329,13 @@ API path: `/competitions/{id}/standings`
 | Field | Description |
 | --- | --- |
 | `"address"` |  |
-| `"club_color"` |  |
+| `"clubColors"` |  |
 | `"crest"` |  |
 | `"founded"` |  |
 | `"id"` |  |
-| `"last_updated"` |  |
+| `"lastUpdated"` |  |
 | `"name"` |  |
-| `"short_name"` |  |
+| `"shortName"` |  |
 | `"tla"` |  |
 | `"venue"` |  |
 | `"website"` |  |
@@ -366,12 +366,12 @@ Create an instance: `competition := client.Competition(nil)`
 | --- | --- | --- |
 | `area` | `map[string]any` |  |
 | `code` | `string` |  |
-| `current_season` | `map[string]any` |  |
+| `currentSeason` | `map[string]any` |  |
 | `emblem` | `string` |  |
 | `id` | `int` |  |
-| `last_updated` | `string` |  |
+| `lastUpdated` | `string` |  |
 | `name` | `string` |  |
-| `number_of_available_season` | `int` |  |
+| `numberOfAvailableSeasons` | `int` |  |
 | `plan` | `string` |  |
 | `type` | `string` |  |
 
@@ -410,16 +410,16 @@ Create an instance: `match := client.Match(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `away_team` | `map[string]any` |  |
+| `awayTeam` | `map[string]any` |  |
 | `group` | `string` |  |
-| `home_team` | `map[string]any` |  |
+| `homeTeam` | `map[string]any` |  |
 | `id` | `int` |  |
 | `matchday` | `int` |  |
-| `referee` | `[]any` |  |
+| `referees` | `[]any` |  |
 | `score` | `map[string]any` |  |
 | `stage` | `string` |  |
 | `status` | `string` |  |
-| `utc_date` | `string` |  |
+| `utcDate` | `string` |  |
 
 #### Example: List
 
@@ -477,13 +477,13 @@ Create an instance: `team := client.Team(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `address` | `string` |  |
-| `club_color` | `string` |  |
+| `clubColors` | `string` |  |
 | `crest` | `string` |  |
 | `founded` | `int` |  |
 | `id` | `int` |  |
-| `last_updated` | `string` |  |
+| `lastUpdated` | `string` |  |
 | `name` | `string` |  |
-| `short_name` | `string` |  |
+| `shortName` | `string` |  |
 | `tla` | `string` |  |
 | `venue` | `string` |  |
 | `website` | `string` |  |
@@ -572,11 +572,11 @@ Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-competition := client.Competition(nil)
-competition.List(nil, nil)
+match := client.Match(nil)
+match.List(nil, nil)
 
-// competition.Data() now returns the competition data from the last list
-// competition.Match() returns the last match criteria
+// match.Data() now returns the match data from the last list
+// match.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

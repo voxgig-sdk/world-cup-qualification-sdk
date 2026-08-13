@@ -92,7 +92,7 @@ func TestStandingEntity(t *testing.T) {
 		// The basic flow consumes synthetic IDs from the fixture. In live mode
 		// without an *_ENTID env override, those IDs hit the live API and 4xx.
 		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set WORLDCUPQUALIFICATION_TEST_STANDING_ENTID JSON to run live")
+			t.Skip("live entity test uses synthetic IDs from fixture — set WORLD_CUP_QUALIFICATION_TEST_STANDING_ENTID JSON to run live")
 			return
 		}
 		client := setup.client
@@ -162,38 +162,38 @@ func standingBasicSetup(extra map[string]any) *entityTestSetup {
 	// Detect ENTID env override before envOverride consumes it. When live
 	// mode is on without a real override, the basic test runs against synthetic
 	// IDs from the fixture and 4xx's. Surface this so the test can skip.
-	entidEnvRaw := os.Getenv("WORLDCUPQUALIFICATION_TEST_STANDING_ENTID")
+	entidEnvRaw := os.Getenv("WORLD_CUP_QUALIFICATION_TEST_STANDING_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 
 	env := envOverride(map[string]any{
-		"WORLDCUPQUALIFICATION_TEST_STANDING_ENTID": idmap,
-		"WORLDCUPQUALIFICATION_TEST_LIVE":      "FALSE",
-		"WORLDCUPQUALIFICATION_TEST_EXPLAIN":   "FALSE",
-		"WORLDCUPQUALIFICATION_APIKEY":         "NONE",
+		"WORLD_CUP_QUALIFICATION_TEST_STANDING_ENTID": idmap,
+		"WORLD_CUP_QUALIFICATION_TEST_LIVE":      "FALSE",
+		"WORLD_CUP_QUALIFICATION_TEST_EXPLAIN":   "FALSE",
+		"WORLD_CUP_QUALIFICATION_APIKEY":         "NONE",
 	})
 
-	idmapResolved := core.ToMapAny(env["WORLDCUPQUALIFICATION_TEST_STANDING_ENTID"])
+	idmapResolved := core.ToMapAny(env["WORLD_CUP_QUALIFICATION_TEST_STANDING_ENTID"])
 	if idmapResolved == nil {
 		idmapResolved = core.ToMapAny(idmap)
 	}
 
-	if env["WORLDCUPQUALIFICATION_TEST_LIVE"] == "TRUE" {
+	if env["WORLD_CUP_QUALIFICATION_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["WORLDCUPQUALIFICATION_APIKEY"],
+				"apikey": env["WORLD_CUP_QUALIFICATION_APIKEY"],
 			},
 			extra,
 		})
 		client = sdk.NewWorldCupQualificationSDK(core.ToMapAny(mergedOpts))
 	}
 
-	live := env["WORLDCUPQUALIFICATION_TEST_LIVE"] == "TRUE"
+	live := env["WORLD_CUP_QUALIFICATION_TEST_LIVE"] == "TRUE"
 	return &entityTestSetup{
 		client:        client,
 		data:          entityData,
 		idmap:         idmapResolved,
 		env:           env,
-		explain:       env["WORLDCUPQUALIFICATION_TEST_EXPLAIN"] == "TRUE",
+		explain:       env["WORLD_CUP_QUALIFICATION_TEST_EXPLAIN"] == "TRUE",
 		live:          live,
 		syntheticOnly: live && !idmapOverridden,
 		now:           time.Now().UnixMilli(),

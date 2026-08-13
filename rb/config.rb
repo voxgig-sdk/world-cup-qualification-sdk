@@ -47,7 +47,7 @@ module WorldCupQualificationConfig
             },
             {
               "active" => true,
-              "name" => "current_season",
+              "name" => "currentSeason",
               "req" => false,
               "type" => "`$OBJECT`",
               "index$" => 2,
@@ -68,7 +68,7 @@ module WorldCupQualificationConfig
             },
             {
               "active" => true,
-              "name" => "last_updated",
+              "name" => "lastUpdated",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 5,
@@ -82,7 +82,7 @@ module WorldCupQualificationConfig
             },
             {
               "active" => true,
-              "name" => "number_of_available_season",
+              "name" => "numberOfAvailableSeasons",
               "req" => false,
               "type" => "`$INTEGER`",
               "index$" => 7,
@@ -131,6 +131,7 @@ module WorldCupQualificationConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/competitions",
                   "parts" => [
@@ -171,6 +172,7 @@ module WorldCupQualificationConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/competitions/{id}",
                   "parts" => [
@@ -200,7 +202,7 @@ module WorldCupQualificationConfig
           "fields" => [
             {
               "active" => true,
-              "name" => "away_team",
+              "name" => "awayTeam",
               "req" => false,
               "type" => "`$OBJECT`",
               "index$" => 0,
@@ -214,7 +216,7 @@ module WorldCupQualificationConfig
             },
             {
               "active" => true,
-              "name" => "home_team",
+              "name" => "homeTeam",
               "req" => false,
               "type" => "`$OBJECT`",
               "index$" => 2,
@@ -235,7 +237,7 @@ module WorldCupQualificationConfig
             },
             {
               "active" => true,
-              "name" => "referee",
+              "name" => "referees",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 5,
@@ -263,7 +265,7 @@ module WorldCupQualificationConfig
             },
             {
               "active" => true,
-              "name" => "utc_date",
+              "name" => "utcDate",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 9,
@@ -337,6 +339,7 @@ module WorldCupQualificationConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/competitions/{id}/matches",
                   "parts" => [
@@ -450,6 +453,7 @@ module WorldCupQualificationConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/competitions/{id}/standings",
                   "parts" => [
@@ -498,7 +502,7 @@ module WorldCupQualificationConfig
             },
             {
               "active" => true,
-              "name" => "club_color",
+              "name" => "clubColors",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 1,
@@ -526,7 +530,7 @@ module WorldCupQualificationConfig
             },
             {
               "active" => true,
-              "name" => "last_updated",
+              "name" => "lastUpdated",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 5,
@@ -540,7 +544,7 @@ module WorldCupQualificationConfig
             },
             {
               "active" => true,
-              "name" => "short_name",
+              "name" => "shortName",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 7,
@@ -600,6 +604,7 @@ module WorldCupQualificationConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/competitions/{id}/teams",
                   "parts" => [

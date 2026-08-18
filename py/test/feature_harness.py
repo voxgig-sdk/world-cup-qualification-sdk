@@ -14,7 +14,7 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from worldcupqualification_sdk.config import make_config
+from worldcupqualification_sdk.config import shared_config
 from worldcupqualification_sdk.features import _make_feature
 from worldcupqualification_sdk.core.control import WorldCupQualificationControl
 from worldcupqualification_sdk.core.error import WorldCupQualificationError
@@ -24,7 +24,7 @@ from worldcupqualification_sdk.core.spec import WorldCupQualificationSpec
 
 # True when this SDK was generated with the named feature.
 def has_feature(name):
-    feature = make_config().get("feature")
+    feature = shared_config().get("feature")
     return isinstance(feature, dict) and feature.get(name) is not None
 
 

@@ -40,7 +40,7 @@ class WorldCupQualificationSDK
         $utility = new WorldCupQualificationUtility();
         $this->_utility = $utility;
 
-        $config = WorldCupQualificationConfig::make_config();
+        $config = WorldCupQualificationConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

@@ -40,7 +40,7 @@ class StandingEntityTest extends TestCase
         $this->assertCount(3, $seen);
 
         // Inbound: streaming active -> yields each item from the feature.
-        $cfg = WorldCupQualificationConfig::make_config();
+        $cfg = WorldCupQualificationConfig::shared_config();
         if (isset($cfg["feature"]) && is_array($cfg["feature"]) && isset($cfg["feature"]["streaming"])) {
             $sdk = WorldCupQualificationSDK::test($seed, ["feature" => ["streaming" => ["active" => true]]]);
             $got = [];

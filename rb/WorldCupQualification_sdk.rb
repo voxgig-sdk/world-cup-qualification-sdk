@@ -28,7 +28,7 @@ class WorldCupQualificationSDK
     utility = WorldCupQualificationUtility.new
     @_utility = utility
 
-    config = WorldCupQualificationConfig.make_config
+    config = WorldCupQualificationConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

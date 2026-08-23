@@ -42,6 +42,7 @@
               "active": true,
               "name": "code",
               "req": false,
+              "short": "Short code for the competition",
               "type": "`$STRING`"
             },
             {
@@ -54,42 +55,49 @@
               "active": true,
               "name": "emblem",
               "req": false,
+              "short": "URL to competition emblem/logo",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "id",
               "req": false,
+              "short": "Unique identifier for the competition",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "lastUpdated",
               "req": false,
+              "short": "Last update timestamp",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "name",
               "req": false,
+              "short": "Name of the competition",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "numberOfAvailableSeasons",
               "req": false,
+              "short": "Number of seasons available in the API",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "plan",
               "req": false,
+              "short": "API access tier required",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "type",
               "req": false,
+              "short": "Type of competition",
               "type": "`$STRING`"
             }
           ],
@@ -204,6 +212,7 @@
               "active": true,
               "name": "group",
               "req": false,
+              "short": "Group identifier for group stage matches",
               "type": "`$STRING`"
             },
             {
@@ -216,12 +225,14 @@
               "active": true,
               "name": "id",
               "req": false,
+              "short": "Unique match identifier",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "matchday",
               "req": false,
+              "short": "Matchday number",
               "type": "`$INTEGER`"
             },
             {
@@ -240,18 +251,21 @@
               "active": true,
               "name": "stage",
               "req": false,
+              "short": "Competition stage (e.g., GROUP_STAGE, KNOCKOUT)",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "status",
               "req": false,
+              "short": "Current match status",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "utcDate",
               "req": false,
+              "short": "Match date and time in UTC",
               "type": "`$STRING`"
             }
           ],
@@ -375,12 +389,14 @@
               "active": true,
               "name": "group",
               "req": false,
+              "short": "Group identifier",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "stage",
               "req": false,
+              "short": "Competition stage",
               "type": "`$STRING`"
             },
             {
@@ -393,6 +409,7 @@
               "active": true,
               "name": "type",
               "req": false,
+              "short": "Type of standing",
               "type": "`$STRING`"
             }
           ],
@@ -483,66 +500,77 @@
               "active": true,
               "name": "address",
               "req": false,
+              "short": "Team address",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "clubColors",
               "req": false,
+              "short": "Team colors",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "crest",
               "req": false,
+              "short": "URL to team crest/logo",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "founded",
               "req": false,
+              "short": "Year the team was founded",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "id",
               "req": false,
+              "short": "Unique identifier for the team",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "lastUpdated",
               "req": false,
+              "short": "Last update timestamp",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "name",
               "req": false,
+              "short": "Full name of the team",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "shortName",
               "req": false,
+              "short": "Short name of the team",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "tla",
               "req": false,
+              "short": "Three-letter abbreviation",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "venue",
               "req": false,
+              "short": "Home venue/stadium",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "website",
               "req": false,
+              "short": "Team website URL",
               "type": "`$STRING`"
             }
           ],

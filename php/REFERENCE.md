@@ -106,15 +106,15 @@ $competition = $client->Competition();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `area` | `array` | No |  |
-| `code` | `string` | No |  |
+| `code` | `string` | No | Short code for the competition |
 | `currentSeason` | `array` | No |  |
-| `emblem` | `string` | No |  |
-| `id` | `int` | No |  |
-| `lastUpdated` | `string` | No |  |
-| `name` | `string` | No |  |
-| `numberOfAvailableSeasons` | `int` | No |  |
-| `plan` | `string` | No |  |
-| `type` | `string` | No |  |
+| `emblem` | `string` | No | URL to competition emblem/logo |
+| `id` | `int` | No | Unique identifier for the competition |
+| `lastUpdated` | `string` | No | Last update timestamp |
+| `name` | `string` | No | Name of the competition |
+| `numberOfAvailableSeasons` | `int` | No | Number of seasons available in the API |
+| `plan` | `string` | No | API access tier required |
+| `type` | `string` | No | Type of competition |
 
 ### Operations
 
@@ -175,15 +175,15 @@ $match = $client->Match();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `awayTeam` | `array` | No |  |
-| `group` | `string` | No |  |
+| `group` | `string` | No | Group identifier for group stage matches |
 | `homeTeam` | `array` | No |  |
-| `id` | `int` | No |  |
-| `matchday` | `int` | No |  |
+| `id` | `int` | No | Unique match identifier |
+| `matchday` | `int` | No | Matchday number |
 | `referees` | `array` | No |  |
 | `score` | `array` | No |  |
-| `stage` | `string` | No |  |
-| `status` | `string` | No |  |
-| `utcDate` | `string` | No |  |
+| `stage` | `string` | No | Competition stage (e.g., GROUP_STAGE, KNOCKOUT) |
+| `status` | `string` | No | Current match status |
+| `utcDate` | `string` | No | Match date and time in UTC |
 
 ### Operations
 
@@ -235,10 +235,10 @@ $standing = $client->Standing();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `group` | `string` | No |  |
-| `stage` | `string` | No |  |
+| `group` | `string` | No | Group identifier |
+| `stage` | `string` | No | Competition stage |
 | `table` | `array` | No |  |
-| `type` | `string` | No |  |
+| `type` | `string` | No | Type of standing |
 
 ### Operations
 
@@ -290,17 +290,17 @@ $team = $client->Team();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | `string` | No |  |
-| `clubColors` | `string` | No |  |
-| `crest` | `string` | No |  |
-| `founded` | `int` | No |  |
-| `id` | `int` | No |  |
-| `lastUpdated` | `string` | No |  |
-| `name` | `string` | No |  |
-| `shortName` | `string` | No |  |
-| `tla` | `string` | No |  |
-| `venue` | `string` | No |  |
-| `website` | `string` | No |  |
+| `address` | `string` | No | Team address |
+| `clubColors` | `string` | No | Team colors |
+| `crest` | `string` | No | URL to team crest/logo |
+| `founded` | `int` | No | Year the team was founded |
+| `id` | `int` | No | Unique identifier for the team |
+| `lastUpdated` | `string` | No | Last update timestamp |
+| `name` | `string` | No | Full name of the team |
+| `shortName` | `string` | No | Short name of the team |
+| `tla` | `string` | No | Three-letter abbreviation |
+| `venue` | `string` | No | Home venue/stadium |
+| `website` | `string` | No | Team website URL |
 
 ### Operations
 

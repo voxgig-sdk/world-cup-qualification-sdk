@@ -107,15 +107,15 @@ competition = client.Competition
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `area` | `Hash` | No |  |
-| `code` | `String` | No |  |
+| `code` | `String` | No | Short code for the competition |
 | `currentSeason` | `Hash` | No |  |
-| `emblem` | `String` | No |  |
-| `id` | `Integer` | No |  |
-| `lastUpdated` | `String` | No |  |
-| `name` | `String` | No |  |
-| `numberOfAvailableSeasons` | `Integer` | No |  |
-| `plan` | `String` | No |  |
-| `type` | `String` | No |  |
+| `emblem` | `String` | No | URL to competition emblem/logo |
+| `id` | `Integer` | No | Unique identifier for the competition |
+| `lastUpdated` | `String` | No | Last update timestamp |
+| `name` | `String` | No | Name of the competition |
+| `numberOfAvailableSeasons` | `Integer` | No | Number of seasons available in the API |
+| `plan` | `String` | No | API access tier required |
+| `type` | `String` | No | Type of competition |
 
 ### Operations
 
@@ -176,15 +176,15 @@ match = client.Match
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `awayTeam` | `Hash` | No |  |
-| `group` | `String` | No |  |
+| `group` | `String` | No | Group identifier for group stage matches |
 | `homeTeam` | `Hash` | No |  |
-| `id` | `Integer` | No |  |
-| `matchday` | `Integer` | No |  |
+| `id` | `Integer` | No | Unique match identifier |
+| `matchday` | `Integer` | No | Matchday number |
 | `referees` | `Array` | No |  |
 | `score` | `Hash` | No |  |
-| `stage` | `String` | No |  |
-| `status` | `String` | No |  |
-| `utcDate` | `String` | No |  |
+| `stage` | `String` | No | Competition stage (e.g., GROUP_STAGE, KNOCKOUT) |
+| `status` | `String` | No | Current match status |
+| `utcDate` | `String` | No | Match date and time in UTC |
 
 ### Operations
 
@@ -236,10 +236,10 @@ standing = client.Standing
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `group` | `String` | No |  |
-| `stage` | `String` | No |  |
+| `group` | `String` | No | Group identifier |
+| `stage` | `String` | No | Competition stage |
 | `table` | `Array` | No |  |
-| `type` | `String` | No |  |
+| `type` | `String` | No | Type of standing |
 
 ### Operations
 
@@ -291,17 +291,17 @@ team = client.Team
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | `String` | No |  |
-| `clubColors` | `String` | No |  |
-| `crest` | `String` | No |  |
-| `founded` | `Integer` | No |  |
-| `id` | `Integer` | No |  |
-| `lastUpdated` | `String` | No |  |
-| `name` | `String` | No |  |
-| `shortName` | `String` | No |  |
-| `tla` | `String` | No |  |
-| `venue` | `String` | No |  |
-| `website` | `String` | No |  |
+| `address` | `String` | No | Team address |
+| `clubColors` | `String` | No | Team colors |
+| `crest` | `String` | No | URL to team crest/logo |
+| `founded` | `Integer` | No | Year the team was founded |
+| `id` | `Integer` | No | Unique identifier for the team |
+| `lastUpdated` | `String` | No | Last update timestamp |
+| `name` | `String` | No | Full name of the team |
+| `shortName` | `String` | No | Short name of the team |
+| `tla` | `String` | No | Three-letter abbreviation |
+| `venue` | `String` | No | Home venue/stadium |
+| `website` | `String` | No | Team website URL |
 
 ### Operations
 

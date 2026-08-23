@@ -268,15 +268,15 @@ On error, `ok` is `false` and `$err` contains the error value.
 | Field | Description |
 | --- | --- |
 | `area` |  |
-| `code` |  |
+| `code` | Short code for the competition |
 | `currentSeason` |  |
-| `emblem` |  |
-| `id` |  |
-| `lastUpdated` |  |
-| `name` |  |
-| `numberOfAvailableSeasons` |  |
-| `plan` |  |
-| `type` |  |
+| `emblem` | URL to competition emblem/logo |
+| `id` | Unique identifier for the competition |
+| `lastUpdated` | Last update timestamp |
+| `name` | Name of the competition |
+| `numberOfAvailableSeasons` | Number of seasons available in the API |
+| `plan` | API access tier required |
+| `type` | Type of competition |
 
 Operations: List, Load.
 
@@ -287,15 +287,15 @@ API path: `/competitions`
 | Field | Description |
 | --- | --- |
 | `awayTeam` |  |
-| `group` |  |
+| `group` | Group identifier for group stage matches |
 | `homeTeam` |  |
-| `id` |  |
-| `matchday` |  |
+| `id` | Unique match identifier |
+| `matchday` | Matchday number |
 | `referees` |  |
 | `score` |  |
-| `stage` |  |
-| `status` |  |
-| `utcDate` |  |
+| `stage` | Competition stage (e.g., GROUP_STAGE, KNOCKOUT) |
+| `status` | Current match status |
+| `utcDate` | Match date and time in UTC |
 
 Operations: List.
 
@@ -305,10 +305,10 @@ API path: `/competitions/{id}/matches`
 
 | Field | Description |
 | --- | --- |
-| `group` |  |
-| `stage` |  |
+| `group` | Group identifier |
+| `stage` | Competition stage |
 | `table` |  |
-| `type` |  |
+| `type` | Type of standing |
 
 Operations: List.
 
@@ -318,17 +318,17 @@ API path: `/competitions/{id}/standings`
 
 | Field | Description |
 | --- | --- |
-| `address` |  |
-| `clubColors` |  |
-| `crest` |  |
-| `founded` |  |
-| `id` |  |
-| `lastUpdated` |  |
-| `name` |  |
-| `shortName` |  |
-| `tla` |  |
-| `venue` |  |
-| `website` |  |
+| `address` | Team address |
+| `clubColors` | Team colors |
+| `crest` | URL to team crest/logo |
+| `founded` | Year the team was founded |
+| `id` | Unique identifier for the team |
+| `lastUpdated` | Last update timestamp |
+| `name` | Full name of the team |
+| `shortName` | Short name of the team |
+| `tla` | Three-letter abbreviation |
+| `venue` | Home venue/stadium |
+| `website` | Team website URL |
 
 Operations: List.
 
@@ -355,15 +355,15 @@ Create an instance: `$competition = $client->Competition();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `area` | `array` |  |
-| `code` | `string` |  |
+| `code` | `string` | Short code for the competition |
 | `currentSeason` | `array` |  |
-| `emblem` | `string` |  |
-| `id` | `int` |  |
-| `lastUpdated` | `string` |  |
-| `name` | `string` |  |
-| `numberOfAvailableSeasons` | `int` |  |
-| `plan` | `string` |  |
-| `type` | `string` |  |
+| `emblem` | `string` | URL to competition emblem/logo |
+| `id` | `int` | Unique identifier for the competition |
+| `lastUpdated` | `string` | Last update timestamp |
+| `name` | `string` | Name of the competition |
+| `numberOfAvailableSeasons` | `int` | Number of seasons available in the API |
+| `plan` | `string` | API access tier required |
+| `type` | `string` | Type of competition |
 
 #### Example: Load
 
@@ -395,15 +395,15 @@ Create an instance: `$match = $client->Match();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `awayTeam` | `array` |  |
-| `group` | `string` |  |
+| `group` | `string` | Group identifier for group stage matches |
 | `homeTeam` | `array` |  |
-| `id` | `int` |  |
-| `matchday` | `int` |  |
+| `id` | `int` | Unique match identifier |
+| `matchday` | `int` | Matchday number |
 | `referees` | `array` |  |
 | `score` | `array` |  |
-| `stage` | `string` |  |
-| `status` | `string` |  |
-| `utcDate` | `string` |  |
+| `stage` | `string` | Competition stage (e.g., GROUP_STAGE, KNOCKOUT) |
+| `status` | `string` | Current match status |
+| `utcDate` | `string` | Match date and time in UTC |
 
 #### Example: List
 
@@ -427,10 +427,10 @@ Create an instance: `$standing = $client->Standing();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `group` | `string` |  |
-| `stage` | `string` |  |
+| `group` | `string` | Group identifier |
+| `stage` | `string` | Competition stage |
 | `table` | `array` |  |
-| `type` | `string` |  |
+| `type` | `string` | Type of standing |
 
 #### Example: List
 
@@ -454,17 +454,17 @@ Create an instance: `$team = $client->Team();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `string` |  |
-| `clubColors` | `string` |  |
-| `crest` | `string` |  |
-| `founded` | `int` |  |
-| `id` | `int` |  |
-| `lastUpdated` | `string` |  |
-| `name` | `string` |  |
-| `shortName` | `string` |  |
-| `tla` | `string` |  |
-| `venue` | `string` |  |
-| `website` | `string` |  |
+| `address` | `string` | Team address |
+| `clubColors` | `string` | Team colors |
+| `crest` | `string` | URL to team crest/logo |
+| `founded` | `int` | Year the team was founded |
+| `id` | `int` | Unique identifier for the team |
+| `lastUpdated` | `string` | Last update timestamp |
+| `name` | `string` | Full name of the team |
+| `shortName` | `string` | Short name of the team |
+| `tla` | `string` | Three-letter abbreviation |
+| `venue` | `string` | Home venue/stadium |
+| `website` | `string` | Team website URL |
 
 #### Example: List
 

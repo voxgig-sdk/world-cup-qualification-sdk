@@ -154,15 +154,15 @@ const competition = client.Competition()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `area` | `Record<string, any>` | No |  |
-| `code` | `string` | No |  |
+| `code` | `string` | No | Short code for the competition |
 | `currentSeason` | `Record<string, any>` | No |  |
-| `emblem` | `string` | No |  |
-| `id` | `number` | No |  |
-| `lastUpdated` | `string` | No |  |
-| `name` | `string` | No |  |
-| `numberOfAvailableSeasons` | `number` | No |  |
-| `plan` | `string` | No |  |
-| `type` | `string` | No |  |
+| `emblem` | `string` | No | URL to competition emblem/logo |
+| `id` | `number` | No | Unique identifier for the competition |
+| `lastUpdated` | `string` | No | Last update timestamp |
+| `name` | `string` | No | Name of the competition |
+| `numberOfAvailableSeasons` | `number` | No | Number of seasons available in the API |
+| `plan` | `string` | No | API access tier required |
+| `type` | `string` | No | Type of competition |
 
 ### Operations
 
@@ -221,15 +221,15 @@ const match = client.Match()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `awayTeam` | `Record<string, any>` | No |  |
-| `group` | `string` | No |  |
+| `group` | `string` | No | Group identifier for group stage matches |
 | `homeTeam` | `Record<string, any>` | No |  |
-| `id` | `number` | No |  |
-| `matchday` | `number` | No |  |
+| `id` | `number` | No | Unique match identifier |
+| `matchday` | `number` | No | Matchday number |
 | `referees` | `any[]` | No |  |
 | `score` | `Record<string, any>` | No |  |
-| `stage` | `string` | No |  |
-| `status` | `string` | No |  |
-| `utcDate` | `string` | No |  |
+| `stage` | `string` | No | Competition stage (e.g., GROUP_STAGE, KNOCKOUT) |
+| `status` | `string` | No | Current match status |
+| `utcDate` | `string` | No | Match date and time in UTC |
 
 ### Operations
 
@@ -279,10 +279,10 @@ const standing = client.Standing()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `group` | `string` | No |  |
-| `stage` | `string` | No |  |
+| `group` | `string` | No | Group identifier |
+| `stage` | `string` | No | Competition stage |
 | `table` | `any[]` | No |  |
-| `type` | `string` | No |  |
+| `type` | `string` | No | Type of standing |
 
 ### Operations
 
@@ -332,17 +332,17 @@ const team = client.Team()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | `string` | No |  |
-| `clubColors` | `string` | No |  |
-| `crest` | `string` | No |  |
-| `founded` | `number` | No |  |
-| `id` | `number` | No |  |
-| `lastUpdated` | `string` | No |  |
-| `name` | `string` | No |  |
-| `shortName` | `string` | No |  |
-| `tla` | `string` | No |  |
-| `venue` | `string` | No |  |
-| `website` | `string` | No |  |
+| `address` | `string` | No | Team address |
+| `clubColors` | `string` | No | Team colors |
+| `crest` | `string` | No | URL to team crest/logo |
+| `founded` | `number` | No | Year the team was founded |
+| `id` | `number` | No | Unique identifier for the team |
+| `lastUpdated` | `string` | No | Last update timestamp |
+| `name` | `string` | No | Full name of the team |
+| `shortName` | `string` | No | Short name of the team |
+| `tla` | `string` | No | Three-letter abbreviation |
+| `venue` | `string` | No | Home venue/stadium |
+| `website` | `string` | No | Team website URL |
 
 ### Operations
 

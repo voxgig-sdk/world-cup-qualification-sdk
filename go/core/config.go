@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "WorldCupQualification",
+			"slug": "world-cup-qualification",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -43,6 +46,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "code",
+						"short": "Short code for the competition",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -51,30 +55,37 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "emblem",
+						"short": "URL to competition emblem/logo",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "id",
+						"short": "Unique identifier for the competition",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "lastUpdated",
+						"short": "Last update timestamp",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "name",
+						"short": "Name of the competition",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "numberOfAvailableSeasons",
+						"short": "Number of seasons available in the API",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "plan",
+						"short": "API access tier required",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "type",
+						"short": "Type of competition",
 						"type": "`$STRING`",
 					},
 				},
@@ -170,6 +181,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "group",
+						"short": "Group identifier for group stage matches",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -178,10 +190,12 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "id",
+						"short": "Unique match identifier",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "matchday",
+						"short": "Matchday number",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
@@ -194,14 +208,17 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "stage",
+						"short": "Competition stage (e.g., GROUP_STAGE, KNOCKOUT)",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "status",
+						"short": "Current match status",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "utcDate",
+						"short": "Match date and time in UTC",
 						"type": "`$STRING`",
 					},
 				},
@@ -303,10 +320,12 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "group",
+						"short": "Group identifier",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "stage",
+						"short": "Competition stage",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -315,6 +334,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "type",
+						"short": "Type of standing",
 						"type": "`$STRING`",
 					},
 				},
@@ -393,46 +413,57 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "address",
+						"short": "Team address",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "clubColors",
+						"short": "Team colors",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "crest",
+						"short": "URL to team crest/logo",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "founded",
+						"short": "Year the team was founded",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "id",
+						"short": "Unique identifier for the team",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "lastUpdated",
+						"short": "Last update timestamp",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "name",
+						"short": "Full name of the team",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "shortName",
+						"short": "Short name of the team",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "tla",
+						"short": "Three-letter abbreviation",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "venue",
+						"short": "Home venue/stadium",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "website",
+						"short": "Team website URL",
 						"type": "`$STRING`",
 					},
 				},

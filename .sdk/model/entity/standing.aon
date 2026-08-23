@@ -1,0 +1,107 @@
+# Entity: standing
+
+main: kit: entity: standing: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "group"
+      req: false
+      short: "Group identifier"
+      type: "`$STRING`"
+    }
+    {
+      name: "stage"
+      req: false
+      short: "Competition stage"
+      type: "`$STRING`"
+    }
+    {
+      name: "table"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "type"
+      req: false
+      short: "Type of standing"
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "standing"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                example: 2006
+                kind: "param"
+                name: "competition_id"
+                orig: "id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                example: 10
+                kind: "query"
+                name: "matchday"
+                orig: "matchday"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: 2024
+                kind: "query"
+                name: "season"
+                orig: "season"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/competitions/{id}/standings"
+          parts: [
+            "competitions"
+            "{competition_id}"
+            "standings"
+          ]
+          rename: {
+            param: {
+              id: "competition_id"
+            }
+          }
+          select: {
+            exist: [
+              "competition_id"
+              "matchday"
+              "season"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "competition"
+      ]
+    ]
+  }
+
+
+
+}

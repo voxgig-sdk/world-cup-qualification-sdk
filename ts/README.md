@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -312,15 +312,15 @@ The `prepare()` method returns:
 | Field | Description |
 | --- | --- |
 | `area` |  |
-| `code` |  |
+| `code` | Short code for the competition |
 | `currentSeason` |  |
-| `emblem` |  |
-| `id` |  |
-| `lastUpdated` |  |
-| `name` |  |
-| `numberOfAvailableSeasons` |  |
-| `plan` |  |
-| `type` |  |
+| `emblem` | URL to competition emblem/logo |
+| `id` | Unique identifier for the competition |
+| `lastUpdated` | Last update timestamp |
+| `name` | Name of the competition |
+| `numberOfAvailableSeasons` | Number of seasons available in the API |
+| `plan` | API access tier required |
+| `type` | Type of competition |
 
 Operations: list, load.
 
@@ -331,15 +331,15 @@ API path: `/competitions`
 | Field | Description |
 | --- | --- |
 | `awayTeam` |  |
-| `group` |  |
+| `group` | Group identifier for group stage matches |
 | `homeTeam` |  |
-| `id` |  |
-| `matchday` |  |
+| `id` | Unique match identifier |
+| `matchday` | Matchday number |
 | `referees` |  |
 | `score` |  |
-| `stage` |  |
-| `status` |  |
-| `utcDate` |  |
+| `stage` | Competition stage (e.g., GROUP_STAGE, KNOCKOUT) |
+| `status` | Current match status |
+| `utcDate` | Match date and time in UTC |
 
 Operations: list.
 
@@ -349,10 +349,10 @@ API path: `/competitions/{id}/matches`
 
 | Field | Description |
 | --- | --- |
-| `group` |  |
-| `stage` |  |
+| `group` | Group identifier |
+| `stage` | Competition stage |
 | `table` |  |
-| `type` |  |
+| `type` | Type of standing |
 
 Operations: list.
 
@@ -362,17 +362,17 @@ API path: `/competitions/{id}/standings`
 
 | Field | Description |
 | --- | --- |
-| `address` |  |
-| `clubColors` |  |
-| `crest` |  |
-| `founded` |  |
-| `id` |  |
-| `lastUpdated` |  |
-| `name` |  |
-| `shortName` |  |
-| `tla` |  |
-| `venue` |  |
-| `website` |  |
+| `address` | Team address |
+| `clubColors` | Team colors |
+| `crest` | URL to team crest/logo |
+| `founded` | Year the team was founded |
+| `id` | Unique identifier for the team |
+| `lastUpdated` | Last update timestamp |
+| `name` | Full name of the team |
+| `shortName` | Short name of the team |
+| `tla` | Three-letter abbreviation |
+| `venue` | Home venue/stadium |
+| `website` | Team website URL |
 
 Operations: list.
 
@@ -399,15 +399,15 @@ Create an instance: `const competition = client.Competition()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `area` | `Record<string, any>` |  |
-| `code` | `string` |  |
+| `code` | `string` | Short code for the competition |
 | `currentSeason` | `Record<string, any>` |  |
-| `emblem` | `string` |  |
-| `id` | `number` |  |
-| `lastUpdated` | `string` |  |
-| `name` | `string` |  |
-| `numberOfAvailableSeasons` | `number` |  |
-| `plan` | `string` |  |
-| `type` | `string` |  |
+| `emblem` | `string` | URL to competition emblem/logo |
+| `id` | `number` | Unique identifier for the competition |
+| `lastUpdated` | `string` | Last update timestamp |
+| `name` | `string` | Name of the competition |
+| `numberOfAvailableSeasons` | `number` | Number of seasons available in the API |
+| `plan` | `string` | API access tier required |
+| `type` | `string` | Type of competition |
 
 #### Example: Load
 
@@ -437,15 +437,15 @@ Create an instance: `const match = client.Match()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `awayTeam` | `Record<string, any>` |  |
-| `group` | `string` |  |
+| `group` | `string` | Group identifier for group stage matches |
 | `homeTeam` | `Record<string, any>` |  |
-| `id` | `number` |  |
-| `matchday` | `number` |  |
+| `id` | `number` | Unique match identifier |
+| `matchday` | `number` | Matchday number |
 | `referees` | `any[]` |  |
 | `score` | `Record<string, any>` |  |
-| `stage` | `string` |  |
-| `status` | `string` |  |
-| `utcDate` | `string` |  |
+| `stage` | `string` | Competition stage (e.g., GROUP_STAGE, KNOCKOUT) |
+| `status` | `string` | Current match status |
+| `utcDate` | `string` | Match date and time in UTC |
 
 #### Example: List
 
@@ -468,10 +468,10 @@ Create an instance: `const standing = client.Standing()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `group` | `string` |  |
-| `stage` | `string` |  |
+| `group` | `string` | Group identifier |
+| `stage` | `string` | Competition stage |
 | `table` | `any[]` |  |
-| `type` | `string` |  |
+| `type` | `string` | Type of standing |
 
 #### Example: List
 
@@ -494,17 +494,17 @@ Create an instance: `const team = client.Team()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `string` |  |
-| `clubColors` | `string` |  |
-| `crest` | `string` |  |
-| `founded` | `number` |  |
-| `id` | `number` |  |
-| `lastUpdated` | `string` |  |
-| `name` | `string` |  |
-| `shortName` | `string` |  |
-| `tla` | `string` |  |
-| `venue` | `string` |  |
-| `website` | `string` |  |
+| `address` | `string` | Team address |
+| `clubColors` | `string` | Team colors |
+| `crest` | `string` | URL to team crest/logo |
+| `founded` | `number` | Year the team was founded |
+| `id` | `number` | Unique identifier for the team |
+| `lastUpdated` | `string` | Last update timestamp |
+| `name` | `string` | Full name of the team |
+| `shortName` | `string` | Short name of the team |
+| `tla` | `string` | Three-letter abbreviation |
+| `venue` | `string` | Home venue/stadium |
+| `website` | `string` | Team website URL |
 
 #### Example: List
 

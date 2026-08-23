@@ -258,15 +258,15 @@ returns a result `Hash` with these keys:
 | Field | Description |
 | --- | --- |
 | `area` |  |
-| `code` |  |
+| `code` | Short code for the competition |
 | `currentSeason` |  |
-| `emblem` |  |
-| `id` |  |
-| `lastUpdated` |  |
-| `name` |  |
-| `numberOfAvailableSeasons` |  |
-| `plan` |  |
-| `type` |  |
+| `emblem` | URL to competition emblem/logo |
+| `id` | Unique identifier for the competition |
+| `lastUpdated` | Last update timestamp |
+| `name` | Name of the competition |
+| `numberOfAvailableSeasons` | Number of seasons available in the API |
+| `plan` | API access tier required |
+| `type` | Type of competition |
 
 Operations: List, Load.
 
@@ -277,15 +277,15 @@ API path: `/competitions`
 | Field | Description |
 | --- | --- |
 | `awayTeam` |  |
-| `group` |  |
+| `group` | Group identifier for group stage matches |
 | `homeTeam` |  |
-| `id` |  |
-| `matchday` |  |
+| `id` | Unique match identifier |
+| `matchday` | Matchday number |
 | `referees` |  |
 | `score` |  |
-| `stage` |  |
-| `status` |  |
-| `utcDate` |  |
+| `stage` | Competition stage (e.g., GROUP_STAGE, KNOCKOUT) |
+| `status` | Current match status |
+| `utcDate` | Match date and time in UTC |
 
 Operations: List.
 
@@ -295,10 +295,10 @@ API path: `/competitions/{id}/matches`
 
 | Field | Description |
 | --- | --- |
-| `group` |  |
-| `stage` |  |
+| `group` | Group identifier |
+| `stage` | Competition stage |
 | `table` |  |
-| `type` |  |
+| `type` | Type of standing |
 
 Operations: List.
 
@@ -308,17 +308,17 @@ API path: `/competitions/{id}/standings`
 
 | Field | Description |
 | --- | --- |
-| `address` |  |
-| `clubColors` |  |
-| `crest` |  |
-| `founded` |  |
-| `id` |  |
-| `lastUpdated` |  |
-| `name` |  |
-| `shortName` |  |
-| `tla` |  |
-| `venue` |  |
-| `website` |  |
+| `address` | Team address |
+| `clubColors` | Team colors |
+| `crest` | URL to team crest/logo |
+| `founded` | Year the team was founded |
+| `id` | Unique identifier for the team |
+| `lastUpdated` | Last update timestamp |
+| `name` | Full name of the team |
+| `shortName` | Short name of the team |
+| `tla` | Three-letter abbreviation |
+| `venue` | Home venue/stadium |
+| `website` | Team website URL |
 
 Operations: List.
 
@@ -345,15 +345,15 @@ Create an instance: `competition = client.Competition`
 | Field | Type | Description |
 | --- | --- | --- |
 | `area` | `Hash` |  |
-| `code` | `String` |  |
+| `code` | `String` | Short code for the competition |
 | `currentSeason` | `Hash` |  |
-| `emblem` | `String` |  |
-| `id` | `Integer` |  |
-| `lastUpdated` | `String` |  |
-| `name` | `String` |  |
-| `numberOfAvailableSeasons` | `Integer` |  |
-| `plan` | `String` |  |
-| `type` | `String` |  |
+| `emblem` | `String` | URL to competition emblem/logo |
+| `id` | `Integer` | Unique identifier for the competition |
+| `lastUpdated` | `String` | Last update timestamp |
+| `name` | `String` | Name of the competition |
+| `numberOfAvailableSeasons` | `Integer` | Number of seasons available in the API |
+| `plan` | `String` | API access tier required |
+| `type` | `String` | Type of competition |
 
 #### Example: Load
 
@@ -385,15 +385,15 @@ Create an instance: `match = client.Match`
 | Field | Type | Description |
 | --- | --- | --- |
 | `awayTeam` | `Hash` |  |
-| `group` | `String` |  |
+| `group` | `String` | Group identifier for group stage matches |
 | `homeTeam` | `Hash` |  |
-| `id` | `Integer` |  |
-| `matchday` | `Integer` |  |
+| `id` | `Integer` | Unique match identifier |
+| `matchday` | `Integer` | Matchday number |
 | `referees` | `Array` |  |
 | `score` | `Hash` |  |
-| `stage` | `String` |  |
-| `status` | `String` |  |
-| `utcDate` | `String` |  |
+| `stage` | `String` | Competition stage (e.g., GROUP_STAGE, KNOCKOUT) |
+| `status` | `String` | Current match status |
+| `utcDate` | `String` | Match date and time in UTC |
 
 #### Example: List
 
@@ -417,10 +417,10 @@ Create an instance: `standing = client.Standing`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `group` | `String` |  |
-| `stage` | `String` |  |
+| `group` | `String` | Group identifier |
+| `stage` | `String` | Competition stage |
 | `table` | `Array` |  |
-| `type` | `String` |  |
+| `type` | `String` | Type of standing |
 
 #### Example: List
 
@@ -444,17 +444,17 @@ Create an instance: `team = client.Team`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `String` |  |
-| `clubColors` | `String` |  |
-| `crest` | `String` |  |
-| `founded` | `Integer` |  |
-| `id` | `Integer` |  |
-| `lastUpdated` | `String` |  |
-| `name` | `String` |  |
-| `shortName` | `String` |  |
-| `tla` | `String` |  |
-| `venue` | `String` |  |
-| `website` | `String` |  |
+| `address` | `String` | Team address |
+| `clubColors` | `String` | Team colors |
+| `crest` | `String` | URL to team crest/logo |
+| `founded` | `Integer` | Year the team was founded |
+| `id` | `Integer` | Unique identifier for the team |
+| `lastUpdated` | `String` | Last update timestamp |
+| `name` | `String` | Full name of the team |
+| `shortName` | `String` | Short name of the team |
+| `tla` | `String` | Three-letter abbreviation |
+| `venue` | `String` | Home venue/stadium |
+| `website` | `String` | Team website URL |
 
 #### Example: List
 

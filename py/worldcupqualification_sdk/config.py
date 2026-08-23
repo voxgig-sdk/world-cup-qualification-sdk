@@ -28,6 +28,9 @@ def make_config():
     return {
         "main": {
             "name": "WorldCupQualification",
+            "slug": "world-cup-qualification",
+            "version": "0.0.1",
+            "target": "py",
         },
         "feature": {
             "test": {
@@ -60,6 +63,7 @@ def make_config():
           },
           {
             "name": "code",
+            "short": "Short code for the competition",
             "type": "`$STRING`",
           },
           {
@@ -68,30 +72,37 @@ def make_config():
           },
           {
             "name": "emblem",
+            "short": "URL to competition emblem/logo",
             "type": "`$STRING`",
           },
           {
             "name": "id",
+            "short": "Unique identifier for the competition",
             "type": "`$INTEGER`",
           },
           {
             "name": "lastUpdated",
+            "short": "Last update timestamp",
             "type": "`$STRING`",
           },
           {
             "name": "name",
+            "short": "Name of the competition",
             "type": "`$STRING`",
           },
           {
             "name": "numberOfAvailableSeasons",
+            "short": "Number of seasons available in the API",
             "type": "`$INTEGER`",
           },
           {
             "name": "plan",
+            "short": "API access tier required",
             "type": "`$STRING`",
           },
           {
             "name": "type",
+            "short": "Type of competition",
             "type": "`$STRING`",
           },
         ],
@@ -187,6 +198,7 @@ def make_config():
           },
           {
             "name": "group",
+            "short": "Group identifier for group stage matches",
             "type": "`$STRING`",
           },
           {
@@ -195,10 +207,12 @@ def make_config():
           },
           {
             "name": "id",
+            "short": "Unique match identifier",
             "type": "`$INTEGER`",
           },
           {
             "name": "matchday",
+            "short": "Matchday number",
             "type": "`$INTEGER`",
           },
           {
@@ -211,14 +225,17 @@ def make_config():
           },
           {
             "name": "stage",
+            "short": "Competition stage (e.g., GROUP_STAGE, KNOCKOUT)",
             "type": "`$STRING`",
           },
           {
             "name": "status",
+            "short": "Current match status",
             "type": "`$STRING`",
           },
           {
             "name": "utcDate",
+            "short": "Match date and time in UTC",
             "type": "`$STRING`",
           },
         ],
@@ -320,10 +337,12 @@ def make_config():
         "fields": [
           {
             "name": "group",
+            "short": "Group identifier",
             "type": "`$STRING`",
           },
           {
             "name": "stage",
+            "short": "Competition stage",
             "type": "`$STRING`",
           },
           {
@@ -332,6 +351,7 @@ def make_config():
           },
           {
             "name": "type",
+            "short": "Type of standing",
             "type": "`$STRING`",
           },
         ],
@@ -410,46 +430,57 @@ def make_config():
         "fields": [
           {
             "name": "address",
+            "short": "Team address",
             "type": "`$STRING`",
           },
           {
             "name": "clubColors",
+            "short": "Team colors",
             "type": "`$STRING`",
           },
           {
             "name": "crest",
+            "short": "URL to team crest/logo",
             "type": "`$STRING`",
           },
           {
             "name": "founded",
+            "short": "Year the team was founded",
             "type": "`$INTEGER`",
           },
           {
             "name": "id",
+            "short": "Unique identifier for the team",
             "type": "`$INTEGER`",
           },
           {
             "name": "lastUpdated",
+            "short": "Last update timestamp",
             "type": "`$STRING`",
           },
           {
             "name": "name",
+            "short": "Full name of the team",
             "type": "`$STRING`",
           },
           {
             "name": "shortName",
+            "short": "Short name of the team",
             "type": "`$STRING`",
           },
           {
             "name": "tla",
+            "short": "Three-letter abbreviation",
             "type": "`$STRING`",
           },
           {
             "name": "venue",
+            "short": "Home venue/stadium",
             "type": "`$STRING`",
           },
           {
             "name": "website",
+            "short": "Team website URL",
             "type": "`$STRING`",
           },
         ],

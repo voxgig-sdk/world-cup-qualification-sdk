@@ -1,0 +1,6 @@
+# Entity Models
+
+@"competition.aon"
+@"match.aon"
+@"standing.aon"
+@"team.aon"

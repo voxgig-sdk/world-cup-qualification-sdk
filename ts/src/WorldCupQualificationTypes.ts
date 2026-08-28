@@ -23,16 +23,8 @@ export interface CompetitionLoadMatch {
 }
 
 export interface CompetitionListMatch {
-  area?: Record<string, any>
-  code?: string
-  currentSeason?: Record<string, any>
-  emblem?: string
-  id?: number
-  lastUpdated?: string
-  name?: string
-  numberOfAvailableSeasons?: number
+  area?: string
   plan?: string
-  type?: string
 }
 
 export interface Match {
@@ -50,6 +42,11 @@ export interface Match {
 
 export interface MatchListMatch {
   competition_id: number
+  date_from?: string
+  date_to?: string
+  matchday?: number
+  season?: number
+  status?: string
 }
 
 export interface Standing {
@@ -61,6 +58,8 @@ export interface Standing {
 
 export interface StandingListMatch {
   competition_id: number
+  matchday?: number
+  season?: number
 }
 
 export interface Team {
@@ -79,5 +78,6 @@ export interface Team {
 
 export interface TeamListMatch {
   competition_id: number
+  season?: number
 }
 

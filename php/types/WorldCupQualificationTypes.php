@@ -36,16 +36,8 @@ class CompetitionLoadMatch
 /** Request payload for Competition#list. */
 class CompetitionListMatch
 {
-    public ?array $area = null;
-    public ?string $code = null;
-    public ?array $currentSeason = null;
-    public ?string $emblem = null;
-    public ?int $id = null;
-    public ?string $lastUpdated = null;
-    public ?string $name = null;
-    public ?int $numberOfAvailableSeasons = null;
+    public ?string $area = null;
     public ?string $plan = null;
-    public ?string $type = null;
 }
 
 /** Match entity data model. */
@@ -67,6 +59,11 @@ class MatchType
 class MatchListMatch
 {
     public int $competition_id;
+    public ?string $date_from = null;
+    public ?string $date_to = null;
+    public ?int $matchday = null;
+    public ?int $season = null;
+    public ?string $status = null;
 }
 
 /** Standing entity data model. */
@@ -82,6 +79,8 @@ class Standing
 class StandingListMatch
 {
     public int $competition_id;
+    public ?int $matchday = null;
+    public ?int $season = null;
 }
 
 /** Team entity data model. */
@@ -104,5 +103,6 @@ class Team
 class TeamListMatch
 {
     public int $competition_id;
+    public ?int $season = null;
 }
 

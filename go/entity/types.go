@@ -33,16 +33,8 @@ type CompetitionLoadMatch struct {
 
 // CompetitionListMatch is the typed request payload for Competition.ListTyped.
 type CompetitionListMatch struct {
-	Area *map[string]any `json:"area,omitempty"`
-	Code *string `json:"code,omitempty"`
-	CurrentSeason *map[string]any `json:"currentSeason,omitempty"`
-	Emblem *string `json:"emblem,omitempty"`
-	Id *int `json:"id,omitempty"`
-	LastUpdated *string `json:"lastUpdated,omitempty"`
-	Name *string `json:"name,omitempty"`
-	NumberOfAvailableSeasons *int `json:"numberOfAvailableSeasons,omitempty"`
+	Area *string `json:"area,omitempty"`
 	Plan *string `json:"plan,omitempty"`
-	Type *string `json:"type,omitempty"`
 }
 
 // Match is the typed data model for the match entity.
@@ -62,6 +54,11 @@ type Match struct {
 // MatchListMatch is the typed request payload for Match.ListTyped.
 type MatchListMatch struct {
 	CompetitionId int `json:"competition_id"`
+	DateFrom *string `json:"date_from,omitempty"`
+	DateTo *string `json:"date_to,omitempty"`
+	Matchday *int `json:"matchday,omitempty"`
+	Season *int `json:"season,omitempty"`
+	Status *string `json:"status,omitempty"`
 }
 
 // Standing is the typed data model for the standing entity.
@@ -75,6 +72,8 @@ type Standing struct {
 // StandingListMatch is the typed request payload for Standing.ListTyped.
 type StandingListMatch struct {
 	CompetitionId int `json:"competition_id"`
+	Matchday *int `json:"matchday,omitempty"`
+	Season *int `json:"season,omitempty"`
 }
 
 // Team is the typed data model for the team entity.
@@ -95,6 +94,7 @@ type Team struct {
 // TeamListMatch is the typed request payload for Team.ListTyped.
 type TeamListMatch struct {
 	CompetitionId int `json:"competition_id"`
+	Season *int `json:"season,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

@@ -22,16 +22,8 @@
 ---@field id number
 
 ---@class CompetitionListMatch
----@field area? table
----@field code? string
----@field currentSeason? table
----@field emblem? string
----@field id? number
----@field lastUpdated? string
----@field name? string
----@field numberOfAvailableSeasons? number
+---@field area? string
 ---@field plan? string
----@field type? string
 
 ---@class Match
 ---@field awayTeam? table
@@ -47,6 +39,11 @@
 
 ---@class MatchListMatch
 ---@field competition_id number
+---@field date_from? string
+---@field date_to? string
+---@field matchday? number
+---@field season? number
+---@field status? string
 
 ---@class Standing
 ---@field group? string
@@ -56,6 +53,8 @@
 
 ---@class StandingListMatch
 ---@field competition_id number
+---@field matchday? number
+---@field season? number
 
 ---@class Team
 ---@field address? string
@@ -72,6 +71,7 @@
 
 ---@class TeamListMatch
 ---@field competition_id number
+---@field season? number
 
 local M = {}
 

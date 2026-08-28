@@ -65,45 +65,13 @@ CompetitionLoadMatch = Struct.new(
 # Request payload for Competition#list.
 #
 # @!attribute [rw] area
-#   @return [Hash, nil]
-#
-# @!attribute [rw] code
 #   @return [String, nil]
-#
-# @!attribute [rw] currentSeason
-#   @return [Hash, nil]
-#
-# @!attribute [rw] emblem
-#   @return [String, nil]
-#
-# @!attribute [rw] id
-#   @return [Integer, nil]
-#
-# @!attribute [rw] lastUpdated
-#   @return [String, nil]
-#
-# @!attribute [rw] name
-#   @return [String, nil]
-#
-# @!attribute [rw] numberOfAvailableSeasons
-#   @return [Integer, nil]
 #
 # @!attribute [rw] plan
 #   @return [String, nil]
-#
-# @!attribute [rw] type
-#   @return [String, nil]
 CompetitionListMatch = Struct.new(
   :area,
-  :code,
-  :currentSeason,
-  :emblem,
-  :id,
-  :lastUpdated,
-  :name,
-  :numberOfAvailableSeasons,
   :plan,
-  :type,
   keyword_init: true
 )
 
@@ -156,8 +124,28 @@ Match = Struct.new(
 #
 # @!attribute [rw] competition_id
 #   @return [Integer]
+#
+# @!attribute [rw] date_from
+#   @return [String, nil]
+#
+# @!attribute [rw] date_to
+#   @return [String, nil]
+#
+# @!attribute [rw] matchday
+#   @return [Integer, nil]
+#
+# @!attribute [rw] season
+#   @return [Integer, nil]
+#
+# @!attribute [rw] status
+#   @return [String, nil]
 MatchListMatch = Struct.new(
   :competition_id,
+  :date_from,
+  :date_to,
+  :matchday,
+  :season,
+  :status,
   keyword_init: true
 )
 
@@ -186,8 +174,16 @@ Standing = Struct.new(
 #
 # @!attribute [rw] competition_id
 #   @return [Integer]
+#
+# @!attribute [rw] matchday
+#   @return [Integer, nil]
+#
+# @!attribute [rw] season
+#   @return [Integer, nil]
 StandingListMatch = Struct.new(
   :competition_id,
+  :matchday,
+  :season,
   keyword_init: true
 )
 
@@ -244,8 +240,12 @@ Team = Struct.new(
 #
 # @!attribute [rw] competition_id
 #   @return [Integer]
+#
+# @!attribute [rw] season
+#   @return [Integer, nil]
 TeamListMatch = Struct.new(
   :competition_id,
+  :season,
   keyword_init: true
 )
 

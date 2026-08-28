@@ -34,16 +34,8 @@ class CompetitionLoadMatch(TypedDict):
 
 
 class CompetitionListMatch(TypedDict, total=False):
-    area: dict
-    code: str
-    currentSeason: dict
-    emblem: str
-    id: int
-    lastUpdated: str
-    name: str
-    numberOfAvailableSeasons: int
+    area: str
     plan: str
-    type: str
 
 
 class Match(TypedDict, total=False):
@@ -59,8 +51,16 @@ class Match(TypedDict, total=False):
     utcDate: str
 
 
-class MatchListMatch(TypedDict):
+class MatchListMatchRequired(TypedDict):
     competition_id: int
+
+
+class MatchListMatch(MatchListMatchRequired, total=False):
+    date_from: str
+    date_to: str
+    matchday: int
+    season: int
+    status: str
 
 
 class Standing(TypedDict, total=False):
@@ -70,8 +70,13 @@ class Standing(TypedDict, total=False):
     type: str
 
 
-class StandingListMatch(TypedDict):
+class StandingListMatchRequired(TypedDict):
     competition_id: int
+
+
+class StandingListMatch(StandingListMatchRequired, total=False):
+    matchday: int
+    season: int
 
 
 class Team(TypedDict, total=False):
@@ -88,5 +93,9 @@ class Team(TypedDict, total=False):
     website: str
 
 
-class TeamListMatch(TypedDict):
+class TeamListMatchRequired(TypedDict):
     competition_id: int
+
+
+class TeamListMatch(TeamListMatchRequired, total=False):
+    season: int

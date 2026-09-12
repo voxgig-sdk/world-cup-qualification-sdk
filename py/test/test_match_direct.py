@@ -72,15 +72,18 @@ def _match_direct_setup(mockres):
     env = runner.env_override({
         "WORLD_CUP_QUALIFICATION_TEST_MATCH_ENTID": {},
         "WORLD_CUP_QUALIFICATION_TEST_LIVE": "FALSE",
-        "WORLD_CUP_QUALIFICATION_APIKEY": "NONE",
+        "WORLD_CUP_QUALIFICATION_APIKEY": "",
     })
 
     live = env.get("WORLD_CUP_QUALIFICATION_TEST_LIVE") == "TRUE"
 
     if live:
-        merged_opts = {
+        # sdk-test-control.json's test.client.options seeds the live
+        # client; the generated fields below overwrite anything they name.
+        merged_opts = dict(runner.live_client_options())
+        merged_opts.update({
             "apikey": env.get("WORLD_CUP_QUALIFICATION_APIKEY"),
-        }
+        })
         client = WorldCupQualificationSDK(merged_opts)
         return {
             "client": client,

@@ -87,6 +87,7 @@ class WorldCupQualificationConfig
               'type' => '`$INTEGER`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'lastUpdated',
               'short' => 'Last update timestamp',
               'type' => '`$STRING`',
@@ -111,6 +112,10 @@ class WorldCupQualificationConfig
               'short' => 'Type of competition',
               'type' => '`$STRING`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'competition',
           'op' => [
@@ -139,8 +144,10 @@ class WorldCupQualificationConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/competitions',
-                  'parts' => [
-                    'competitions',
+                  'segments' => [
+                    [
+                      'lit' => 'competitions',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -151,6 +158,9 @@ class WorldCupQualificationConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'competitions',
                   ],
                 ],
               ],
@@ -175,9 +185,13 @@ class WorldCupQualificationConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/competitions/{id}',
-                  'parts' => [
-                    'competitions',
-                    '{id}',
+                  'segments' => [
+                    [
+                      'lit' => 'competitions',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -187,6 +201,10 @@ class WorldCupQualificationConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'competitions',
+                    '{id}',
                   ],
                 ],
               ],
@@ -240,10 +258,15 @@ class WorldCupQualificationConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'utcDate',
               'short' => 'Match date and time in UTC',
               'type' => '`$STRING`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'match',
           'op' => [
@@ -303,14 +326,20 @@ class WorldCupQualificationConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/competitions/{id}/matches',
-                  'parts' => [
-                    'competitions',
-                    '{competition_id}',
-                    'matches',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'competition_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'competitions',
+                    ],
+                    [
+                      'var' => 'competition_id',
+                    ],
+                    [
+                      'lit' => 'matches',
                     ],
                   ],
                   'select' => [
@@ -326,6 +355,11 @@ class WorldCupQualificationConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'competitions',
+                    '{competition_id}',
+                    'matches',
                   ],
                 ],
               ],
@@ -399,14 +433,20 @@ class WorldCupQualificationConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/competitions/{id}/standings',
-                  'parts' => [
-                    'competitions',
-                    '{competition_id}',
-                    'standings',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'competition_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'competitions',
+                    ],
+                    [
+                      'var' => 'competition_id',
+                    ],
+                    [
+                      'lit' => 'standings',
                     ],
                   ],
                   'select' => [
@@ -419,6 +459,11 @@ class WorldCupQualificationConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'competitions',
+                    '{competition_id}',
+                    'standings',
                   ],
                 ],
               ],
@@ -460,6 +505,7 @@ class WorldCupQualificationConfig
               'type' => '`$INTEGER`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'lastUpdated',
               'short' => 'Last update timestamp',
               'type' => '`$STRING`',
@@ -489,6 +535,10 @@ class WorldCupQualificationConfig
               'short' => 'Team website URL',
               'type' => '`$STRING`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'team',
           'op' => [
@@ -521,14 +571,20 @@ class WorldCupQualificationConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/competitions/{id}/teams',
-                  'parts' => [
-                    'competitions',
-                    '{competition_id}',
-                    'teams',
-                  ],
                   'rename' => [
                     'param' => [
                       'id' => 'competition_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'competitions',
+                    ],
+                    [
+                      'var' => 'competition_id',
+                    ],
+                    [
+                      'lit' => 'teams',
                     ],
                   ],
                   'select' => [
@@ -540,6 +596,11 @@ class WorldCupQualificationConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'competitions',
+                    '{competition_id}',
+                    'teams',
                   ],
                 ],
               ],

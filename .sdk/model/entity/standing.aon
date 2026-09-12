@@ -68,16 +68,22 @@ main: kit: entity: standing: {
           }
           method: "GET"
           orig: "/competitions/{id}/standings"
-          parts: [
-            "competitions"
-            "{competition_id}"
-            "standings"
-          ]
           rename: {
             param: {
               id: "competition_id"
             }
           }
+          segments: [
+            {
+              lit: "competitions"
+            }
+            {
+              var: "competition_id"
+            }
+            {
+              lit: "standings"
+            }
+          ]
           select: {
             exist: [
               "competition_id"

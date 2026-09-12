@@ -10,6 +10,17 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
+}
+
+
 class Config {
 
   makeFeature(this: any, fn: string) {
@@ -103,6 +114,7 @@ class Config {
           "type": "`$INTEGER`"
         },
         {
+          "format": "date-time",
           "name": "lastUpdated",
           "short": "Last update timestamp",
           "type": "`$STRING`"
@@ -128,6 +140,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "competition",
       "op": {
         "list": {
@@ -155,8 +171,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/competitions",
-              "parts": [
-                "competitions"
+              "segments": [
+                {
+                  "lit": "competitions"
+                }
               ],
               "select": {
                 "exist": [
@@ -167,7 +185,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "competitions"
+              ]
             }
           ]
         },
@@ -191,9 +212,13 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/competitions/{id}",
-              "parts": [
-                "competitions",
-                "{id}"
+              "segments": [
+                {
+                  "lit": "competitions"
+                },
+                {
+                  "var": "id"
+                }
               ],
               "select": {
                 "exist": [
@@ -203,7 +228,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "competitions",
+                "{id}"
+              ]
             }
           ]
         }
@@ -256,11 +285,16 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "utcDate",
           "short": "Match date and time in UTC",
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "match",
       "op": {
         "list": {
@@ -319,16 +353,22 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/competitions/{id}/matches",
-              "parts": [
-                "competitions",
-                "{competition_id}",
-                "matches"
-              ],
               "rename": {
                 "param": {
                   "id": "competition_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "competitions"
+                },
+                {
+                  "var": "competition_id"
+                },
+                {
+                  "lit": "matches"
+                }
+              ],
               "select": {
                 "exist": [
                   "competition_id",
@@ -342,7 +382,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "competitions",
+                "{competition_id}",
+                "matches"
+              ]
             }
           ]
         }
@@ -415,16 +460,22 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/competitions/{id}/standings",
-              "parts": [
-                "competitions",
-                "{competition_id}",
-                "standings"
-              ],
               "rename": {
                 "param": {
                   "id": "competition_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "competitions"
+                },
+                {
+                  "var": "competition_id"
+                },
+                {
+                  "lit": "standings"
+                }
+              ],
               "select": {
                 "exist": [
                   "competition_id",
@@ -435,7 +486,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "competitions",
+                "{competition_id}",
+                "standings"
+              ]
             }
           ]
         }
@@ -476,6 +532,7 @@ class Config {
           "type": "`$INTEGER`"
         },
         {
+          "format": "date-time",
           "name": "lastUpdated",
           "short": "Last update timestamp",
           "type": "`$STRING`"
@@ -506,6 +563,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "team",
       "op": {
         "list": {
@@ -537,16 +598,22 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/competitions/{id}/teams",
-              "parts": [
-                "competitions",
-                "{competition_id}",
-                "teams"
-              ],
               "rename": {
                 "param": {
                   "id": "competition_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "competitions"
+                },
+                {
+                  "var": "competition_id"
+                },
+                {
+                  "lit": "teams"
+                }
+              ],
               "select": {
                 "exist": [
                   "competition_id",
@@ -556,7 +623,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "competitions",
+                "{competition_id}",
+                "teams"
+              ]
             }
           ]
         }
@@ -576,6 +648,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 

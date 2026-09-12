@@ -56,6 +56,7 @@ main: kit: entity: match: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "utcDate"
       req: false
       short: "Match date and time in UTC"
@@ -129,16 +130,22 @@ main: kit: entity: match: {
           }
           method: "GET"
           orig: "/competitions/{id}/matches"
-          parts: [
-            "competitions"
-            "{competition_id}"
-            "matches"
-          ]
           rename: {
             param: {
               id: "competition_id"
             }
           }
+          segments: [
+            {
+              lit: "competitions"
+            }
+            {
+              var: "competition_id"
+            }
+            {
+              lit: "matches"
+            }
+          ]
           select: {
             exist: [
               "competition_id"

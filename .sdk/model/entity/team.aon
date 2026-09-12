@@ -36,6 +36,7 @@ main: kit: entity: team: {
       type: "`$INTEGER`"
     }
     {
+      format: "date-time"
       name: "lastUpdated"
       req: false
       short: "Last update timestamp"
@@ -108,16 +109,22 @@ main: kit: entity: team: {
           }
           method: "GET"
           orig: "/competitions/{id}/teams"
-          parts: [
-            "competitions"
-            "{competition_id}"
-            "teams"
-          ]
           rename: {
             param: {
               id: "competition_id"
             }
           }
+          segments: [
+            {
+              lit: "competitions"
+            }
+            {
+              var: "competition_id"
+            }
+            {
+              lit: "teams"
+            }
+          ]
           select: {
             exist: [
               "competition_id"

@@ -34,6 +34,7 @@ main: kit: entity: competition: {
       type: "`$INTEGER`"
     }
     {
+      format: "date-time"
       name: "lastUpdated"
       req: false
       short: "Last update timestamp"
@@ -97,8 +98,10 @@ main: kit: entity: competition: {
           }
           method: "GET"
           orig: "/competitions"
-          parts: [
-            "competitions"
+          segments: [
+            {
+              lit: "competitions"
+            }
           ]
           select: {
             exist: [
@@ -131,9 +134,13 @@ main: kit: entity: competition: {
           }
           method: "GET"
           orig: "/competitions/{id}"
-          parts: [
-            "competitions"
-            "{id}"
+          segments: [
+            {
+              lit: "competitions"
+            }
+            {
+              var: "id"
+            }
           ]
           select: {
             exist: [

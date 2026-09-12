@@ -177,14 +177,22 @@ func competitionDirectSetup(mockres any) *competitionDirectSetupResult {
 	env := envOverride(map[string]any{
 		"WORLD_CUP_QUALIFICATION_TEST_COMPETITION_ENTID": map[string]any{},
 		"WORLD_CUP_QUALIFICATION_TEST_LIVE":    "FALSE",
-		"WORLD_CUP_QUALIFICATION_APIKEY":       "NONE",
+		"WORLD_CUP_QUALIFICATION_APIKEY":       "",
 	})
 
 	live := env["WORLD_CUP_QUALIFICATION_TEST_LIVE"] == "TRUE"
 
 	if live {
-		mergedOpts := map[string]any{
+		// sdk-test-control.json's test.client.options seeds the live
+		// client; the generated fields below overwrite anything they name.
+		mergedOpts := map[string]any{}
+		for k, v := range liveClientOptions() {
+			mergedOpts[k] = v
+		}
+		for k, v := range map[string]any{
 			"apikey": env["WORLD_CUP_QUALIFICATION_APIKEY"],
+		} {
+			mergedOpts[k] = v
 		}
 		client := sdk.NewWorldCupQualificationSDK(mergedOpts)
 

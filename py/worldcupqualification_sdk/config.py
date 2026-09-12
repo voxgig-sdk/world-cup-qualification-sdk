@@ -1,6 +1,14 @@
 # WorldCupQualification SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -82,6 +90,7 @@ def make_config():
             "type": "`$INTEGER`",
           },
           {
+            "format": "date-time",
             "name": "lastUpdated",
             "short": "Last update timestamp",
             "type": "`$STRING`",
@@ -107,6 +116,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "competition",
         "op": {
           "list": {
@@ -134,8 +147,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/competitions",
-                "parts": [
-                  "competitions",
+                "segments": [
+                  {
+                    "lit": "competitions",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -147,6 +162,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "competitions",
+                ],
               },
             ],
           },
@@ -170,9 +188,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/competitions/{id}",
-                "parts": [
-                  "competitions",
-                  "{id}",
+                "segments": [
+                  {
+                    "lit": "competitions",
+                  },
+                  {
+                    "var": "id",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -183,6 +205,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "competitions",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -235,11 +261,16 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "date-time",
             "name": "utcDate",
             "short": "Match date and time in UTC",
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "match",
         "op": {
           "list": {
@@ -298,16 +329,22 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/competitions/{id}/matches",
-                "parts": [
-                  "competitions",
-                  "{competition_id}",
-                  "matches",
-                ],
                 "rename": {
                   "param": {
                     "id": "competition_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "competitions",
+                  },
+                  {
+                    "var": "competition_id",
+                  },
+                  {
+                    "lit": "matches",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "competition_id",
@@ -322,6 +359,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "competitions",
+                  "{competition_id}",
+                  "matches",
+                ],
               },
             ],
           },
@@ -394,16 +436,22 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/competitions/{id}/standings",
-                "parts": [
-                  "competitions",
-                  "{competition_id}",
-                  "standings",
-                ],
                 "rename": {
                   "param": {
                     "id": "competition_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "competitions",
+                  },
+                  {
+                    "var": "competition_id",
+                  },
+                  {
+                    "lit": "standings",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "competition_id",
@@ -415,6 +463,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "competitions",
+                  "{competition_id}",
+                  "standings",
+                ],
               },
             ],
           },
@@ -455,6 +508,7 @@ def make_config():
             "type": "`$INTEGER`",
           },
           {
+            "format": "date-time",
             "name": "lastUpdated",
             "short": "Last update timestamp",
             "type": "`$STRING`",
@@ -485,6 +539,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "team",
         "op": {
           "list": {
@@ -516,16 +574,22 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/competitions/{id}/teams",
-                "parts": [
-                  "competitions",
-                  "{competition_id}",
-                  "teams",
-                ],
                 "rename": {
                   "param": {
                     "id": "competition_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "competitions",
+                  },
+                  {
+                    "var": "competition_id",
+                  },
+                  {
+                    "lit": "teams",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "competition_id",
@@ -536,6 +600,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "competitions",
+                  "{competition_id}",
+                  "teams",
+                ],
               },
             ],
           },

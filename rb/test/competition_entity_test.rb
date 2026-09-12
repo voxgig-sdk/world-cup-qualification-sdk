@@ -127,7 +127,7 @@ def competition_basic_setup(extra)
     "WORLD_CUP_QUALIFICATION_TEST_COMPETITION_ENTID" => idmap,
     "WORLD_CUP_QUALIFICATION_TEST_LIVE" => "FALSE",
     "WORLD_CUP_QUALIFICATION_TEST_EXPLAIN" => "FALSE",
-    "WORLD_CUP_QUALIFICATION_APIKEY" => "NONE",
+    "WORLD_CUP_QUALIFICATION_APIKEY" => "",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -138,6 +138,9 @@ def competition_basic_setup(extra)
 
   if env["WORLD_CUP_QUALIFICATION_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
+      # FIRST, so the generated fields below win: sdk-test-control.json's
+      # test.client.options adds to the live client, it does not redirect it.
+      Runner.live_client_options,
       {
         "apikey" => env["WORLD_CUP_QUALIFICATION_APIKEY"],
       },

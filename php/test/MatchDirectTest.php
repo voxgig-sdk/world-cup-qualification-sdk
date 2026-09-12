@@ -82,15 +82,17 @@ function match_direct_setup($mockres)
     $env = Runner::env_override([
         "WORLD_CUP_QUALIFICATION_TEST_MATCH_ENTID" => [],
         "WORLD_CUP_QUALIFICATION_TEST_LIVE" => "FALSE",
-        "WORLD_CUP_QUALIFICATION_APIKEY" => "NONE",
+        "WORLD_CUP_QUALIFICATION_APIKEY" => "",
     ]);
 
     $live = $env["WORLD_CUP_QUALIFICATION_TEST_LIVE"] === "TRUE";
 
     if ($live) {
-        $merged_opts = [
+        // Merged so the generated fields win: sdk-test-control.json's
+        // test.client.options adds to the live client, it does not redirect it.
+        $merged_opts = array_merge(Runner::live_client_options(), [
             "apikey" => $env["WORLD_CUP_QUALIFICATION_APIKEY"],
-        ];
+        ]);
         $client = new WorldCupQualificationSDK($merged_opts);
         return [
             "client" => $client,

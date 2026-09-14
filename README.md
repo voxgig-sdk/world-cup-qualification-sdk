@@ -105,7 +105,7 @@ local results, err = client:Match():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/world-cup-qualification` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases) |
+| TypeScript | `@voxgig-sdk/world-cup-qualification-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases) |
 | Python | `voxgig-sdk-world-cup-qualification` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases) |
 | PHP | `voxgig-sdk/world-cup-qualification` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/world-cup-qualification-sdk/go` | `go get github.com/voxgig-sdk/world-cup-qualification-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Match():list()
 ### TypeScript
 
 ```ts
-import { WorldCupQualificationSDK } from '@voxgig-sdk/world-cup-qualification'
+import { WorldCupQualificationSDK } from '@voxgig-sdk/world-cup-qualification-sdk'
 
 const client = new WorldCupQualificationSDK({
   apikey: process.env.WORLD_CUP_QUALIFICATION_APIKEY,

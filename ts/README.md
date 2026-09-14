@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { WorldCupQualificationSDK } from '@voxgig-sdk/world-cup-qualification'
+import { WorldCupQualificationSDK } from '@voxgig-sdk/world-cup-qualification-sdk'
 
 const client = new WorldCupQualificationSDK({
   apikey: process.env.WORLD_CUP_QUALIFICATION_APIKEY,
@@ -595,7 +595,7 @@ world-cup-qualification/
 Import the SDK from the package root:
 
 ```ts
-import { WorldCupQualificationSDK } from '@voxgig-sdk/world-cup-qualification'
+import { WorldCupQualificationSDK } from '@voxgig-sdk/world-cup-qualification-sdk'
 ```
 
 ### Entity state

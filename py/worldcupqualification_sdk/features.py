@@ -1,12 +1,18 @@
 # WorldCupQualification SDK feature factory
 
 from worldcupqualification_sdk.feature.base_feature import WorldCupQualificationBaseFeature
+from worldcupqualification_sdk.feature.ratelimit_feature import WorldCupQualificationRatelimitFeature
+from worldcupqualification_sdk.feature.retry_feature import WorldCupQualificationRetryFeature
 from worldcupqualification_sdk.feature.test_feature import WorldCupQualificationTestFeature
+from worldcupqualification_sdk.feature.timeout_feature import WorldCupQualificationTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: WorldCupQualificationBaseFeature(),
+    "ratelimit": lambda: WorldCupQualificationRatelimitFeature(),
+    "retry": lambda: WorldCupQualificationRetryFeature(),
     "test": lambda: WorldCupQualificationTestFeature(),
+    "timeout": lambda: WorldCupQualificationTimeoutFeature(),
 }
 
 

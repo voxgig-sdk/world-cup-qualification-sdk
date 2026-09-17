@@ -103,6 +103,7 @@ class WorldCupQualificationConfig
                 "base" => "https://api.football-data.org/v4",
                 "auth" => [
                     "prefix" => "",
+                    "name" => "X-Auth-Token",
                 ],
                 "headers" => [
           'content-type' => 'application/json',

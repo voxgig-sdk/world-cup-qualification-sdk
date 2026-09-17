@@ -81,6 +81,7 @@ func MakeConfig() map[string]any {
 			"base": "https://api.football-data.org/v4",
 			"auth": map[string]any{
 				"prefix": "",
+				"name": "X-Auth-Token",
 			},
 			"headers": map[string]any{
 				"content-type": "application/json",

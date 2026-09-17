@@ -105,12 +105,12 @@ local results, err = client:Match():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/world-cup-qualification-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases) |
-| Python | `voxgig-sdk-world-cup-qualification` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases) |
-| PHP | `voxgig-sdk/world-cup-qualification` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases) |
+| TypeScript | `@voxgig-sdk/world-cup-qualification-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/tags) |
+| Python | `voxgig-sdk-world-cup-qualification` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/tags) |
+| PHP | `voxgig-sdk/world-cup-qualification` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/world-cup-qualification-sdk/go` | `go get github.com/voxgig-sdk/world-cup-qualification-sdk/go@latest` |
-| Ruby | `voxgig-sdk-world-cup-qualification` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases) |
-| Lua | `voxgig-sdk-world-cup-qualification` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/releases) |
+| Ruby | `voxgig-sdk-world-cup-qualification` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/tags) |
+| Lua | `voxgig-sdk-world-cup-qualification` | publish pending — [install from git tag](https://github.com/voxgig-sdk/world-cup-qualification-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/world-cup-qualification-sdk/go-cli` | `go install github.com/voxgig-sdk/world-cup-qualification-sdk/go-cli/cmd/world-cup-qualification@latest` |
 | Go MCP server | `github.com/voxgig-sdk/world-cup-qualification-sdk/go-mcp` | `go get github.com/voxgig-sdk/world-cup-qualification-sdk/go-mcp@latest` |
 

@@ -123,6 +123,7 @@ class Config {
 
     auth: {
       prefix: '',
+      name: 'X-Auth-Token',
     },
 
     headers: {
@@ -131,18 +132,18 @@ class Config {
 
     entity: {
       
-      competition: {
-      },
-
-      match: {
-      },
-
-      standing: {
-      },
-
-      team: {
-      },
-
+        competition: {
+        },
+  
+        match: {
+        },
+  
+        standing: {
+        },
+  
+        team: {
+        },
+  
     }
   }
 

@@ -19,7 +19,6 @@ import type {
   TeamListMatch,
 } from '../WorldCupQualificationTypes'
 
-// TODO: needs Entity superclass
 class TeamEntity extends WorldCupQualificationEntityBase<Team> {
 
   constructor(client: WorldCupQualificationSDK, entopts: any) {

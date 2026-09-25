@@ -1,0 +1,26 @@
+# BasicMatchFlow
+
+main: kit: flow: BasicMatchFlow:
+{
+  entity: "match",
+  kind: "basic",
+  name: "BasicMatchFlow",
+  step: [
+    {
+      m: {
+        competition_id: "competition01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "match_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicMatchFlow"
+}

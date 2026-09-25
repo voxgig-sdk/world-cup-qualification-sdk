@@ -123,52 +123,62 @@ def make_config():
         "fields": [
           {
             "name": "area",
+            "title": "Area",
             "type": "`$OBJECT`",
           },
           {
             "name": "code",
-            "short": "Short code for the competition",
+            "title": "Code",
             "type": "`$STRING`",
+            "short": "Short code for the competition",
           },
           {
             "name": "currentSeason",
+            "title": "Current Season",
             "type": "`$OBJECT`",
           },
           {
             "name": "emblem",
-            "short": "URL to competition emblem/logo",
+            "title": "Emblem",
             "type": "`$STRING`",
+            "short": "URL to competition emblem/logo",
           },
           {
             "name": "id",
-            "short": "Unique identifier for the competition",
+            "title": "Id",
             "type": "`$INTEGER`",
+            "short": "Unique identifier for the competition",
           },
           {
-            "format": "date-time",
             "name": "lastUpdated",
-            "short": "Last update timestamp",
+            "title": "Last Updated",
             "type": "`$STRING`",
+            "short": "Last update timestamp",
+            "format": "date-time",
           },
           {
             "name": "name",
-            "short": "Name of the competition",
+            "title": "Name",
             "type": "`$STRING`",
+            "short": "Name of the competition",
           },
           {
             "name": "numberOfAvailableSeasons",
-            "short": "Number of seasons available in the API",
+            "title": "Number Of Available Seasons",
             "type": "`$INTEGER`",
+            "short": "Number of seasons available in the API",
           },
           {
             "name": "plan",
-            "short": "API access tier required",
+            "title": "Plan",
             "type": "`$STRING`",
+            "short": "API access tier required",
           },
           {
             "name": "type",
-            "short": "Type of competition",
+            "title": "Type",
             "type": "`$STRING`",
+            "short": "Type of competition",
           },
         ],
         "id": {
@@ -182,23 +192,6 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {
-                  "query": [
-                    {
-                      "example": "AFR,UEFA",
-                      "kind": "query",
-                      "name": "area",
-                      "orig": "area",
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "plan",
-                      "orig": "plan",
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/competitions",
@@ -207,19 +200,37 @@ def make_config():
                     "lit": "competitions",
                   },
                 ],
+                "parts": [
+                  "competitions",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "query": [
+                    {
+                      "name": "area",
+                      "orig": "area",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                      "example": "AFR,UEFA",
+                    },
+                    {
+                      "name": "plan",
+                      "orig": "plan",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "area",
                     "plan",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "competitions",
-                ],
               },
             ],
           },
@@ -228,18 +239,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": 2006,
-                      "kind": "param",
-                      "name": "id",
-                      "orig": "id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/competitions/{id}",
@@ -251,19 +250,32 @@ def make_config():
                     "var": "id",
                   },
                 ],
+                "parts": [
+                  "competitions",
+                  "{id}",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "id",
+                      "orig": "id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": 2006,
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "id",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "competitions",
-                  "{id}",
-                ],
               },
             ],
           },
@@ -276,50 +288,60 @@ def make_config():
         "fields": [
           {
             "name": "awayTeam",
+            "title": "Away Team",
             "type": "`$OBJECT`",
           },
           {
             "name": "group",
-            "short": "Group identifier for group stage matches",
+            "title": "Group",
             "type": "`$STRING`",
+            "short": "Group identifier for group stage matches",
           },
           {
             "name": "homeTeam",
+            "title": "Home Team",
             "type": "`$OBJECT`",
           },
           {
             "name": "id",
-            "short": "Unique match identifier",
+            "title": "Id",
             "type": "`$INTEGER`",
+            "short": "Unique match identifier",
           },
           {
             "name": "matchday",
-            "short": "Matchday number",
+            "title": "Matchday",
             "type": "`$INTEGER`",
+            "short": "Matchday number",
           },
           {
             "name": "referees",
+            "title": "Referees",
             "type": "`$ARRAY`",
           },
           {
             "name": "score",
+            "title": "Score",
             "type": "`$OBJECT`",
           },
           {
             "name": "stage",
-            "short": "Competition stage (e.g., GROUP_STAGE, KNOCKOUT)",
+            "title": "Stage",
             "type": "`$STRING`",
+            "short": "Competition stage (e.g., GROUP_STAGE, KNOCKOUT)",
           },
           {
             "name": "status",
-            "short": "Current match status",
+            "title": "Status",
             "type": "`$STRING`",
+            "short": "Current match status",
           },
           {
-            "format": "date-time",
             "name": "utcDate",
-            "short": "Match date and time in UTC",
+            "title": "Utc Date",
             "type": "`$STRING`",
+            "short": "Match date and time in UTC",
+            "format": "date-time",
           },
         ],
         "id": {
@@ -333,62 +355,9 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": 2006,
-                      "kind": "param",
-                      "name": "competition_id",
-                      "orig": "id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                  "query": [
-                    {
-                      "example": "2024-01-01",
-                      "kind": "query",
-                      "name": "date_from",
-                      "orig": "date_from",
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "example": "2024-12-31",
-                      "kind": "query",
-                      "name": "date_to",
-                      "orig": "date_to",
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "example": 1,
-                      "kind": "query",
-                      "name": "matchday",
-                      "orig": "matchday",
-                      "type": "`$INTEGER`",
-                    },
-                    {
-                      "example": 2024,
-                      "kind": "query",
-                      "name": "season",
-                      "orig": "season",
-                      "type": "`$INTEGER`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "status",
-                      "orig": "status",
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/competitions/{id}/matches",
-                "rename": {
-                  "param": {
-                    "id": "competition_id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "competitions",
@@ -400,6 +369,68 @@ def make_config():
                     "lit": "matches",
                   },
                 ],
+                "parts": [
+                  "competitions",
+                  "{competition_id}",
+                  "matches",
+                ],
+                "rename": {
+                  "param": {
+                    "id": "competition_id",
+                  },
+                },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "competition_id",
+                      "orig": "id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": 2006,
+                    },
+                  ],
+                  "query": [
+                    {
+                      "name": "date_from",
+                      "orig": "date_from",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                      "example": "2024-01-01",
+                    },
+                    {
+                      "name": "date_to",
+                      "orig": "date_to",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                      "example": "2024-12-31",
+                    },
+                    {
+                      "name": "matchday",
+                      "orig": "matchday",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                      "example": 1,
+                    },
+                    {
+                      "name": "season",
+                      "orig": "season",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                      "example": 2024,
+                    },
+                    {
+                      "name": "status",
+                      "orig": "status",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "competition_id",
@@ -410,15 +441,6 @@ def make_config():
                     "status",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "competitions",
-                  "{competition_id}",
-                  "matches",
-                ],
               },
             ],
           },
@@ -426,7 +448,7 @@ def make_config():
         "relations": {
           "ancestors": [
             [
-              "competition",
+              "$.main.kit.entity.competition",
             ],
           ],
         },
@@ -435,22 +457,26 @@ def make_config():
         "fields": [
           {
             "name": "group",
-            "short": "Group identifier",
+            "title": "Group",
             "type": "`$STRING`",
+            "short": "Group identifier",
           },
           {
             "name": "stage",
-            "short": "Competition stage",
+            "title": "Stage",
             "type": "`$STRING`",
+            "short": "Competition stage",
           },
           {
             "name": "table",
+            "title": "Table",
             "type": "`$ARRAY`",
           },
           {
             "name": "type",
-            "short": "Type of standing",
+            "title": "Type",
             "type": "`$STRING`",
+            "short": "Type of standing",
           },
         ],
         "name": "standing",
@@ -460,42 +486,9 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": 2006,
-                      "kind": "param",
-                      "name": "competition_id",
-                      "orig": "id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                  "query": [
-                    {
-                      "example": 10,
-                      "kind": "query",
-                      "name": "matchday",
-                      "orig": "matchday",
-                      "type": "`$INTEGER`",
-                    },
-                    {
-                      "example": 2024,
-                      "kind": "query",
-                      "name": "season",
-                      "orig": "season",
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/competitions/{id}/standings",
-                "rename": {
-                  "param": {
-                    "id": "competition_id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "competitions",
@@ -507,6 +500,48 @@ def make_config():
                     "lit": "standings",
                   },
                 ],
+                "parts": [
+                  "competitions",
+                  "{competition_id}",
+                  "standings",
+                ],
+                "rename": {
+                  "param": {
+                    "id": "competition_id",
+                  },
+                },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "competition_id",
+                      "orig": "id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": 2006,
+                    },
+                  ],
+                  "query": [
+                    {
+                      "name": "matchday",
+                      "orig": "matchday",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                      "example": 10,
+                    },
+                    {
+                      "name": "season",
+                      "orig": "season",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                      "example": 2024,
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "competition_id",
@@ -514,15 +549,6 @@ def make_config():
                     "season",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "competitions",
-                  "{competition_id}",
-                  "standings",
-                ],
               },
             ],
           },
@@ -530,7 +556,7 @@ def make_config():
         "relations": {
           "ancestors": [
             [
-              "competition",
+              "$.main.kit.entity.competition",
             ],
           ],
         },
@@ -539,59 +565,70 @@ def make_config():
         "fields": [
           {
             "name": "address",
-            "short": "Team address",
+            "title": "Address",
             "type": "`$STRING`",
+            "short": "Team address",
           },
           {
             "name": "clubColors",
-            "short": "Team colors",
+            "title": "Club Colors",
             "type": "`$STRING`",
+            "short": "Team colors",
           },
           {
             "name": "crest",
-            "short": "URL to team crest/logo",
+            "title": "Crest",
             "type": "`$STRING`",
+            "short": "URL to team crest/logo",
           },
           {
             "name": "founded",
-            "short": "Year the team was founded",
+            "title": "Founded",
             "type": "`$INTEGER`",
+            "short": "Year the team was founded",
           },
           {
             "name": "id",
-            "short": "Unique identifier for the team",
+            "title": "Id",
             "type": "`$INTEGER`",
+            "short": "Unique identifier for the team",
           },
           {
-            "format": "date-time",
             "name": "lastUpdated",
-            "short": "Last update timestamp",
+            "title": "Last Updated",
             "type": "`$STRING`",
+            "short": "Last update timestamp",
+            "format": "date-time",
           },
           {
             "name": "name",
-            "short": "Full name of the team",
+            "title": "Name",
             "type": "`$STRING`",
+            "short": "Full name of the team",
           },
           {
             "name": "shortName",
-            "short": "Short name of the team",
+            "title": "Short Name",
             "type": "`$STRING`",
+            "short": "Short name of the team",
           },
           {
             "name": "tla",
-            "short": "Three-letter abbreviation",
+            "title": "Tla",
             "type": "`$STRING`",
+            "short": "Three-letter abbreviation",
           },
           {
             "name": "venue",
-            "short": "Home venue/stadium",
+            "title": "Venue",
             "type": "`$STRING`",
+            "short": "Home venue/stadium",
           },
           {
             "name": "website",
-            "short": "Team website URL",
+            "title": "Website",
             "type": "`$STRING`",
+            "short": "Team website URL",
           },
         ],
         "id": {
@@ -605,35 +642,9 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": 2006,
-                      "kind": "param",
-                      "name": "competition_id",
-                      "orig": "id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                  "query": [
-                    {
-                      "example": 2024,
-                      "kind": "query",
-                      "name": "season",
-                      "orig": "season",
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/competitions/{id}/teams",
-                "rename": {
-                  "param": {
-                    "id": "competition_id",
-                  },
-                },
                 "segments": [
                   {
                     "lit": "competitions",
@@ -645,21 +656,47 @@ def make_config():
                     "lit": "teams",
                   },
                 ],
+                "parts": [
+                  "competitions",
+                  "{competition_id}",
+                  "teams",
+                ],
+                "rename": {
+                  "param": {
+                    "id": "competition_id",
+                  },
+                },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "competition_id",
+                      "orig": "id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": 2006,
+                    },
+                  ],
+                  "query": [
+                    {
+                      "name": "season",
+                      "orig": "season",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                      "example": 2024,
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "competition_id",
                     "season",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "competitions",
-                  "{competition_id}",
-                  "teams",
-                ],
               },
             ],
           },
@@ -667,7 +704,7 @@ def make_config():
         "relations": {
           "ancestors": [
             [
-              "competition",
+              "$.main.kit.entity.competition",
             ],
           ],
         },

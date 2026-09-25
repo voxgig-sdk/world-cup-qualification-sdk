@@ -1,0 +1,41 @@
+# Generated from the API definition and overwritten on every build: do not
+# edit this file. Put customizations in the guide entry file, which includes
+# this one and overrides its defaults:
+#   guide.aontu
+
+guide: {
+  metrics: count: entity: 4
+  metrics: count: path: 5
+  metrics: count: method: 5
+
+  entity: competition: {
+    path: "/competitions": {
+      op: list: method: *GET
+    }
+    path: "/competitions/{id}": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: match: {
+    path: "/competitions/{id}/matches": {
+      rename: param: "id": *"competition_id"
+      op: list: method: *GET
+    }
+  }
+
+  entity: standing: {
+    path: "/competitions/{id}/standings": {
+      rename: param: "id": *"competition_id"
+      op: list: method: *GET
+    }
+  }
+
+  entity: team: {
+    path: "/competitions/{id}/teams": {
+      rename: param: "id": *"competition_id"
+      op: list: method: *GET
+    }
+  }
+
+}

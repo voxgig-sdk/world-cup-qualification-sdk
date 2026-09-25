@@ -1,0 +1,117 @@
+# Entity: standing
+
+main: kit: entity: standing: {
+
+  alias: field: {}
+
+  fields: {
+    group: {
+      h: "Group"
+      n: "group"
+      r: false
+      sh: "Group identifier"
+      t: "`$STRING`"
+    }
+    stage: {
+      h: "Stage"
+      n: "stage"
+      r: false
+      sh: "Competition stage"
+      t: "`$STRING`"
+    }
+    table: {
+      h: "Table"
+      n: "table"
+      r: false
+      t: "`$ARRAY`"
+    }
+    type: {
+      h: "Type"
+      n: "type"
+      r: false
+      sh: "Type of standing"
+      t: "`$STRING`"
+    }
+  }
+
+  name: "standing"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /competitions/{id}/standings"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: 2006
+                k: "param"
+                n: "competition_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                ex: 10
+                k: "query"
+                n: "matchday"
+                or: "matchday"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 2024
+                k: "query"
+                n: "season"
+                or: "season"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/competitions/{id}/standings"
+          q: {
+            exist: [
+              "competition_id"
+              "matchday"
+              "season"
+            ]
+          }
+          r: {
+            param: {
+              id: "competition_id"
+            }
+          }
+          s: [
+            {
+              lit: "competitions"
+            }
+            {
+              var: "competition_id"
+            }
+            {
+              lit: "standings"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.competition")]
+  ]
+
+}

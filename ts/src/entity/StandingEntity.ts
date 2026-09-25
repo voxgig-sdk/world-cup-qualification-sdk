@@ -19,7 +19,6 @@ import type {
   StandingListMatch,
 } from '../WorldCupQualificationTypes'
 
-// TODO: needs Entity superclass
 class StandingEntity extends WorldCupQualificationEntityBase<Standing> {
 
   constructor(client: WorldCupQualificationSDK, entopts: any) {

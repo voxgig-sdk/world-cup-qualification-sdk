@@ -98,52 +98,62 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "area",
+						"title": "Area",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "code",
-						"short": "Short code for the competition",
+						"title": "Code",
 						"type": "`$STRING`",
+						"short": "Short code for the competition",
 					},
 					map[string]any{
 						"name": "currentSeason",
+						"title": "Current Season",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "emblem",
-						"short": "URL to competition emblem/logo",
+						"title": "Emblem",
 						"type": "`$STRING`",
+						"short": "URL to competition emblem/logo",
 					},
 					map[string]any{
 						"name": "id",
-						"short": "Unique identifier for the competition",
+						"title": "Id",
 						"type": "`$INTEGER`",
+						"short": "Unique identifier for the competition",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "lastUpdated",
-						"short": "Last update timestamp",
+						"title": "Last Updated",
 						"type": "`$STRING`",
+						"short": "Last update timestamp",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "name",
-						"short": "Name of the competition",
+						"title": "Name",
 						"type": "`$STRING`",
+						"short": "Name of the competition",
 					},
 					map[string]any{
 						"name": "numberOfAvailableSeasons",
-						"short": "Number of seasons available in the API",
+						"title": "Number Of Available Seasons",
 						"type": "`$INTEGER`",
+						"short": "Number of seasons available in the API",
 					},
 					map[string]any{
 						"name": "plan",
-						"short": "API access tier required",
+						"title": "Plan",
 						"type": "`$STRING`",
+						"short": "API access tier required",
 					},
 					map[string]any{
 						"name": "type",
-						"short": "Type of competition",
+						"title": "Type",
 						"type": "`$STRING`",
+						"short": "Type of competition",
 					},
 				},
 				"id": map[string]any{
@@ -157,23 +167,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": "AFR,UEFA",
-											"kind": "query",
-											"name": "area",
-											"orig": "area",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "plan",
-											"orig": "plan",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/competitions",
@@ -182,18 +175,36 @@ func MakeConfig() map[string]any {
 										"lit": "competitions",
 									},
 								},
+								"parts": []any{
+									"competitions",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "area",
+											"orig": "area",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "AFR,UEFA",
+										},
+										map[string]any{
+											"name": "plan",
+											"orig": "plan",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"area",
 										"plan",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"competitions",
 								},
 							},
 						},
@@ -203,18 +214,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": 2006,
-											"kind": "param",
-											"name": "id",
-											"orig": "id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/competitions/{id}",
@@ -226,18 +225,31 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
-									},
+								"parts": []any{
+									"competitions",
+									"{id}",
 								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"competitions",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+											"example": 2006,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 						},
@@ -251,50 +263,60 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "awayTeam",
+						"title": "Away Team",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "group",
-						"short": "Group identifier for group stage matches",
+						"title": "Group",
 						"type": "`$STRING`",
+						"short": "Group identifier for group stage matches",
 					},
 					map[string]any{
 						"name": "homeTeam",
+						"title": "Home Team",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "id",
-						"short": "Unique match identifier",
+						"title": "Id",
 						"type": "`$INTEGER`",
+						"short": "Unique match identifier",
 					},
 					map[string]any{
 						"name": "matchday",
-						"short": "Matchday number",
+						"title": "Matchday",
 						"type": "`$INTEGER`",
+						"short": "Matchday number",
 					},
 					map[string]any{
 						"name": "referees",
+						"title": "Referees",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "score",
+						"title": "Score",
 						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "stage",
-						"short": "Competition stage (e.g., GROUP_STAGE, KNOCKOUT)",
+						"title": "Stage",
 						"type": "`$STRING`",
+						"short": "Competition stage (e.g., GROUP_STAGE, KNOCKOUT)",
 					},
 					map[string]any{
 						"name": "status",
-						"short": "Current match status",
+						"title": "Status",
 						"type": "`$STRING`",
+						"short": "Current match status",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "utcDate",
-						"short": "Match date and time in UTC",
+						"title": "Utc Date",
 						"type": "`$STRING`",
+						"short": "Match date and time in UTC",
+						"format": "date-time",
 					},
 				},
 				"id": map[string]any{
@@ -308,62 +330,9 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": 2006,
-											"kind": "param",
-											"name": "competition_id",
-											"orig": "id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"example": "2024-01-01",
-											"kind": "query",
-											"name": "date_from",
-											"orig": "date_from",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": "2024-12-31",
-											"kind": "query",
-											"name": "date_to",
-											"orig": "date_to",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 1,
-											"kind": "query",
-											"name": "matchday",
-											"orig": "matchday",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 2024,
-											"kind": "query",
-											"name": "season",
-											"orig": "season",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "status",
-											"orig": "status",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/competitions/{id}/matches",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"id": "competition_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "competitions",
@@ -373,6 +342,68 @@ func MakeConfig() map[string]any {
 									},
 									map[string]any{
 										"lit": "matches",
+									},
+								},
+								"parts": []any{
+									"competitions",
+									"{competition_id}",
+									"matches",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"id": "competition_id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "competition_id",
+											"orig": "id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+											"example": 2006,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "date_from",
+											"orig": "date_from",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "2024-01-01",
+										},
+										map[string]any{
+											"name": "date_to",
+											"orig": "date_to",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "2024-12-31",
+										},
+										map[string]any{
+											"name": "matchday",
+											"orig": "matchday",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 1,
+										},
+										map[string]any{
+											"name": "season",
+											"orig": "season",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 2024,
+										},
+										map[string]any{
+											"name": "status",
+											"orig": "status",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
 									},
 								},
 								"select": map[string]any{
@@ -385,15 +416,6 @@ func MakeConfig() map[string]any {
 										"status",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"competitions",
-									"{competition_id}",
-									"matches",
-								},
 							},
 						},
 					},
@@ -401,7 +423,7 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"competition",
+							"$.main.kit.entity.competition",
 						},
 					},
 				},
@@ -410,22 +432,26 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "group",
-						"short": "Group identifier",
+						"title": "Group",
 						"type": "`$STRING`",
+						"short": "Group identifier",
 					},
 					map[string]any{
 						"name": "stage",
-						"short": "Competition stage",
+						"title": "Stage",
 						"type": "`$STRING`",
+						"short": "Competition stage",
 					},
 					map[string]any{
 						"name": "table",
+						"title": "Table",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "type",
-						"short": "Type of standing",
+						"title": "Type",
 						"type": "`$STRING`",
+						"short": "Type of standing",
 					},
 				},
 				"name": "standing",
@@ -435,42 +461,9 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": 2006,
-											"kind": "param",
-											"name": "competition_id",
-											"orig": "id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"example": 10,
-											"kind": "query",
-											"name": "matchday",
-											"orig": "matchday",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": 2024,
-											"kind": "query",
-											"name": "season",
-											"orig": "season",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/competitions/{id}/standings",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"id": "competition_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "competitions",
@@ -482,21 +475,54 @@ func MakeConfig() map[string]any {
 										"lit": "standings",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"competition_id",
-										"matchday",
-										"season",
+								"parts": []any{
+									"competitions",
+									"{competition_id}",
+									"standings",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"id": "competition_id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"competitions",
-									"{competition_id}",
-									"standings",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "competition_id",
+											"orig": "id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+											"example": 2006,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "matchday",
+											"orig": "matchday",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 10,
+										},
+										map[string]any{
+											"name": "season",
+											"orig": "season",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 2024,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"competition_id",
+										"matchday",
+										"season",
+									},
 								},
 							},
 						},
@@ -505,7 +531,7 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"competition",
+							"$.main.kit.entity.competition",
 						},
 					},
 				},
@@ -514,59 +540,70 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "address",
-						"short": "Team address",
+						"title": "Address",
 						"type": "`$STRING`",
+						"short": "Team address",
 					},
 					map[string]any{
 						"name": "clubColors",
-						"short": "Team colors",
+						"title": "Club Colors",
 						"type": "`$STRING`",
+						"short": "Team colors",
 					},
 					map[string]any{
 						"name": "crest",
-						"short": "URL to team crest/logo",
+						"title": "Crest",
 						"type": "`$STRING`",
+						"short": "URL to team crest/logo",
 					},
 					map[string]any{
 						"name": "founded",
-						"short": "Year the team was founded",
+						"title": "Founded",
 						"type": "`$INTEGER`",
+						"short": "Year the team was founded",
 					},
 					map[string]any{
 						"name": "id",
-						"short": "Unique identifier for the team",
+						"title": "Id",
 						"type": "`$INTEGER`",
+						"short": "Unique identifier for the team",
 					},
 					map[string]any{
-						"format": "date-time",
 						"name": "lastUpdated",
-						"short": "Last update timestamp",
+						"title": "Last Updated",
 						"type": "`$STRING`",
+						"short": "Last update timestamp",
+						"format": "date-time",
 					},
 					map[string]any{
 						"name": "name",
-						"short": "Full name of the team",
+						"title": "Name",
 						"type": "`$STRING`",
+						"short": "Full name of the team",
 					},
 					map[string]any{
 						"name": "shortName",
-						"short": "Short name of the team",
+						"title": "Short Name",
 						"type": "`$STRING`",
+						"short": "Short name of the team",
 					},
 					map[string]any{
 						"name": "tla",
-						"short": "Three-letter abbreviation",
+						"title": "Tla",
 						"type": "`$STRING`",
+						"short": "Three-letter abbreviation",
 					},
 					map[string]any{
 						"name": "venue",
-						"short": "Home venue/stadium",
+						"title": "Venue",
 						"type": "`$STRING`",
+						"short": "Home venue/stadium",
 					},
 					map[string]any{
 						"name": "website",
-						"short": "Team website URL",
+						"title": "Website",
 						"type": "`$STRING`",
+						"short": "Team website URL",
 					},
 				},
 				"id": map[string]any{
@@ -580,35 +617,9 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": 2006,
-											"kind": "param",
-											"name": "competition_id",
-											"orig": "id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"example": 2024,
-											"kind": "query",
-											"name": "season",
-											"orig": "season",
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/competitions/{id}/teams",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"id": "competition_id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "competitions",
@@ -620,20 +631,46 @@ func MakeConfig() map[string]any {
 										"lit": "teams",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"competition_id",
-										"season",
+								"parts": []any{
+									"competitions",
+									"{competition_id}",
+									"teams",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"id": "competition_id",
 									},
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"competitions",
-									"{competition_id}",
-									"teams",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "competition_id",
+											"orig": "id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+											"example": 2006,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "season",
+											"orig": "season",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 2024,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"competition_id",
+										"season",
+									},
 								},
 							},
 						},
@@ -642,7 +679,7 @@ func MakeConfig() map[string]any {
 				"relations": map[string]any{
 					"ancestors": []any{
 						[]any{
-							"competition",
+							"$.main.kit.entity.competition",
 						},
 					},
 				},

@@ -45,7 +45,7 @@ local competitions, err = client:Competition():list()
 if err then error(err) end
 
 for _, item in ipairs(competitions) do
-  print(item["id"], item["code"])
+  print(item["id"])
 end
 ```
 

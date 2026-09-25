@@ -1,0 +1,164 @@
+# Entity: team
+
+main: kit: entity: team: {
+
+  alias: field: {}
+
+  fields: {
+    address: {
+      h: "Address"
+      n: "address"
+      r: false
+      sh: "Team address"
+      t: "`$STRING`"
+    }
+    clubColors: {
+      h: "Club Colors"
+      n: "clubColors"
+      r: false
+      sh: "Team colors"
+      t: "`$STRING`"
+    }
+    crest: {
+      h: "Crest"
+      n: "crest"
+      r: false
+      sh: "URL to team crest/logo"
+      t: "`$STRING`"
+    }
+    founded: {
+      h: "Founded"
+      n: "founded"
+      r: false
+      sh: "Year the team was founded"
+      t: "`$INTEGER`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      sh: "Unique identifier for the team"
+      t: "`$INTEGER`"
+    }
+    lastUpdated: {
+      fo: "date-time"
+      h: "Last Updated"
+      n: "lastUpdated"
+      r: false
+      sh: "Last update timestamp"
+      t: "`$STRING`"
+    }
+    name: {
+      h: "Name"
+      n: "name"
+      r: false
+      sh: "Full name of the team"
+      t: "`$STRING`"
+    }
+    shortName: {
+      h: "Short Name"
+      n: "shortName"
+      r: false
+      sh: "Short name of the team"
+      t: "`$STRING`"
+    }
+    tla: {
+      h: "Tla"
+      n: "tla"
+      r: false
+      sh: "Three-letter abbreviation"
+      t: "`$STRING`"
+    }
+    venue: {
+      h: "Venue"
+      n: "venue"
+      r: false
+      sh: "Home venue/stadium"
+      t: "`$STRING`"
+    }
+    website: {
+      h: "Website"
+      n: "website"
+      r: false
+      sh: "Team website URL"
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "team"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /competitions/{id}/teams"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: 2006
+                k: "param"
+                n: "competition_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                ex: 2024
+                k: "query"
+                n: "season"
+                or: "season"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/competitions/{id}/teams"
+          q: {
+            exist: [
+              "competition_id"
+              "season"
+            ]
+          }
+          r: {
+            param: {
+              id: "competition_id"
+            }
+          }
+          s: [
+            {
+              lit: "competitions"
+            }
+            {
+              var: "competition_id"
+            }
+            {
+              lit: "teams"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.competition")]
+  ]
+
+}

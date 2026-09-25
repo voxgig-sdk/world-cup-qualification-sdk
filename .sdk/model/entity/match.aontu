@@ -1,0 +1,188 @@
+# Entity: match
+
+main: kit: entity: match: {
+
+  alias: field: {}
+
+  fields: {
+    awayTeam: {
+      h: "Away Team"
+      n: "awayTeam"
+      r: false
+      t: "`$OBJECT`"
+    }
+    group: {
+      h: "Group"
+      n: "group"
+      r: false
+      sh: "Group identifier for group stage matches"
+      t: "`$STRING`"
+    }
+    homeTeam: {
+      h: "Home Team"
+      n: "homeTeam"
+      r: false
+      t: "`$OBJECT`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      sh: "Unique match identifier"
+      t: "`$INTEGER`"
+    }
+    matchday: {
+      h: "Matchday"
+      n: "matchday"
+      r: false
+      sh: "Matchday number"
+      t: "`$INTEGER`"
+    }
+    referees: {
+      h: "Referees"
+      n: "referees"
+      r: false
+      t: "`$ARRAY`"
+    }
+    score: {
+      h: "Score"
+      n: "score"
+      r: false
+      t: "`$OBJECT`"
+    }
+    stage: {
+      h: "Stage"
+      n: "stage"
+      r: false
+      sh: "Competition stage (e.g., GROUP_STAGE, KNOCKOUT)"
+      t: "`$STRING`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: false
+      sh: "Current match status"
+      t: "`$STRING`"
+    }
+    utcDate: {
+      fo: "date-time"
+      h: "Utc Date"
+      n: "utcDate"
+      r: false
+      sh: "Match date and time in UTC"
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "match"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /competitions/{id}/matches"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: 2006
+                k: "param"
+                n: "competition_id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+            query: [
+              {
+                ex: "2024-01-01"
+                k: "query"
+                n: "date_from"
+                or: "date_from"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: "2024-12-31"
+                k: "query"
+                n: "date_to"
+                or: "date_to"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: 1
+                k: "query"
+                n: "matchday"
+                or: "matchday"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 2024
+                k: "query"
+                n: "season"
+                or: "season"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                k: "query"
+                n: "status"
+                or: "status"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/competitions/{id}/matches"
+          q: {
+            exist: [
+              "competition_id"
+              "date_from"
+              "date_to"
+              "matchday"
+              "season"
+              "status"
+            ]
+          }
+          r: {
+            param: {
+              id: "competition_id"
+            }
+          }
+          s: [
+            {
+              lit: "competitions"
+            }
+            {
+              var: "competition_id"
+            }
+            {
+              lit: "matches"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+  relations: ancestors: [
+    [path("$.main.kit.entity.competition")]
+  ]
+
+}

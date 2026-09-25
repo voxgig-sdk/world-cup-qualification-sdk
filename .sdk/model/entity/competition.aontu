@@ -1,0 +1,181 @@
+# Entity: competition
+
+main: kit: entity: competition: {
+
+  alias: field: {}
+
+  fields: {
+    area: {
+      h: "Area"
+      n: "area"
+      r: false
+      t: "`$OBJECT`"
+    }
+    code: {
+      h: "Code"
+      n: "code"
+      r: false
+      sh: "Short code for the competition"
+      t: "`$STRING`"
+    }
+    currentSeason: {
+      h: "Current Season"
+      n: "currentSeason"
+      r: false
+      t: "`$OBJECT`"
+    }
+    emblem: {
+      h: "Emblem"
+      n: "emblem"
+      r: false
+      sh: "URL to competition emblem/logo"
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      sh: "Unique identifier for the competition"
+      t: "`$INTEGER`"
+    }
+    lastUpdated: {
+      fo: "date-time"
+      h: "Last Updated"
+      n: "lastUpdated"
+      r: false
+      sh: "Last update timestamp"
+      t: "`$STRING`"
+    }
+    name: {
+      h: "Name"
+      n: "name"
+      r: false
+      sh: "Name of the competition"
+      t: "`$STRING`"
+    }
+    numberOfAvailableSeasons: {
+      h: "Number Of Available Seasons"
+      n: "numberOfAvailableSeasons"
+      r: false
+      sh: "Number of seasons available in the API"
+      t: "`$INTEGER`"
+    }
+    plan: {
+      h: "Plan"
+      n: "plan"
+      r: false
+      sh: "API access tier required"
+      t: "`$STRING`"
+    }
+    type: {
+      h: "Type"
+      n: "type"
+      r: false
+      sh: "Type of competition"
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "competition"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /competitions"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: "AFR,UEFA"
+                k: "query"
+                n: "area"
+                or: "area"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                k: "query"
+                n: "plan"
+                or: "plan"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/competitions"
+          q: {
+            exist: [
+              "area"
+              "plan"
+            ]
+          }
+          s: [
+            {
+              lit: "competitions"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /competitions/{id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: 2006
+                k: "param"
+                n: "id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/competitions/{id}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          s: [
+            {
+              lit: "competitions"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -11,19 +11,12 @@ const FEATURE_CLASS = {
     test: TestFeature_1.TestFeature,
     timeout: TimeoutFeature_1.TimeoutFeature,
 };
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS = {};
 exports.FEATURE_PLUGINS = FEATURE_PLUGINS;
 class Config {
     makeFeature(fn) {
         const fc = FEATURE_CLASS[fn];
         const fi = new fc();
-        // TODO: errors etc
         return fi;
     }
     // False for a feature added at runtime via options.extend (station's
@@ -121,52 +114,62 @@ class Config {
             "fields": [
                 {
                     "name": "area",
+                    "title": "Area",
                     "type": "`$OBJECT`"
                 },
                 {
                     "name": "code",
-                    "short": "Short code for the competition",
-                    "type": "`$STRING`"
+                    "title": "Code",
+                    "type": "`$STRING`",
+                    "short": "Short code for the competition"
                 },
                 {
                     "name": "currentSeason",
+                    "title": "Current Season",
                     "type": "`$OBJECT`"
                 },
                 {
                     "name": "emblem",
-                    "short": "URL to competition emblem/logo",
-                    "type": "`$STRING`"
+                    "title": "Emblem",
+                    "type": "`$STRING`",
+                    "short": "URL to competition emblem/logo"
                 },
                 {
                     "name": "id",
-                    "short": "Unique identifier for the competition",
-                    "type": "`$INTEGER`"
+                    "title": "Id",
+                    "type": "`$INTEGER`",
+                    "short": "Unique identifier for the competition"
                 },
                 {
-                    "format": "date-time",
                     "name": "lastUpdated",
+                    "title": "Last Updated",
+                    "type": "`$STRING`",
                     "short": "Last update timestamp",
-                    "type": "`$STRING`"
+                    "format": "date-time"
                 },
                 {
                     "name": "name",
-                    "short": "Name of the competition",
-                    "type": "`$STRING`"
+                    "title": "Name",
+                    "type": "`$STRING`",
+                    "short": "Name of the competition"
                 },
                 {
                     "name": "numberOfAvailableSeasons",
-                    "short": "Number of seasons available in the API",
-                    "type": "`$INTEGER`"
+                    "title": "Number Of Available Seasons",
+                    "type": "`$INTEGER`",
+                    "short": "Number of seasons available in the API"
                 },
                 {
                     "name": "plan",
-                    "short": "API access tier required",
-                    "type": "`$STRING`"
+                    "title": "Plan",
+                    "type": "`$STRING`",
+                    "short": "API access tier required"
                 },
                 {
                     "name": "type",
-                    "short": "Type of competition",
-                    "type": "`$STRING`"
+                    "title": "Type",
+                    "type": "`$STRING`",
+                    "short": "Type of competition"
                 }
             ],
             "id": {
@@ -180,23 +183,6 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": "AFR,UEFA",
-                                        "kind": "query",
-                                        "name": "area",
-                                        "orig": "area",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "plan",
-                                        "orig": "plan",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/competitions",
@@ -205,19 +191,37 @@ class Config {
                                     "lit": "competitions"
                                 }
                             ],
+                            "parts": [
+                                "competitions"
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "area",
+                                        "orig": "area",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "AFR,UEFA"
+                                    },
+                                    {
+                                        "name": "plan",
+                                        "orig": "plan",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "area",
                                     "plan"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "competitions"
-                            ]
+                            }
                         }
                     ]
                 },
@@ -226,18 +230,6 @@ class Config {
                     "name": "load",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "example": 2006,
-                                        "kind": "param",
-                                        "name": "id",
-                                        "orig": "id",
-                                        "reqd": true,
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/competitions/{id}",
@@ -249,19 +241,32 @@ class Config {
                                     "var": "id"
                                 }
                             ],
-                            "select": {
-                                "exist": [
-                                    "id"
-                                ]
-                            },
+                            "parts": [
+                                "competitions",
+                                "{id}"
+                            ],
+                            "rename": {},
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
                             },
-                            "parts": [
-                                "competitions",
-                                "{id}"
-                            ]
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "id",
+                                        "orig": "id",
+                                        "type": "`$INTEGER`",
+                                        "kind": "param",
+                                        "reqd": true,
+                                        "example": 2006
+                                    }
+                                ]
+                            },
+                            "select": {
+                                "exist": [
+                                    "id"
+                                ]
+                            }
                         }
                     ]
                 }
@@ -274,50 +279,60 @@ class Config {
             "fields": [
                 {
                     "name": "awayTeam",
+                    "title": "Away Team",
                     "type": "`$OBJECT`"
                 },
                 {
                     "name": "group",
-                    "short": "Group identifier for group stage matches",
-                    "type": "`$STRING`"
+                    "title": "Group",
+                    "type": "`$STRING`",
+                    "short": "Group identifier for group stage matches"
                 },
                 {
                     "name": "homeTeam",
+                    "title": "Home Team",
                     "type": "`$OBJECT`"
                 },
                 {
                     "name": "id",
-                    "short": "Unique match identifier",
-                    "type": "`$INTEGER`"
+                    "title": "Id",
+                    "type": "`$INTEGER`",
+                    "short": "Unique match identifier"
                 },
                 {
                     "name": "matchday",
-                    "short": "Matchday number",
-                    "type": "`$INTEGER`"
+                    "title": "Matchday",
+                    "type": "`$INTEGER`",
+                    "short": "Matchday number"
                 },
                 {
                     "name": "referees",
+                    "title": "Referees",
                     "type": "`$ARRAY`"
                 },
                 {
                     "name": "score",
+                    "title": "Score",
                     "type": "`$OBJECT`"
                 },
                 {
                     "name": "stage",
-                    "short": "Competition stage (e.g., GROUP_STAGE, KNOCKOUT)",
-                    "type": "`$STRING`"
+                    "title": "Stage",
+                    "type": "`$STRING`",
+                    "short": "Competition stage (e.g., GROUP_STAGE, KNOCKOUT)"
                 },
                 {
                     "name": "status",
-                    "short": "Current match status",
-                    "type": "`$STRING`"
+                    "title": "Status",
+                    "type": "`$STRING`",
+                    "short": "Current match status"
                 },
                 {
-                    "format": "date-time",
                     "name": "utcDate",
+                    "title": "Utc Date",
+                    "type": "`$STRING`",
                     "short": "Match date and time in UTC",
-                    "type": "`$STRING`"
+                    "format": "date-time"
                 }
             ],
             "id": {
@@ -331,62 +346,9 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "example": 2006,
-                                        "kind": "param",
-                                        "name": "competition_id",
-                                        "orig": "id",
-                                        "reqd": true,
-                                        "type": "`$INTEGER`"
-                                    }
-                                ],
-                                "query": [
-                                    {
-                                        "example": "2024-01-01",
-                                        "kind": "query",
-                                        "name": "date_from",
-                                        "orig": "date_from",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": "2024-12-31",
-                                        "kind": "query",
-                                        "name": "date_to",
-                                        "orig": "date_to",
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "example": 1,
-                                        "kind": "query",
-                                        "name": "matchday",
-                                        "orig": "matchday",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 2024,
-                                        "kind": "query",
-                                        "name": "season",
-                                        "orig": "season",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "query",
-                                        "name": "status",
-                                        "orig": "status",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/competitions/{id}/matches",
-                            "rename": {
-                                "param": {
-                                    "id": "competition_id"
-                                }
-                            },
                             "segments": [
                                 {
                                     "lit": "competitions"
@@ -398,6 +360,68 @@ class Config {
                                     "lit": "matches"
                                 }
                             ],
+                            "parts": [
+                                "competitions",
+                                "{competition_id}",
+                                "matches"
+                            ],
+                            "rename": {
+                                "param": {
+                                    "id": "competition_id"
+                                }
+                            },
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "competition_id",
+                                        "orig": "id",
+                                        "type": "`$INTEGER`",
+                                        "kind": "param",
+                                        "reqd": true,
+                                        "example": 2006
+                                    }
+                                ],
+                                "query": [
+                                    {
+                                        "name": "date_from",
+                                        "orig": "date_from",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "2024-01-01"
+                                    },
+                                    {
+                                        "name": "date_to",
+                                        "orig": "date_to",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "example": "2024-12-31"
+                                    },
+                                    {
+                                        "name": "matchday",
+                                        "orig": "matchday",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 1
+                                    },
+                                    {
+                                        "name": "season",
+                                        "orig": "season",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 2024
+                                    },
+                                    {
+                                        "name": "status",
+                                        "orig": "status",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "competition_id",
@@ -407,16 +431,7 @@ class Config {
                                     "season",
                                     "status"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "competitions",
-                                "{competition_id}",
-                                "matches"
-                            ]
+                            }
                         }
                     ]
                 }
@@ -424,7 +439,7 @@ class Config {
             "relations": {
                 "ancestors": [
                     [
-                        "competition"
+                        "$.main.kit.entity.competition"
                     ]
                 ]
             }
@@ -433,22 +448,26 @@ class Config {
             "fields": [
                 {
                     "name": "group",
-                    "short": "Group identifier",
-                    "type": "`$STRING`"
+                    "title": "Group",
+                    "type": "`$STRING`",
+                    "short": "Group identifier"
                 },
                 {
                     "name": "stage",
-                    "short": "Competition stage",
-                    "type": "`$STRING`"
+                    "title": "Stage",
+                    "type": "`$STRING`",
+                    "short": "Competition stage"
                 },
                 {
                     "name": "table",
+                    "title": "Table",
                     "type": "`$ARRAY`"
                 },
                 {
                     "name": "type",
-                    "short": "Type of standing",
-                    "type": "`$STRING`"
+                    "title": "Type",
+                    "type": "`$STRING`",
+                    "short": "Type of standing"
                 }
             ],
             "name": "standing",
@@ -458,42 +477,9 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "example": 2006,
-                                        "kind": "param",
-                                        "name": "competition_id",
-                                        "orig": "id",
-                                        "reqd": true,
-                                        "type": "`$INTEGER`"
-                                    }
-                                ],
-                                "query": [
-                                    {
-                                        "example": 10,
-                                        "kind": "query",
-                                        "name": "matchday",
-                                        "orig": "matchday",
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "example": 2024,
-                                        "kind": "query",
-                                        "name": "season",
-                                        "orig": "season",
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/competitions/{id}/standings",
-                            "rename": {
-                                "param": {
-                                    "id": "competition_id"
-                                }
-                            },
                             "segments": [
                                 {
                                     "lit": "competitions"
@@ -505,22 +491,55 @@ class Config {
                                     "lit": "standings"
                                 }
                             ],
+                            "parts": [
+                                "competitions",
+                                "{competition_id}",
+                                "standings"
+                            ],
+                            "rename": {
+                                "param": {
+                                    "id": "competition_id"
+                                }
+                            },
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "competition_id",
+                                        "orig": "id",
+                                        "type": "`$INTEGER`",
+                                        "kind": "param",
+                                        "reqd": true,
+                                        "example": 2006
+                                    }
+                                ],
+                                "query": [
+                                    {
+                                        "name": "matchday",
+                                        "orig": "matchday",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 10
+                                    },
+                                    {
+                                        "name": "season",
+                                        "orig": "season",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 2024
+                                    }
+                                ]
+                            },
                             "select": {
                                 "exist": [
                                     "competition_id",
                                     "matchday",
                                     "season"
                                 ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
-                            "parts": [
-                                "competitions",
-                                "{competition_id}",
-                                "standings"
-                            ]
+                            }
                         }
                     ]
                 }
@@ -528,7 +547,7 @@ class Config {
             "relations": {
                 "ancestors": [
                     [
-                        "competition"
+                        "$.main.kit.entity.competition"
                     ]
                 ]
             }
@@ -537,59 +556,70 @@ class Config {
             "fields": [
                 {
                     "name": "address",
-                    "short": "Team address",
-                    "type": "`$STRING`"
+                    "title": "Address",
+                    "type": "`$STRING`",
+                    "short": "Team address"
                 },
                 {
                     "name": "clubColors",
-                    "short": "Team colors",
-                    "type": "`$STRING`"
+                    "title": "Club Colors",
+                    "type": "`$STRING`",
+                    "short": "Team colors"
                 },
                 {
                     "name": "crest",
-                    "short": "URL to team crest/logo",
-                    "type": "`$STRING`"
+                    "title": "Crest",
+                    "type": "`$STRING`",
+                    "short": "URL to team crest/logo"
                 },
                 {
                     "name": "founded",
-                    "short": "Year the team was founded",
-                    "type": "`$INTEGER`"
+                    "title": "Founded",
+                    "type": "`$INTEGER`",
+                    "short": "Year the team was founded"
                 },
                 {
                     "name": "id",
-                    "short": "Unique identifier for the team",
-                    "type": "`$INTEGER`"
+                    "title": "Id",
+                    "type": "`$INTEGER`",
+                    "short": "Unique identifier for the team"
                 },
                 {
-                    "format": "date-time",
                     "name": "lastUpdated",
+                    "title": "Last Updated",
+                    "type": "`$STRING`",
                     "short": "Last update timestamp",
-                    "type": "`$STRING`"
+                    "format": "date-time"
                 },
                 {
                     "name": "name",
-                    "short": "Full name of the team",
-                    "type": "`$STRING`"
+                    "title": "Name",
+                    "type": "`$STRING`",
+                    "short": "Full name of the team"
                 },
                 {
                     "name": "shortName",
-                    "short": "Short name of the team",
-                    "type": "`$STRING`"
+                    "title": "Short Name",
+                    "type": "`$STRING`",
+                    "short": "Short name of the team"
                 },
                 {
                     "name": "tla",
-                    "short": "Three-letter abbreviation",
-                    "type": "`$STRING`"
+                    "title": "Tla",
+                    "type": "`$STRING`",
+                    "short": "Three-letter abbreviation"
                 },
                 {
                     "name": "venue",
-                    "short": "Home venue/stadium",
-                    "type": "`$STRING`"
+                    "title": "Venue",
+                    "type": "`$STRING`",
+                    "short": "Home venue/stadium"
                 },
                 {
                     "name": "website",
-                    "short": "Team website URL",
-                    "type": "`$STRING`"
+                    "title": "Website",
+                    "type": "`$STRING`",
+                    "short": "Team website URL"
                 }
             ],
             "id": {
@@ -603,35 +633,9 @@ class Config {
                     "name": "list",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "example": 2006,
-                                        "kind": "param",
-                                        "name": "competition_id",
-                                        "orig": "id",
-                                        "reqd": true,
-                                        "type": "`$INTEGER`"
-                                    }
-                                ],
-                                "query": [
-                                    {
-                                        "example": 2024,
-                                        "kind": "query",
-                                        "name": "season",
-                                        "orig": "season",
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/competitions/{id}/teams",
-                            "rename": {
-                                "param": {
-                                    "id": "competition_id"
-                                }
-                            },
                             "segments": [
                                 {
                                     "lit": "competitions"
@@ -643,21 +647,47 @@ class Config {
                                     "lit": "teams"
                                 }
                             ],
-                            "select": {
-                                "exist": [
-                                    "competition_id",
-                                    "season"
-                                ]
+                            "parts": [
+                                "competitions",
+                                "{competition_id}",
+                                "teams"
+                            ],
+                            "rename": {
+                                "param": {
+                                    "id": "competition_id"
+                                }
                             },
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
                             },
-                            "parts": [
-                                "competitions",
-                                "{competition_id}",
-                                "teams"
-                            ]
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "competition_id",
+                                        "orig": "id",
+                                        "type": "`$INTEGER`",
+                                        "kind": "param",
+                                        "reqd": true,
+                                        "example": 2006
+                                    }
+                                ],
+                                "query": [
+                                    {
+                                        "name": "season",
+                                        "orig": "season",
+                                        "type": "`$INTEGER`",
+                                        "kind": "query",
+                                        "example": 2024
+                                    }
+                                ]
+                            },
+                            "select": {
+                                "exist": [
+                                    "competition_id",
+                                    "season"
+                                ]
+                            }
                         }
                     ]
                 }
@@ -665,7 +695,7 @@ class Config {
             "relations": {
                 "ancestors": [
                     [
-                        "competition"
+                        "$.main.kit.entity.competition"
                     ]
                 ]
             }

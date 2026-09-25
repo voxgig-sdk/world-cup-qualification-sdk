@@ -1,7 +1,7 @@
 // Typed models for the WorldCupQualification SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,16 +14,6 @@ import (
 
 // Competition is the typed data model for the competition entity.
 type Competition struct {
-	Area *map[string]any `json:"area,omitempty"`
-	Code *string `json:"code,omitempty"`
-	CurrentSeason *map[string]any `json:"currentSeason,omitempty"`
-	Emblem *string `json:"emblem,omitempty"`
-	Id *int `json:"id,omitempty"`
-	LastUpdated *string `json:"lastUpdated,omitempty"`
-	Name *string `json:"name,omitempty"`
-	NumberOfAvailableSeasons *int `json:"numberOfAvailableSeasons,omitempty"`
-	Plan *string `json:"plan,omitempty"`
-	Type *string `json:"type,omitempty"`
 }
 
 // CompetitionLoadMatch is the typed request payload for Competition.LoadTyped.
@@ -39,16 +29,6 @@ type CompetitionListMatch struct {
 
 // Match is the typed data model for the match entity.
 type Match struct {
-	AwayTeam *map[string]any `json:"awayTeam,omitempty"`
-	Group *string `json:"group,omitempty"`
-	HomeTeam *map[string]any `json:"homeTeam,omitempty"`
-	Id *int `json:"id,omitempty"`
-	Matchday *int `json:"matchday,omitempty"`
-	Referees *[]any `json:"referees,omitempty"`
-	Score *map[string]any `json:"score,omitempty"`
-	Stage *string `json:"stage,omitempty"`
-	Status *string `json:"status,omitempty"`
-	UtcDate *string `json:"utcDate,omitempty"`
 }
 
 // MatchListMatch is the typed request payload for Match.ListTyped.
@@ -63,10 +43,6 @@ type MatchListMatch struct {
 
 // Standing is the typed data model for the standing entity.
 type Standing struct {
-	Group *string `json:"group,omitempty"`
-	Stage *string `json:"stage,omitempty"`
-	Table *[]any `json:"table,omitempty"`
-	Type *string `json:"type,omitempty"`
 }
 
 // StandingListMatch is the typed request payload for Standing.ListTyped.
@@ -78,17 +54,6 @@ type StandingListMatch struct {
 
 // Team is the typed data model for the team entity.
 type Team struct {
-	Address *string `json:"address,omitempty"`
-	ClubColors *string `json:"clubColors,omitempty"`
-	Crest *string `json:"crest,omitempty"`
-	Founded *int `json:"founded,omitempty"`
-	Id *int `json:"id,omitempty"`
-	LastUpdated *string `json:"lastUpdated,omitempty"`
-	Name *string `json:"name,omitempty"`
-	ShortName *string `json:"shortName,omitempty"`
-	Tla *string `json:"tla,omitempty"`
-	Venue *string `json:"venue,omitempty"`
-	Website *string `json:"website,omitempty"`
 }
 
 // TeamListMatch is the typed request payload for Team.ListTyped.

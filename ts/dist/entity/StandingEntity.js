@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StandingEntity = void 0;
 const WorldCupQualificationEntityBase_1 = require("../WorldCupQualificationEntityBase");
-// TODO: needs Entity superclass
 class StandingEntity extends WorldCupQualificationEntityBase_1.WorldCupQualificationEntityBase {
     constructor(client, entopts) {
         super(client, entopts);
